@@ -5,6 +5,7 @@
 #include <gl/glu.h>
 #include <iostream>
 #include <sstream>
+#include <fstream>
 
 void Dessiner();
 
@@ -19,6 +20,10 @@ void displayFramerate(sf::RenderWindow& window, sf::Time clock) ;
 
 int main(int, char const**)
 {
+
+	freopen("CON", "w", stdout);
+	freopen("CON", "r", stdin);
+	freopen("CON", "w", stderr);
 	// Create the main window
 	sf::ContextSettings Settings;
 	Settings.depthBits = 32; // Request a 24-bit depth buffer
@@ -121,14 +126,41 @@ void Dessiner()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(angleY, 0, 1, 0, 0, 0, 0, 0, 1);
+	gluLookAt(angleY,0,8,0,centerX,0,0,0,1);
+	glTranslated(0,angleZ,0);
+
 
 
 	glBegin(GL_QUADS);      // Si cette saloperie n'est pas placée correctement par rapport au glEnd(), erreur de Texture....
 
-	CreateCube(10, 10, 10, 0, 0, 0);
+	std::ifstream fichier("../map.txt", std::ios::in);
+	if (fichier)
+	{
+		std::cout <<"Fichier présent" << std::endl;
+
+		for(int j=0;j<11;j+=1)
+		{
+			std::string chaine;
+			if(!fichier.eof())
+			{
+				getline(fichier.ignore(0,'\n'),chaine);
+				//fichier.seekg(11*j,ios::beg);
+				for(int i=0;i<11;i+=1)
+				{
+					std::cout<<chaine<<std::endl;
+					if (chaine[i]=='1')CreateCube(1,1,1,j,i,0);
+
+				}
+			}
+			else {
+				fichier.close();
+			}
+		}
+	} else {std::cout <<"Pas de fichier" << std::endl;}
+
+/*	CreateCube(10, 10, 10, 0, 0, 0);
 	CreateCube(20, 10, 20, 0, 11, 0);
-	CreateCube(10, 10, 10, 0, 22, 0);
+	CreateCube(10, 10, 10, 0, 22, 0);*/
 
 	glColor3ub(0, 5, 60); //sol
 	glVertex2d(100, 100);
