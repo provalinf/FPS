@@ -6,6 +6,9 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include "ghost.h"
+#include "coin.h"
+
 
 void Dessiner();
 
@@ -87,6 +90,13 @@ int main(int, char const**)
 				if (event.key.code == sf::Keyboard::Down)angleY += Speed* myftime/** ellapsed_time*/;
 			}
 		}
+		if (event.type == sf::Event::KeyPressed)
+			{
+				if (event.key.code == sf::Keyboard::Left) angleZ += Speed* myftime;/** ellapsed_time*/;
+				if (event.key.code == sf::Keyboard::Right)angleZ -= Speed* myftime/** ellapsed_time*/;
+				if (event.key.code == sf::Keyboard::Up)angleY -= Speed* myftime/** ellapsed_time*/;
+				if (event.key.code == sf::Keyboard::Down)angleY += Speed* myftime/** ellapsed_time*/;
+			}
 
 		window.setActive();
 
@@ -117,7 +127,7 @@ void displayFramerate(sf::RenderWindow& window, sf::Time clock) {
 	window.popGLStates();           // Restauration de l'état OpenGL
 }
 
-void CreateCube(int i, int i1, int i2, int i3, int i4, int i5);
+void CreateCube(float i, float i1, float i2, int i3, int i4, int i5);
 
 void Dessiner()
 {
@@ -126,17 +136,17 @@ void Dessiner()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(angleY,0,8,0,centerX,0,0,0,1);
+	gluLookAt(angleY,0,1,0,centerX,0,0,0,1);
 	glTranslated(0,angleZ,0);
 
 
 
 	glBegin(GL_QUADS);      // Si cette saloperie n'est pas placée correctement par rapport au glEnd(), erreur de Texture....
 
-	std::ifstream fichier("../map.txt", std::ios::in);
+	std::ifstream fichier("map.txt", std::ios::in);
 	if (fichier)
 	{
-		std::cout <<"Fichier présent" << std::endl;
+		//std::cout <<"Fichier présent" << std::endl;
 
 		for(int j=0;j<11;j+=1)
 		{
@@ -147,7 +157,7 @@ void Dessiner()
 				//fichier.seekg(11*j,ios::beg);
 				for(int i=0;i<11;i+=1)
 				{
-					std::cout<<chaine<<std::endl;
+					//std::cout<<chaine<<std::endl;
 					if (chaine[i]=='1')CreateCube(1,1,1,j,i,0);
 
 				}
@@ -168,12 +178,15 @@ void Dessiner()
 	glVertex2d(0, 0);
 	glVertex2d(0, 100);
 
+	Coin piece;
+	piece.CreateCoin();
+
 	glEnd();
 	glFlush();
 }
 
 
-void CreateCube(int longueur, int largeur, int hauteur, int x, int y, int z)
+void CreateCube(float longueur, float largeur, float hauteur, int x, int y, int z)
 {
 
 	glColor3ub(255, 0, 0); //face rouge
