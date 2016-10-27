@@ -6,8 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include "ghost.h"
-#include "coin.h"
+#include "gameobject.h"
 
 
 void Dessiner();
@@ -15,18 +14,15 @@ void Dessiner();
 float angleZ = 0.f;
 float angleY = 0.f;
 double centerX = 0;
-
+gameobject obj;
 sf::Font font;
 sf::Text text_framerate;
 
-void displayFramerate(sf::RenderWindow& window, sf::Time clock) ;
+void displayFramerate(sf::RenderWindow& window, sf::Time clock);
 
 int main(int, char const**)
 {
 
-	freopen("CON", "w", stdout);
-	freopen("CON", "r", stdin);
-	freopen("CON", "w", stderr);
 	// Create the main window
 	sf::ContextSettings Settings;
 	Settings.depthBits = 32; // Request a 24-bit depth buffer
@@ -91,17 +87,14 @@ int main(int, char const**)
 			}
 		}
 		if (event.type == sf::Event::KeyPressed)
-			{
-				if (event.key.code == sf::Keyboard::Left) angleZ += Speed* myftime;/** ellapsed_time*/;
-				if (event.key.code == sf::Keyboard::Right)angleZ -= Speed* myftime/** ellapsed_time*/;
-				if (event.key.code == sf::Keyboard::Up)angleY -= Speed* myftime/** ellapsed_time*/;
-				if (event.key.code == sf::Keyboard::Down)angleY += Speed* myftime/** ellapsed_time*/;
-			}
+		{
+			if (event.key.code == sf::Keyboard::Left) angleZ += Speed* myftime;/** ellapsed_time*/;
+			if (event.key.code == sf::Keyboard::Right)angleZ -= Speed* myftime/** ellapsed_time*/;
+			if (event.key.code == sf::Keyboard::Up)angleY -= Speed* myftime/** ellapsed_time*/;
+			if (event.key.code == sf::Keyboard::Down)angleY += Speed* myftime/** ellapsed_time*/;
+		}
 
 		window.setActive();
-
-		//glTranslated(0, -10, 0);
-		//glRotated(45,0,1,1);
 
 		Dessiner();
 		displayFramerate(window, Clock.restart());
@@ -119,15 +112,13 @@ void displayFramerate(sf::RenderWindow& window, sf::Time clock) {
 	double framerate = 1 / (clock.asMilliseconds() * 0.001);
 
 	std::ostringstream buff;
-	buff<<framerate;
-	text_framerate.setString("FPS : "+ buff.str());
+	buff << framerate;
+	text_framerate.setString("FPS : " + buff.str());
 
-	window.pushGLStates();          // Sauvegarde de l'Ã©tat OpenGL
+	window.pushGLStates();          // Sauvegarde de l'état OpenGL
 	window.draw(text_framerate);    // Affichage du texte
-	window.popGLStates();           // Restauration de l'Ã©tat OpenGL
+	window.popGLStates();           // Restauration de l'état OpenGL
 }
-
-void CreateCube(float i, float i1, float i2, int i3, int i4, int i5);
 
 void Dessiner()
 {
@@ -136,260 +127,34 @@ void Dessiner()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(angleY,0,1,0,centerX,0,0,0,1);
-	glTranslated(0,angleZ,0);
+	gluLookAt(angleY, 0, 8, 0, centerX, 0, 0, 0, 1);
+	glTranslated(0, angleZ, 0);
 
 
 
-	glBegin(GL_QUADS);      // Si cette saloperie n'est pas placÃ©e correctement par rapport au glEnd(), erreur de Texture....
+	glBegin(GL_QUADS);      // Si cette saloperie n'est pas placée correctement par rapport au glEnd(), erreur de Texture....
+
+	obj.CreateFloor();
 
 	std::ifstream fichier("map.txt", std::ios::in);
 	if (fichier)
 	{
-		//std::cout <<"Fichier prÃ©sent" << std::endl;
-
-		for(int j=0;j<11;j+=1)
+		for (int j = 0; j<11; j += 1)
 		{
 			std::string chaine;
-			if(!fichier.eof())
+			if (!fichier.eof())
 			{
-				getline(fichier.ignore(0,'\n'),chaine);
-				//fichier.seekg(11*j,ios::beg);
-				for(int i=0;i<11;i+=1)
+				getline(fichier.ignore(0, '\n'), chaine);
+				for (int i = 0; i<11; i += 1)
 				{
-					//std::cout<<chaine<<std::endl;
-					if (chaine[i]=='1')CreateCube(1,1,1,j,i,0);
-
+					if (chaine[i] == '1')obj.CreateCube(1, 1, 1, j, i, 0);
 				}
 			}
-			else {
-				fichier.close();
-			}
+			else fichier.close();
 		}
-	} else {std::cout <<"Pas de fichier" << std::endl;}
-
-/*	CreateCube(10, 10, 10, 0, 0, 0);
-	CreateCube(20, 10, 20, 0, 11, 0);
-	CreateCube(10, 10, 10, 0, 22, 0);*/
-
-	glColor3ub(0, 5, 60); //sol
-	glVertex2d(100, 100);
-	glVertex2d(100, 0);
-	glVertex2d(0, 0);
-	glVertex2d(0, 100);
-
-	Coin piece;
-	piece.CreateCoin();
+	}
+	else { std::cout << "Pas de fichier" << std::endl; }
 
 	glEnd();
 	glFlush();
 }
-
-
-void CreateCube(float longueur, float largeur, float hauteur, int x, int y, int z)
-{
-
-	glColor3ub(255, 0, 0); //face rouge
-	glVertex3d(x + longueur, y + largeur, z + hauteur);
-	glVertex3d(x + longueur, y + largeur, z + 0);
-	glVertex3d(x + 0, y + largeur, z + 0);
-	glVertex3d(x + 0, y + largeur, z + hauteur);
-
-	glColor3ub(0, 255, 0); //face verte
-	glVertex3d(x + longueur, y + 0, z + hauteur);
-	glVertex3d(x + longueur, y + 0, z + 0);
-	glVertex3d(x + longueur, y + largeur, z + 0);
-	glVertex3d(x + longueur, y + largeur, z + hauteur);
-
-	glColor3ub(0, 0, 255); //face bleue
-	glVertex3d(x + 0, y + 0, z + hauteur);
-	glVertex3d(x + 0, y + 0, z + 0);
-	glVertex3d(x + longueur, y + 0, z + 0);
-	glVertex3d(x + longueur, y + 0, z + hauteur);
-
-	glColor3ub(255, 255, 0); //face jaune
-	glVertex3d(x + 0, y + largeur, z + hauteur);
-	glVertex3d(x + 0, y + largeur, z + 0);
-	glVertex3d(x + 0, y + 0, z + 0);
-	glVertex3d(x + 0, y + 0, z + hauteur);
-
-	glColor3ub(0, 255, 255); //face cyan
-	glVertex3d(x + longueur, y + largeur, z + 0);
-	glVertex3d(x + longueur, y + 0, z + 0);
-	glVertex3d(x + 0, y + 0, z + 0);
-	glVertex3d(x + 0, y + largeur, z + 0);
-
-	glColor3ub(255, 0, 255); //face magenta
-	glVertex3d(x + longueur, y + 0, z + hauteur);
-	glVertex3d(x + longueur, y + largeur, z + hauteur);
-	glVertex3d(x + 0, y + largeur, z + hauteur);
-	glVertex3d(x + 0, y + 0, z + hauteur);
-
-	glColor3ub(255, 255, 0); //face jaune
-	glVertex3d(x + 0, y + largeur, z + hauteur);
-	glVertex3d(x + 0, y + largeur, z + 0);
-	glVertex3d(x + 0, y + 0, z + 0);
-	glVertex3d(x + 0, y + 0, z + hauteur);
-
-
-}
-
-
-
-
-/*
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/OpenGL.hpp>
-
-#include <gl/glu.h>
-#include <iostream>
-#include <sstream>
-
-int main(int, char const**)
-{
-    // Create the main window
-    sf::ContextSettings Settings;
-    Settings.depthBits = 24; // Request a 24-bit depth buffer
-    Settings.stencilBits = 8;  // Request a 8 bits stencil buffer
-    Settings.antialiasingLevel = 8;  // Request 2 levels of antialiasing
-
-
-    sf::RenderWindow window(sf::VideoMode(800, 600, 32), "SFML OpenGL", sf::Style::Close, Settings);
-    window.setVerticalSyncEnabled(true);
-    window.setFramerateLimit(60);
-
-    sf::Font font;
-    sf::Text text;
-
-    if (!font.loadFromFile("arial.ttf"))
-    {
-        std::cout << "Erreur chargement font" << std::endl;
-        return -1;
-    }
-
-
-    text.setFont(font);
-    text.setCharacterSize(24); // in pixels, not points!
-
-
-    // Set color and depth clear value
-    glClearDepth(1.f);
-    glClearColor(0.f, 0.f, 0.f, 0.f);
-
-    // Enable Z-buffer read and write
-    glEnable(GL_DEPTH_TEST);
-    glDepthMask(GL_TRUE);
-    //glDepthFunc(GL_LESS);
-
-    // Setup a perspective projection
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    //gluPerspective(90.f, 1.f, 1.f, 500.f);
-    gluPerspective(70.f, 1.f, 1.f, 500.f);
-
-    sf::Clock Clock;
-    sf::Clock Clock2;
-
-    // Start the game loop
-    while (window.isOpen())
-    {
-        // Process events
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            // Close window: exit
-            if (event.type == sf::Event::Closed) {
-                window.close();
-            }
-
-            // Escape pressed: exit
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
-                window.close();
-            }
-
-            if (event.type == sf::Event::Resized)
-                glViewport(0, 0, event.size.width, event.size.height);
-
-        }
-
-        // Clear screen
-        window.clear();
-
-        sf::Time myTime = Clock.getElapsedTime();
-        float myftime = myTime.asSeconds();
-
-        window.setActive();
-
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
-        glTranslatef(0.f, 0.f, -200.f);
-        glRotatef(myftime * 50, 1.f, 0.f, 0.f);
-        glRotatef(myftime * 30, 0.f, 1.f, 0.f);
-        glRotatef(myftime * 90, 0.f, 0.f, 1.f);
-
-        glBegin(GL_QUADS);
-
-        glColor3f(1.f, 0.f, 0.f);//red
-        glVertex3f(-50.f, -50.f, -50.f);
-        glVertex3f(-50.f, 50.f, -50.f);
-        glVertex3f(50.f, 50.f, -50.f);
-        glVertex3f(50.f, -50.f, -50.f);
-
-        //glColor3f(1.f, 0.f, 0.f);//red
-        glColor3f(0.f, 1.f, 1.f);//cyan
-        glVertex3f(-50.f, -50.f, 50.f);
-        glVertex3f(-50.f, 50.f, 50.f);
-        glVertex3f(50.f, 50.f, 50.f);
-        glVertex3f(50.f, -50.f, 50.f);
-
-        glColor3f(0.f, 1.f, 0.f);//green
-        glVertex3f(-50.f, -50.f, -50.f);
-        glVertex3f(-50.f, 50.f, -50.f);
-        glVertex3f(-50.f, 50.f, 50.f);
-        glVertex3f(-50.f, -50.f, 50.f);
-
-        //glColor3f(0.f, 1.f, 0.f);//green
-        glColor3f(1.f, 0.f, 1.f);//magenta
-        glVertex3f(50.f, -50.f, -50.f);
-        glVertex3f(50.f, 50.f, -50.f);
-        glVertex3f(50.f, 50.f, 50.f);
-        glVertex3f(50.f, -50.f, 50.f);
-
-        glColor3f(0.f, 0.f, 1.f);//blue
-        glVertex3f(-50.f, -50.f, 50.f);
-        glVertex3f(-50.f, -50.f, -50.f);
-        glVertex3f(50.f, -50.f, -50.f);
-        glVertex3f(50.f, -50.f, 50.f);
-
-        //glColor3f(0.f, 0.f, 1.f);//blue
-        glColor3f(1.f, 1.f, 0.f);//yellow
-        glVertex3f(-50.f, 50.f, 50.f);
-        glVertex3f(-50.f, 50.f, -50.f);
-        glVertex3f(50.f, 50.f, -50.f);
-        glVertex3f(50.f, 50.f, 50.f);
-
-        glEnd();
-
-        sf::Time frameTime = Clock2.restart();
-        double framerate = 1 / (frameTime.asMilliseconds() * 0.001);
-        std::ostringstream buff;
-        buff<<framerate;
-        */
-/*std::cout << framerate << std::endl;*//*
-
-        text.setString("FPS : "+ buff.str());
-
-        // Update the window
-        window.pushGLStates();
-        window.draw(text);
-        window.popGLStates();
-        window.display();
-    }
-
-    return EXIT_SUCCESS;
-}
-*/
-
