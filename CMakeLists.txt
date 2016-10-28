@@ -31,7 +31,7 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 find_package(SFML 2 COMPONENTS system window graphics audio REQUIRED)
 
-include_directories( ${SFML_INCLUDE_DIR} )
+include_directories(${SFML_INCLUDE_DIR})
 
 target_link_libraries(${EXECUTABLE_NAME} ${SFML_LIBRARIES})
 
@@ -42,4 +42,4 @@ if (OPENGL_FOUND)
 	target_link_libraries(${EXECUTABLE_NAME} ${OPENGL_LIBRARIES})
 	# or: target_link_libraries(${EXECUTABLE_NAME} ${OPENGL_gl_LIBRARY})
 	target_link_libraries(${EXECUTABLE_NAME} m)  # if you use maths.h
-endif()
+endif ()

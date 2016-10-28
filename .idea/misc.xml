@@ -5,6 +5,12 @@
     <sourceRoots>
       <file path="$PROJECT_DIR$/src" />
     </sourceRoots>
+    <excludeRoots>
+      <file path="$PROJECT_DIR$/Clion_Buil/CMakeFiles" />
+      <file path="$PROJECT_DIR$/clion_build2/CMakeFiles" />
+      <file path="$PROJECT_DIR$/Clion_Build/CMakeFiles" />
+      <file path="$PROJECT_DIR$/cmake-build-debug/CMakeFiles" />
+    </excludeRoots>
   </component>
   <component name="CompilerConfiguration">
     <resourceExtensions />

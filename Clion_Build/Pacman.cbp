@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Pacman"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\Desktop\;CMake Files\..\..\..\Desktop\SFML-2.4.0\;CMake Files\..\..\..\Desktop\SFML-2.4.0\cmake\;CMake Files\..\..\..\Desktop\SFML-2.4.0\cmake\Modules\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Pacman">
+				<Option output="D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Pacman.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Mes Documents/Desktop/SFML-2.4.0/include"/>
+					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/include"/>
+					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/../../../../include"/>
+					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/include-fixed"/>
+					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/../../../../mingw32/include"/>
+					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/include/c++"/>
+					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/include/c++/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Makefile&quot;  VERBOSE=1 Pacman"/>
+					<CompileFile command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Pacman/fast">
+				<Option output="D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Pacman.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Mes Documents/Desktop/SFML-2.4.0/include"/>
+					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/include"/>
+					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/../../../../include"/>
+					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/include-fixed"/>
+					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/../../../../mingw32/include"/>
+					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/include/c++"/>
+					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/include/c++/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Makefile&quot;  VERBOSE=1 Pacman/fast"/>
+					<CompileFile command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman/src/controller/Controller.cpp">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman/src/controller/Controller.h">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman/src/main.cpp">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman/src/model/Model.cpp">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman/src/model/Model.h">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman/src/util/Gameobject.cpp">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman/src/util/Gameobject.h">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman/src/view/View.cpp">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman/src/view/View.h">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman/../../../Desktop/SFML-2.4.0/cmake/Modules/FindSFML.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\Desktop\SFML-2.4.0\cmake\Modules\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

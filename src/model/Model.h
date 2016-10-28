@@ -5,11 +5,38 @@
 #ifndef PACMAN_MODEL_H
 #define PACMAN_MODEL_H
 
+#include <SFML/Graphics/Font.hpp>
+
+struct Camera {
+	double x, y, z = 0;
+	float eyeX, eyeY, eyeZ = 0;
+};
+
+struct Pos {
+	float x, y, z = 0;
+};
 
 class Model {
-public:
-	Model();
+private:
+	sf::Font font;
+	bool debug;
+	float vitesseDep;
 
+	void InitFont();
+
+public:
+	Camera camera;
+	Pos pos;
+
+	Model(bool debug = false);
+
+	bool isDebug() const;
+
+	sf::Font &getFont();
+
+	float getVitesseDep();
+
+	std::ifstream LoadMap(sf::String nomFichier);
 };
 
 
