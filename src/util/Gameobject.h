@@ -1,11 +1,12 @@
 #include <string.h>
 
-class gameobject
-{
+class Gameobject {
+
 public:
-	gameobject();
-	~gameobject();
+	Gameobject();
+
 	void CreateCube(float longueur, float largeur, float hauteur, int x, int y, int z);
+
 	void CreateFloor();
 
 private:

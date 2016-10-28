@@ -1,18 +1,12 @@
-#include "gameobject.h"
+#include "Gameobject.h"
 #include <SFML/OpenGL.hpp>
 
 
-
-using namespace std;
-
-
-gameobject::gameobject()
-{
+Gameobject::Gameobject() {
 }
 
-void gameobject::CreateCube(float longueur, float largeur, float hauteur, int x, int y, int z)
-{
-	glBegin(GL_QUADS);
+void Gameobject::CreateCube(float longueur, float largeur, float hauteur, int x, int y, int z) {
+
 	glColor3ub(255, 0, 0); //face rouge
 	glVertex3d(x + longueur, y + largeur, z + hauteur);
 	glVertex3d(x + longueur, y + largeur, z + 0);
@@ -56,16 +50,10 @@ void gameobject::CreateCube(float longueur, float largeur, float hauteur, int x,
 	glVertex3d(x + 0, y + 0, z + hauteur);
 }
 
-void gameobject::CreateFloor()
-{
+void Gameobject::CreateFloor() {
 	glColor3ub(0, 5, 60); //sol
 	glVertex2d(100, 100);
 	glVertex2d(100, 0);
 	glVertex2d(0, 0);
 	glVertex2d(0, 100);
-}
-
-
-gameobject::~gameobject()
-{
 }
