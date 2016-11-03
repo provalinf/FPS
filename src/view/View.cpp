@@ -43,9 +43,11 @@ void View::initialisation() {
 		if (model->isDebug()) {
 			displayFramerate(window, Clock.restart());
 		}
+
 		window.display();
 		window.clear();
 	}
+    delete controller;
 }
 
 void View::BouclePrincipale() {
@@ -77,6 +79,7 @@ void View::BouclePrincipale() {
 	} else { std::cout << "Impossible d'ouvrir la map /!\\" << std::endl; }
 
 
+    delete gameobject;
 	glEnd();
 	glFlush();
 }
@@ -92,3 +95,5 @@ void View::displayFramerate(sf::RenderWindow &window, sf::Time clock) {
 	window.draw(text_framerate);    // Affichage du texte
 	window.popGLStates();           // Restauration de l'état OpenGL
 }
+
+View::~View(){}

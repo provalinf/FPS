@@ -10,5 +10,7 @@ public:
 
 	void CreateSol();
 
+    ~Gameobject();
+
 };
 

@@ -40,3 +40,5 @@ sf::Font &Model::getFont() {
 float Model::getVitesseDep() {
 	return vitesseDep;
 }
+
+Model::~Model(){};

@@ -5,9 +5,18 @@ const bool DEBUG = true;
 
 int main(int, char const **) {
 
-	Model *model = new Model(DEBUG);
-	View *view = new View(model);
-	view->initialisation();
+    Model* pmodel(0);
+    View* pview(0);
+	pmodel = new Model(DEBUG);
+	pview = new View(pmodel);
+	pview->initialisation();
+
+
+    pmodel = 0;
+    delete pmodel;
+    pview = 0;
+    delete pview;
+
 
 	return 0;
 }

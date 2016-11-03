@@ -58,3 +58,5 @@ void Gameobject::CreateSol() {
 	glVertex2d(0, 0);
 	glVertex2d(0, 100);
 }
+
+Gameobject::~Gameobject(){};

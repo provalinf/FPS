@@ -34,6 +34,8 @@ public:
 	void BouclePrincipale();
 
 	void displayFramerate(sf::RenderWindow &window, sf::Time clock);
+
+    ~View();
 };
 
 

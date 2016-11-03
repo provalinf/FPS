@@ -16,7 +16,7 @@ void Controller::ActionEvent(sf::Time time) {
 		// évènement "fermeture demandée" : on ferme la fenêtre
 		if (event.type == sf::Event::Closed ||
 			(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {
-			window.close();
+            window.close();
 		}
 
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
@@ -39,3 +39,5 @@ void Controller::MoveKeyPressed(sf::Event event, float myftime) {
 			model->camera.x += model->getVitesseDep() * myftime/** ellapsed_time*/;
 	}
 }
+
+Controller::~Controller(){};

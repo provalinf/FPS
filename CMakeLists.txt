@@ -13,8 +13,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -static-libgcc -Wall")
 
 #include_directories("${PROJECT_SOURCE_DIR}/Libs")
 
-set(SFMLDIR "D:/Mes Documents/Desktop/SFML-2.4.0")
-set(SFML_ROOT "D:/Mes Documents/Desktop/SFML-2.4.0")
+set(SFMLDIR "C:/Users/Cyril/Documents/Librairie/SFML-2.4.0")
+set(SFML_ROOT "C:/Users/Cyril/Documents/Librairie/SFML-2.4.0")
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${SFMLDIR}/cmake/Modules/")
 set(SFML_LIBRARIES "${SFMLDIR}/lib")
