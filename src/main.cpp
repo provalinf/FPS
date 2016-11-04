@@ -4,7 +4,6 @@
 const bool DEBUG = true;
 
 int main(int, char const **) {
-
     Model* pmodel(0);
     View* pview(0);
 	pmodel = new Model(DEBUG);

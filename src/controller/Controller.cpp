@@ -4,6 +4,7 @@
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Audio.hpp>
 #include "Controller.h"
 
 Controller::Controller(sf::RenderWindow &window, Model *model) : window(window) {
@@ -12,7 +13,9 @@ Controller::Controller(sf::RenderWindow &window, Model *model) : window(window) 
 
 void Controller::ActionEvent(sf::Time time) {
 	sf::Event event;
+
 	while (window.pollEvent(event)) {
+
 		// évènement "fermeture demandée" : on ferme la fenêtre
 		if (event.type == sf::Event::Closed ||
 			(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {

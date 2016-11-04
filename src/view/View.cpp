@@ -3,6 +3,7 @@
 #include <GL/glu.h>
 #include <fstream>
 #include <iostream>
+#include <SFML/Audio.hpp>
 #include "View.h"
 
 
@@ -21,11 +22,27 @@ void View::CreationFenetre() {
 	window.create(sf::VideoMode(640, 480, 32), TITRE_FENETRE, sf::Style::Close, Settings);
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(60);
+/*
+    sf::Music music;
+    music.openFromFile("environmentmusic.wav");
+    music.play();
+*/
+
+
+//    glGenTextures(1, &m_id);
+//    glBindTexture(GL_TEXTURE_2D, m_id);
+//    glTexImage2D(GL_TEXTURE_2D, 0, formatInterne, imageSDL->w, imageSDL->h, 0, format, GL_UNSIGNED_BYTE, imageSDL->pixels);
+//
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 }
 
 void View::initialisation() {
+
+
 	text_framerate.setFont(model->getFont());
 	text_framerate.setCharacterSize(24); // in pixels, not points!
+
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -33,10 +50,17 @@ void View::initialisation() {
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
 
+//    sf::Texture texture
+//    texture.loadFromFile("texture2.jpg");
+//    glEnable(GL_TEXTURE_2D);
+//    sf::Texture::bind(&texture);
+
 	while (window.isOpen()) {
+
 		sf::Time myTime = Clock.getElapsedTime();
 
 		controller->ActionEvent(myTime);
+
 		BouclePrincipale();
 
 		window.setActive();
@@ -63,20 +87,37 @@ void View::BouclePrincipale() {
 	glBegin(GL_QUADS);
 
 	/*...*/
-	gameobject->CreateSol();
 
-	std::ifstream map = model->LoadMap("map.txt");
+//    glVertex3d(1,1,1);
+//    glVertex3d(1,1,-1);
+//    glVertex3d(-1,1,-1);
+//    glVertex3d(-1,1,1);
+
+	gameobject->CreateSol();
+    sf::Image image;
+    sf::Color color;
+    image.loadFromFile("mapi.png");
+
+for(int y = 0; y < 128;y++) {
+    for (int x = 0; x < 128; x++) {
+        if (image.getPixel(x, y) == color.Black) {
+            gameobject->CreateCube(1, 1, 4, x, y, 0);
+        }
+    }
+}
+
+	/*std::ifstream map = model->LoadMap("map.txt");
 	if (map) {
 		for (int j = 0; j < 11; j += 1) {
 			std::string chaine;
 			if (!map.eof()) {
 				getline(map.ignore(0, '\n'), chaine);
 				for (int i = 0; i < 11; i += 1) {
-					if (chaine[i] == '1')gameobject->CreateCube(1, 1, 1, j, i, 0);
+					if (chaine[i] == '1')gameobject->CreateCube(1, 1, 4, j, i, 0);
 				}
 			} else map.close();
 		}
-	} else { std::cout << "Impossible d'ouvrir la map /!\\" << std::endl; }
+	} else { std::cout << "Impossible d'ouvrir la map /!\\" << std::endl; }*/
 
 
     delete gameobject;
