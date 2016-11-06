@@ -8,7 +8,7 @@ int main(int, char const **) {
     View* pview(0);
 	pmodel = new Model(DEBUG);
 	pview = new View(pmodel);
-	pview->initialisation();
+    pview->initialisation();
 
 
     pmodel = 0;

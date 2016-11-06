@@ -54,7 +54,7 @@ void Gameobject::CreateCube(float longueur, float largeur, float hauteur, int x,
     glTexCoord2i(1, 0); glVertex3d(x + 0, y + 0, z + hauteur);
 }
 
-void Gameobject::CreateSol() {
+void Gameobject::CreateSol(){
 	glColor3ub(0, 5, 60); //sol
     glTexCoord2i(0, 1); glVertex2d(128, 128);
     glTexCoord2i(1, 0); glVertex2d(128, 0);
@@ -62,4 +62,14 @@ void Gameobject::CreateSol() {
     glTexCoord2i(0, 0); glVertex2d(0, 128);
 }
 
+void Gameobject::CreateMap(sf::Image image){
+
+    for(int y = 0; y < 128; y++) {
+        for (int x = 0; x < 128; x++) {
+            if (image.getPixel(x, y) == color.Black) {
+                CreateCube(1, 1, 4, x, y, 0);
+            }
+        }
+    }
+}
 Gameobject::~Gameobject(){};

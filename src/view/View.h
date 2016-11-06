@@ -31,7 +31,7 @@ public:
 
 	void initialisation();
 
-	void BouclePrincipale();
+	void BouclePrincipale(sf::Image image);
 
 	void displayFramerate(sf::RenderWindow &window, sf::Time clock);
 

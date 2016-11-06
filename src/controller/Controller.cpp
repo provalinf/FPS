@@ -4,7 +4,6 @@
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Audio.hpp>
 #include "Controller.h"
 
 Controller::Controller(sf::RenderWindow &window, Model *model) : window(window) {

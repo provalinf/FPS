@@ -3,7 +3,6 @@
 #include <GL/glu.h>
 #include <fstream>
 #include <iostream>
-#include <SFML/Audio.hpp>
 #include "View.h"
 
 
@@ -50,6 +49,7 @@ void View::initialisation() {
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
 
+
 //    sf::Texture texture
 //    texture.loadFromFile("texture2.jpg");
 //    glEnable(GL_TEXTURE_2D);
@@ -61,7 +61,13 @@ void View::initialisation() {
 
 		controller->ActionEvent(myTime);
 
-		BouclePrincipale();
+        sf::Image image;
+
+        if(!image.loadFromFile("mapi.png")){
+            std::cout<<"Failure to load map"<<std::endl;
+        }
+
+		BouclePrincipale(image);
 
 		window.setActive();
 		if (model->isDebug()) {
@@ -72,9 +78,10 @@ void View::initialisation() {
 		window.clear();
 	}
     delete controller;
+    delete gameobject;
 }
 
-void View::BouclePrincipale() {
+void View::BouclePrincipale(sf::Image image) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glMatrixMode(GL_MODELVIEW);
@@ -94,17 +101,8 @@ void View::BouclePrincipale() {
 //    glVertex3d(-1,1,1);
 
 	gameobject->CreateSol();
-    sf::Image image;
-    sf::Color color;
-    image.loadFromFile("mapi.png");
+    gameobject->CreateMap(image);
 
-for(int y = 0; y < 128;y++) {
-    for (int x = 0; x < 128; x++) {
-        if (image.getPixel(x, y) == color.Black) {
-            gameobject->CreateCube(1, 1, 4, x, y, 0);
-        }
-    }
-}
 
 	/*std::ifstream map = model->LoadMap("map.txt");
 	if (map) {
@@ -119,8 +117,6 @@ for(int y = 0; y < 128;y++) {
 		}
 	} else { std::cout << "Impossible d'ouvrir la map /!\\" << std::endl; }*/
 
-
-    delete gameobject;
 	glEnd();
 	glFlush();
 }

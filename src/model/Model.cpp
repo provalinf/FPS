@@ -24,10 +24,10 @@ void Model::InitFont() {
 	}
 }
 
-std::ifstream Model::LoadMap(sf::String nomFichier) {
+/*std::ifstream Model::LoadMap(sf::String nomFichier) {
 	std::ifstream map(nomFichier, std::ios::in);
 	return map;
-}
+}*/
 
 bool Model::isDebug() const {
 	return debug;

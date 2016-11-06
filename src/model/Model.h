@@ -36,7 +36,7 @@ public:
 
 	float getVitesseDep();
 
-	std::ifstream LoadMap(sf::String nomFichier);
+	//std::ifstream LoadMap(sf::String nomFichier);
 
     ~Model();
 };
