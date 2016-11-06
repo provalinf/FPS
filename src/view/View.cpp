@@ -3,6 +3,7 @@
 #include <GL/glu.h>
 #include <fstream>
 #include <iostream>
+#include <SFML/Audio/Music.hpp>
 #include "View.h"
 
 
@@ -21,11 +22,7 @@ void View::CreationFenetre() {
 	window.create(sf::VideoMode(640, 480, 32), TITRE_FENETRE, sf::Style::Close, Settings);
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(60);
-/*
-    sf::Music music;
-    music.openFromFile("environmentmusic.wav");
-    music.play();
-*/
+
 
 
 //    glGenTextures(1, &m_id);
@@ -42,6 +39,9 @@ void View::initialisation() {
 	text_framerate.setFont(model->getFont());
 	text_framerate.setCharacterSize(24); // in pixels, not points!
 
+    sf::Music music;
+    music.openFromFile("environmentmusic.wav");
+    music.play();
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
