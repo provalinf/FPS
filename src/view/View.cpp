@@ -6,6 +6,7 @@
 #include <SFML/Audio/Music.hpp>
 #include "View.h"
 
+const double RAD = atan(1) * 4 / 180; // atan(1)*4 = PI
 
 View::View(Model *model, bool fullscreen) {
 	this->model = model;
@@ -26,6 +27,7 @@ void View::CreationFenetre() {
 	);
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(60);
+	window.setMouseCursorVisible(false);
 
 //    glGenTextures(1, &m_id);
 //    glBindTexture(GL_TEXTURE_2D, m_id);
@@ -42,12 +44,11 @@ void View::initialisation() {
 
 	sf::Music music;
 	music.openFromFile("environmentmusic.wav");
-	music.play();
+	//music.play();
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(70, (double) (fullscreen ? model->getResolution().width : 800) /
-					   (fullscreen ? model->getResolution().height : 600), 1, 1000);
+	gluPerspective(70, (double) window.getSize().x / window.getSize().y, 1, 1000);
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
 
@@ -86,10 +87,12 @@ void View::BouclePrincipale(sf::Image image) {
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
-	gluLookAt(model->camera.x, model->camera.y, model->camera.z, model->camera.eyeX, model->camera.eyeY,
+	gluLookAt(model->camera.x, model->camera.y, model->camera.z,
+			  model->camera.x - cos(-model->camera.eyeX * RAD),
+			  model->camera.y + sin(-model->camera.eyeX * RAD),
 			  model->camera.eyeZ, 0, 0, 1);
-	glTranslated(model->pos.x, model->pos.y, model->pos.z);
+
+	//glTranslated(model->pos.x, model->pos.y, model->pos.z);
 
 	glBegin(GL_QUADS);
 

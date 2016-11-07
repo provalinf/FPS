@@ -9,8 +9,8 @@
 #include <SFML/Window/VideoMode.hpp>
 
 struct Camera {
-	double x, y, z = 0;
-	float eyeX, eyeY, eyeZ = 0;
+	float x, y, z = 0.0f;
+	float eyeX, eyeY, eyeZ = 0.0f;
 };
 
 struct Pos {
@@ -41,7 +41,7 @@ public:
 
 	//std::ifstream LoadMap(sf::String nomFichier);
 
-    ~Model();
+	~Model();
 };
 
 #endif //PACMAN_MODEL_H

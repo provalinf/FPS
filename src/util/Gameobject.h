@@ -2,8 +2,8 @@
 
 class Gameobject {
 private:
-    sf::Image image;
-    sf::Color color;
+	sf::Image image;
+	sf::Color color;
 
 public:
 	Gameobject();
@@ -12,9 +12,9 @@ public:
 
 	void CreateSol();
 
-    void CreateMap(sf::Image image);
+	void CreateMap(sf::Image image);
 
-    ~Gameobject();
+	~Gameobject();
 
 };
 

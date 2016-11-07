@@ -10,7 +10,11 @@
 Model::Model(bool debug) {
 	this->debug = debug;
 	InitFont();
-	camera.z = 8;
+	camera.x = 20;
+	camera.y = 20;
+
+	camera.z = 1.5;
+	camera.eyeZ = camera.z;
 	vitesseDep = 60.f;
 }
 
@@ -46,6 +50,6 @@ sf::VideoMode Model::getResolution() {
 	return sf::VideoMode::getDesktopMode();
 }
 
-Model::~Model(){
+Model::~Model() {
 	std::cout << "Destructeur de model" << std::endl;
 };

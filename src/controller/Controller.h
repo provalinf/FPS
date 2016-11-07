@@ -20,7 +20,7 @@ public:
 
 	void MoveKeyPressed(sf::Event event, float d);
 
-    ~Controller();
+	~Controller();
 };
 
 

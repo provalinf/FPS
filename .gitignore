@@ -1,4 +1,4 @@
 Clion_Build/CMakeFiles/*
 .idea/*
-
+CMakeLists.txt
 # PS : Pour retirer un dossier déjà présent en commit (et mis à jour automatiquement) : git rm -r --cached .idea
