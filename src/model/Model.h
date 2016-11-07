@@ -37,10 +37,11 @@ public:
 
 	float getVitesseDep();
 
-	std::ifstream LoadMap(sf::String nomFichier);
-
 	sf::VideoMode getResolution();
-};
 
+	//std::ifstream LoadMap(sf::String nomFichier);
+
+    ~Model();
+};
 
 #endif //PACMAN_MODEL_H

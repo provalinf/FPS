@@ -3,6 +3,7 @@
 #include <GL/glu.h>
 #include <fstream>
 #include <iostream>
+#include <SFML/Audio/Music.hpp>
 #include "View.h"
 
 
@@ -25,11 +26,23 @@ void View::CreationFenetre() {
 	);
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(60);
+
+//    glGenTextures(1, &m_id);
+//    glBindTexture(GL_TEXTURE_2D, m_id);
+//    glTexImage2D(GL_TEXTURE_2D, 0, formatInterne, imageSDL->w, imageSDL->h, 0, format, GL_UNSIGNED_BYTE, imageSDL->pixels);
+//
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 }
 
 void View::initialisation() {
+
 	text_framerate.setFont(model->getFont());
 	text_framerate.setCharacterSize(24); // in pixels, not points!
+
+	sf::Music music;
+	music.openFromFile("environmentmusic.wav");
+	music.play();
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -38,22 +51,37 @@ void View::initialisation() {
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
 
+
+//    sf::Texture texture
+//    texture.loadFromFile("texture2.jpg");
+//    glEnable(GL_TEXTURE_2D);
+//    sf::Texture::bind(&texture);
+
 	while (window.isOpen()) {
+
 		sf::Time myTime = Clock.getElapsedTime();
 
 		controller->ActionEvent(myTime);
-		BouclePrincipale();
+
+		sf::Image image;
+
+		if (!image.loadFromFile("mapi.png")) {
+			std::cout << "Failure to load map" << std::endl;
+		}
+
+		BouclePrincipale(image);
 
 		window.setActive();
 		if (model->isDebug()) {
 			displayFramerate(window, Clock.restart());
 		}
+
 		window.display();
 		window.clear();
 	}
 }
 
-void View::BouclePrincipale() {
+void View::BouclePrincipale(sf::Image image) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glMatrixMode(GL_MODELVIEW);
@@ -66,21 +94,28 @@ void View::BouclePrincipale() {
 	glBegin(GL_QUADS);
 
 	/*...*/
-	gameobject->CreateSol();
 
-	std::ifstream map = model->LoadMap("map.txt");
+//    glVertex3d(1,1,1);
+//    glVertex3d(1,1,-1);
+//    glVertex3d(-1,1,-1);
+//    glVertex3d(-1,1,1);
+
+	gameobject->CreateSol();
+	gameobject->CreateMap(image);
+
+
+	/*std::ifstream map = model->LoadMap("map.txt");
 	if (map) {
 		for (int j = 0; j < 11; j += 1) {
 			std::string chaine;
 			if (!map.eof()) {
 				getline(map.ignore(0, '\n'), chaine);
 				for (int i = 0; i < 11; i += 1) {
-					if (chaine[i] == '1')gameobject->CreateCube(1, 1, 1, j, i, 0);
+					if (chaine[i] == '1')gameobject->CreateCube(1, 1, 4, j, i, 0);
 				}
 			} else map.close();
 		}
-	} else { std::cout << "Impossible d'ouvrir la map /!\\" << std::endl; }
-
+	} else { std::cout << "Impossible d'ouvrir la map /!\\" << std::endl; }*/
 
 	glEnd();
 	glFlush();
@@ -96,4 +131,10 @@ void View::displayFramerate(sf::RenderWindow &window, sf::Time clock) {
 	window.pushGLStates();          // Sauvegarde de l'état OpenGL
 	window.draw(text_framerate);    // Affichage du texte
 	window.popGLStates();           // Restauration de l'état OpenGL
+}
+
+View::~View() {
+	std::cout << "Destructeur de vue" << std::endl;
+	delete controller;
+	delete gameobject;
 }

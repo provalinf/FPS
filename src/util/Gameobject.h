@@ -2,6 +2,8 @@
 
 class Gameobject {
 private:
+    sf::Image image;
+    sf::Color color;
 
 public:
 	Gameobject();
@@ -9,6 +11,10 @@ public:
 	void CreateCube(float longueur, float largeur, float hauteur, int x, int y, int z);
 
 	void CreateSol();
+
+    void CreateMap(sf::Image image);
+
+    ~Gameobject();
 
 };
 

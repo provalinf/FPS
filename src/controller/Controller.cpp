@@ -4,6 +4,7 @@
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <iostream>
 #include "Controller.h"
 
 Controller::Controller(sf::RenderWindow &window, Model *model) : window(window) {
@@ -12,7 +13,9 @@ Controller::Controller(sf::RenderWindow &window, Model *model) : window(window) 
 
 void Controller::ActionEvent(sf::Time time) {
 	sf::Event event;
+
 	while (window.pollEvent(event)) {
+
 		// évènement "fermeture demandée" : on ferme la fenêtre
 		if (event.type == sf::Event::Closed ||
 			(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {
@@ -39,3 +42,7 @@ void Controller::MoveKeyPressed(sf::Event event, float myftime) {
 			model->camera.x += model->getVitesseDep() * myftime/** ellapsed_time*/;
 	}
 }
+
+Controller::~Controller() {
+	std::cout << "Destructeur de controlleur" << std::endl;
+};

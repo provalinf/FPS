@@ -19,6 +19,8 @@ public:
 	void ActionEvent(sf::Time time1);
 
 	void MoveKeyPressed(sf::Event event, float d);
+
+    ~Controller();
 };
 
 
