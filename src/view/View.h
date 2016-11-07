@@ -18,6 +18,7 @@ private:
 	Model *model;
 	Controller *controller;
 	Gameobject *gameobject;
+	bool fullscreen;
 
 	sf::RenderWindow window;
 
@@ -25,7 +26,7 @@ private:
 	sf::Text text_framerate;
 
 public:
-	View(Model *model);
+	View(Model *model, bool fullscreen);
 
 	void CreationFenetre();
 
@@ -34,6 +35,7 @@ public:
 	void BouclePrincipale();
 
 	void displayFramerate(sf::RenderWindow &window, sf::Time clock);
+
 };
 
 

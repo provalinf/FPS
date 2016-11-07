@@ -6,6 +6,7 @@
 #define PACMAN_MODEL_H
 
 #include <SFML/Graphics/Font.hpp>
+#include <SFML/Window/VideoMode.hpp>
 
 struct Camera {
 	double x, y, z = 0;
@@ -37,6 +38,8 @@ public:
 	float getVitesseDep();
 
 	std::ifstream LoadMap(sf::String nomFichier);
+
+	sf::VideoMode getResolution();
 };
 
 

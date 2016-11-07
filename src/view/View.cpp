@@ -6,8 +6,9 @@
 #include "View.h"
 
 
-View::View(Model *model) {
+View::View(Model *model, bool fullscreen) {
 	this->model = model;
+	this->fullscreen = fullscreen;
 	CreationFenetre();
 	controller = new Controller(window, model);
 	gameobject = new Gameobject();
@@ -18,7 +19,10 @@ void View::CreationFenetre() {
 	Settings.depthBits = 32;        // Request a 24-bit depth buffer
 	Settings.stencilBits = 10;      // Request a 8 bits stencil buffer
 	Settings.antialiasingLevel = 4; // Request 2 levels of antialiasing
-	window.create(sf::VideoMode(640, 480, 32), TITRE_FENETRE, sf::Style::Close, Settings);
+	window.create(sf::VideoMode((fullscreen ? model->getResolution().width : 800),
+								(fullscreen ? model->getResolution().height : 600),
+								32), TITRE_FENETRE, (fullscreen ? sf::Style::Fullscreen : sf::Style::Close), Settings
+	);
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(60);
 }
@@ -29,7 +33,8 @@ void View::initialisation() {
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(70, (double) 640 / 480, 1, 1000);
+	gluPerspective(70, (double) (fullscreen ? model->getResolution().width : 800) /
+					   (fullscreen ? model->getResolution().height : 600), 1, 1000);
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
 

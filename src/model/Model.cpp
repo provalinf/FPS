@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <SFML/Window/VideoMode.hpp>
 #include "Model.h"
 
 Model::Model(bool debug) {
@@ -39,4 +40,8 @@ sf::Font &Model::getFont() {
 
 float Model::getVitesseDep() {
 	return vitesseDep;
+}
+
+sf::VideoMode Model::getResolution() {
+	return sf::VideoMode::getDesktopMode();
 }
