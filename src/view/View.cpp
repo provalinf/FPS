@@ -44,7 +44,7 @@ void View::initialisation() {
 
 	sf::Music music;
 	music.openFromFile("environmentmusic.wav");
-	//music.play();
+	music.play();
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();

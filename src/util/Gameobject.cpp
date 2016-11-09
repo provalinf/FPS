@@ -1,13 +1,23 @@
 #include <GL/gl.h>
 #include <iostream>
 #include <SFML/Graphics/Texture.hpp>
+#include <GL/glu.h>
 #include "Gameobject.h"
 
 
 Gameobject::Gameobject() {}
-/*void Gameobject::CreateCoin(){
 
-}*/
+void Gameobject::CreateCoin(double x, double y){
+    glColor3ub(255,0,0);
+    GLUquadricObj* quadra;
+    quadra = gluNewQuadric();
+    glPushMatrix();
+    glTranslatef(x,y,CoinHeight);
+    gluSphere(quadra,0.1,5,5);
+    glPopMatrix();
+    gluDeleteQuadric(quadra);
+}
+
 void Gameobject::CreateCube(float longueur, float largeur, float hauteur, int x, int y, int z) {
 
 
@@ -69,6 +79,8 @@ void Gameobject::CreateMap(sf::Image image){
             if (image.getPixel(x, y) == color.Black) {
                 CreateCube(1, 1, 4, x, y, 0);
             }
+            else if (image.getPixel(x,y) == color.White){}
+            else {CreateCube(0.3,0.3,0.3,x,y,1);}
         }
     }
 }
