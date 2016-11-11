@@ -43,7 +43,9 @@ void View::initialisation() {
 	text_framerate.setCharacterSize(24); // in pixels, not points!
 
 	sf::Music music;
-	music.openFromFile("environmentmusic.wav");
+	if(!music.openFromFile("environmentmusic.wav"))
+    {printf("Load music Fail");}
+    music.setLoop(true);
 	music.play();
 
 	glMatrixMode(GL_PROJECTION);
@@ -51,7 +53,6 @@ void View::initialisation() {
 	gluPerspective(70, (double) window.getSize().x / window.getSize().y, 1, 1000);
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
-
 
 //    sf::Texture texture
 //    texture.loadFromFile("texture2.jpg");
@@ -70,19 +71,25 @@ void View::initialisation() {
 			std::cout << "Failure to load map" << std::endl;
 		}
 
-		BouclePrincipale(image);
+        int *map = NULL;
+        map = new int[sizeof(int) * 4096];
+
+        gameobject->CreateMatrix(image, map);
+
+		BouclePrincipale(map);
 
 		window.setActive();
 		if (model->isDebug()) {
 			displayFramerate(window, Clock.restart());
 		}
 
+        delete(map);
 		window.display();
 		window.clear();
 	}
 }
 
-void View::BouclePrincipale(sf::Image image) {
+void View::BouclePrincipale(int *map) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glMatrixMode(GL_MODELVIEW);
@@ -94,7 +101,7 @@ void View::BouclePrincipale(sf::Image image) {
 
 	//glTranslated(model->pos.x, model->pos.y, model->pos.z);
 
-	glBegin(GL_QUADS);
+	//glBegin(GL_QUADS);
 
 	/*...*/
 
@@ -104,7 +111,7 @@ void View::BouclePrincipale(sf::Image image) {
 //    glVertex3d(-1,1,1);
 
 	gameobject->CreateSol();
-	gameobject->CreateMap(image);
+	gameobject->CreateMap(map);
 
 
 	/*std::ifstream map = model->LoadMap("map.txt");
@@ -120,7 +127,6 @@ void View::BouclePrincipale(sf::Image image) {
 		}
 	} else { std::cout << "Impossible d'ouvrir la map /!\\" << std::endl; }*/
 
-	glEnd();
 	glFlush();
 }
 

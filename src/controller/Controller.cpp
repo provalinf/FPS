@@ -7,7 +7,7 @@
 #include <iostream>
 #include "Controller.h"
 
-const double PI = atan(1) * 4;
+const double PI = 3.1415926535897932384626433832795;
 
 Controller::Controller(sf::RenderWindow &window, Model *model) : window(window) {
 	this->model = model;
@@ -15,6 +15,11 @@ Controller::Controller(sf::RenderWindow &window, Model *model) : window(window) 
 
 void Controller::ActionEvent(sf::Time time) {
 	sf::Event event;
+    sf::Image image;
+
+    if (!image.loadFromFile("mapi.png")) {
+        std::cout << "Failure to load map" << std::endl;
+    }
 
 	while (window.pollEvent(event)) {
 
@@ -61,6 +66,7 @@ void Controller::MoveKeyPressed(sf::Event event, float myftime) {
 		if (event.key.code == sf::Keyboard::Left) {
 			model->camera.y += model->getVitesseDep() * myftime * sin(model->camera.eyeX * PI / 90.0);
 			model->camera.x += model->getVitesseDep() * myftime * cos(model->camera.eyeX * PI / 90.0);
+
 			//model->pos.y += model->getVitesseDep() * myftime;
 		}/** ellapsed_time*/;
 		if (event.key.code == sf::Keyboard::Right) {
@@ -70,8 +76,8 @@ void Controller::MoveKeyPressed(sf::Event event, float myftime) {
 		}
 		if (event.key.code == sf::Keyboard::Up) {
 			//model->camera.x -= model->getVitesseDep() * myftime/** ellapsed_time*/;
-			model->camera.y -= model->getVitesseDep() * myftime * sin(model->camera.eyeX * PI / 180.0);
-			model->camera.x -= model->getVitesseDep() * myftime * cos(model->camera.eyeX * PI / 180.0);
+            model->camera.y -= model->getVitesseDep() * myftime * sin(model->camera.eyeX * PI / 180.0);
+            model->camera.x -= model->getVitesseDep() * myftime * cos(model->camera.eyeX * PI / 180.0);
 		}
 
 		if (event.key.code == sf::Keyboard::Down) {
