@@ -10,10 +10,11 @@
 Model::Model(bool debug) {
 	this->debug = debug;
 	InitFont();
+	piece_height = 1;
 	camera.x = 20;
 	camera.y = 20;
 
-	camera.z = 1.5;
+	camera.z = 10.5;	// Défaut : 1.5
 	camera.eyeZ = camera.z;
 	vitesseDep = 10.f;
 }

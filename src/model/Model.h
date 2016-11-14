@@ -10,7 +10,7 @@
 
 struct Camera {
 	float x, y, z = 0.0f;
-	float eyeX, eyeY, eyeZ = 0.0f;
+	float eyeX, eyeZ = 0.0f;
 };
 
 struct Map {
@@ -34,6 +34,7 @@ private:
 public:
 	Camera camera;
 	Map map;
+	int piece_height;
 
 	Model(bool debug = false);
 

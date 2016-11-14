@@ -61,17 +61,13 @@ void Controller::MoveKeyPressed(sf::Event event, float myftime) {
 
 	if (event.type == sf::Event::KeyPressed) {
 		if (event.key.code == sf::Keyboard::Left) {
-			model->camera.eyeX -= 90;
-			model->camera.y += model->getVitesseDep() * myftime * sin(model->camera.eyeX * PI / 180.0);
-			model->camera.x += model->getVitesseDep() * myftime * cos(model->camera.eyeX * PI / 180.0);
-			model->camera.eyeX += 90;
+			model->camera.y += model->getVitesseDep() * myftime * sin((model->camera.eyeX - 90) * PI / 180.0);
+			model->camera.x += model->getVitesseDep() * myftime * cos((model->camera.eyeX - 90) * PI / 180.0);
 		}
 
 		if (event.key.code == sf::Keyboard::Right) {
-			model->camera.eyeX -= 90;
-			model->camera.y -= model->getVitesseDep() * myftime * sin(model->camera.eyeX * PI / 180.0);
-			model->camera.x -= model->getVitesseDep() * myftime * cos(model->camera.eyeX * PI / 180.0);
-			model->camera.eyeX += 90;
+			model->camera.y -= model->getVitesseDep() * myftime * sin((model->camera.eyeX - 90) * PI / 180.0);
+			model->camera.x -= model->getVitesseDep() * myftime * cos((model->camera.eyeX - 90) * PI / 180.0);
 		}
 
 		if (event.key.code == sf::Keyboard::Up) {

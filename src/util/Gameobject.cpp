@@ -9,13 +9,12 @@ Gameobject::Gameobject(Model *model) {
 	this->model = model;
 }
 
-void Gameobject::CreateCoin(double x, double y) {
+void Gameobject::CreateCoin(int x, int y) {
 
 	glColor3ub(255, 0, 0);
-	GLUquadricObj *quadra;
-	quadra = gluNewQuadric();
+	GLUquadricObj *quadra = gluNewQuadric();
 	glPushMatrix();
-	glTranslatef(x, y, CoinHeight);
+	glTranslatef(x, y, model->piece_height);
 	gluSphere(quadra, 0.1, 5, 5);
 	glPopMatrix();
 	gluDeleteQuadric(quadra);
@@ -98,17 +97,16 @@ void Gameobject::CreateCube(float longueur, float largeur, float hauteur, int x,
 }
 
 void Gameobject::CreateSol() {
-
 	glBegin(GL_QUADS);
 	glColor3ub(0, 5, 60); //sol
 	glTexCoord2i(0, 1);
-	glVertex2d(128, 128);
+	glVertex2d(model->map.x, model->map.y);
 	glTexCoord2i(1, 0);
-	glVertex2d(128, 0);
+	glVertex2d(model->map.x, 0);
 	glTexCoord2i(1, 1);
 	glVertex2d(0, 0);
 	glTexCoord2i(0, 0);
-	glVertex2d(0, 128);
+	glVertex2d(0, model->map.y);
 	glEnd();
 }
 
