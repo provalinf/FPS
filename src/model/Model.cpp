@@ -15,7 +15,7 @@ Model::Model(bool debug) {
 
 	camera.z = 1.5;
 	camera.eyeZ = camera.z;
-	vitesseDep = 60.f;
+	vitesseDep = 10.f;
 }
 
 /*Model::Model(bool debug) {	// Surcharge de constructeur inutile, valeur par défaut pour param disponible en C++
@@ -33,6 +33,46 @@ void Model::InitFont() {
 	std::ifstream map(nomFichier, std::ios::in);
 	return map;
 }*/
+
+void Model::DefineTailleMap(sf::Image image) {
+	map.x = image.getSize().x;
+	map.y = image.getSize().y;
+}
+
+Map &Model::getMap() {
+	return map;
+}
+
+void Model::CreateMatrix(sf::Image image) {
+	DefineTailleMap(image);
+	matrice = new int *[map.x];
+	for (int i = 0; i < map.x; ++i) {
+		matrice[i] = new int[map.y];
+	}
+
+	for (unsigned int x = 0; x < map.x; x++) {
+		for (unsigned int y = 0; y < map.y; y++) {
+			if (image.getPixel(x, y) == color.Black) {
+				matrice[x][y] = 1;
+			} else if (image.getPixel(x, y) == color.White) {
+				matrice[x][y] = 0;
+			} else if (image.getPixel(x, y) == color.Red) {
+				matrice[x][y] = 2;
+			}
+		}
+	}
+}
+
+void Model::DestructionMatrix() {
+	for (int i = 0; i < map.x; ++i) {
+		delete matrice[i];
+	}
+	delete matrice;
+}
+
+int **Model::getMatrice() {
+	return matrice;
+}
 
 bool Model::isDebug() const {
 	return debug;
@@ -52,4 +92,5 @@ sf::VideoMode Model::getResolution() {
 
 Model::~Model() {
 	std::cout << "Destructeur de model" << std::endl;
+	DestructionMatrix();
 };

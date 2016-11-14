@@ -32,7 +32,7 @@ public:
 
 	void initialisation();
 
-	void BouclePrincipale(int *map);
+	void BouclePrincipale();
 
 	void displayFramerate(sf::RenderWindow &window, sf::Time clock);
 

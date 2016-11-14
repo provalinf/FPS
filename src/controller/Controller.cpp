@@ -13,14 +13,8 @@ Controller::Controller(sf::RenderWindow &window, Model *model) : window(window) 
 	this->model = model;
 }
 
-void Controller::ActionEvent(sf::Time time) {
+void Controller::ActionEvent(sf::Time time, int *pointeurmap) {
 	sf::Event event;
-    sf::Image image;
-
-    if (!image.loadFromFile("mapi.png")) {
-        std::cout << "Failure to load map" << std::endl;
-    }
-
 	while (window.pollEvent(event)) {
 
 		// évènement "fermeture demandée" : on ferme la fenêtre
@@ -54,14 +48,14 @@ void Controller::ActionEvent(sf::Time time) {
 
 		//std::cout << sf::Mouse::getPosition(window).x << window.getSize().x << std::endl;
 
-		MoveKeyPressed(event, time.asSeconds());
+		MoveKeyPressed(event, time.asSeconds(), pointeurmap);
 	}
-	MoveKeyPressed(event,
-				   time.asSeconds());    // Évite/(Réduit) le temps d'attente système pour la répétition d'une touche (Temporaire, ne fonctionne que sur les architectures de faible puissance)
+	MoveKeyPressed(event, time.asSeconds(), pointeurmap);
+	// Évite/(Réduit) le temps d'attente système pour la répétition d'une touche (Temporaire, ne fonctionne que sur les architectures de faible puissance)
 
 }
 
-void Controller::MoveKeyPressed(sf::Event event, float myftime) {
+void Controller::MoveKeyPressed(sf::Event event, float myftime, int *pointeurmap) {
 	if (event.type == sf::Event::KeyPressed) {
 		if (event.key.code == sf::Keyboard::Left) {
 			model->camera.y += model->getVitesseDep() * myftime * sin(model->camera.eyeX * PI / 90.0);
@@ -74,10 +68,14 @@ void Controller::MoveKeyPressed(sf::Event event, float myftime) {
 			model->camera.x -= model->getVitesseDep() * myftime * cos(model->camera.eyeX * PI / 90.0);
 			//model->pos.y -= model->getVitesseDep() * myftime/** ellapsed_time*/;
 		}
+
 		if (event.key.code == sf::Keyboard::Up) {
-			//model->camera.x -= model->getVitesseDep() * myftime/** ellapsed_time*/;
-            model->camera.y -= model->getVitesseDep() * myftime * sin(model->camera.eyeX * PI / 180.0);
-            model->camera.x -= model->getVitesseDep() * myftime * cos(model->camera.eyeX * PI / 180.0);
+			float tempx = model->camera.x;
+			float tempy = model->camera.y;
+			model->camera.y -= model->getVitesseDep() * myftime * sin(model->camera.eyeX * PI / 180.0);
+			model->camera.x -= model->getVitesseDep() * myftime * cos(model->camera.eyeX * PI / 180.0);
+			TestWall(pointeurmap);
+
 		}
 
 		if (event.key.code == sf::Keyboard::Down) {
@@ -88,6 +86,13 @@ void Controller::MoveKeyPressed(sf::Event event, float myftime) {
 	}
 }
 
+void Controller::TestWall(int *pointeurmap) {
+	float x = model->camera.x;
+	float y = model->camera.y;
+
+}
+
 Controller::~Controller() {
 	std::cout << "Destructeur de controlleur" << std::endl;
-};
+}
+

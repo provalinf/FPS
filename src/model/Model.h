@@ -13,8 +13,8 @@ struct Camera {
 	float eyeX, eyeY, eyeZ = 0.0f;
 };
 
-struct Pos {
-	float x, y, z = 0;
+struct Map {
+	int x, y = 0;
 };
 
 class Model {
@@ -25,9 +25,14 @@ private:
 
 	void InitFont();
 
+	sf::Color color;
+	int **matrice;
+
+	void DefineTailleMap(sf::Image image);
+
 public:
 	Camera camera;
-	Pos pos;
+	Map map;
 
 	Model(bool debug = false);
 
@@ -42,6 +47,14 @@ public:
 	//std::ifstream LoadMap(sf::String nomFichier);
 
 	~Model();
+
+	void CreateMatrix(sf::Image image);
+
+	int **getMatrice();
+
+	Map &getMap();
+
+	void DestructionMatrix();
 };
 
 #endif //PACMAN_MODEL_H

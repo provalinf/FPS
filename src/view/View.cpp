@@ -3,7 +3,7 @@
 #include <GL/glu.h>
 #include <fstream>
 #include <iostream>
-#include <SFML/Audio/Music.hpp>
+#include <SFML/Audio.hpp>
 #include "View.h"
 
 const double RAD = atan(1) * 4 / 180; // atan(1)*4 = PI
@@ -13,7 +13,7 @@ View::View(Model *model, bool fullscreen) {
 	this->fullscreen = fullscreen;
 	CreationFenetre();
 	controller = new Controller(window, model);
-	gameobject = new Gameobject();
+	gameobject = new Gameobject(model);
 }
 
 void View::CreationFenetre() {
@@ -42,11 +42,18 @@ void View::initialisation() {
 	text_framerate.setFont(model->getFont());
 	text_framerate.setCharacterSize(24); // in pixels, not points!
 
-	sf::Music music;
+/*	sf::Music music;
 	if(!music.openFromFile("environmentmusic.wav"))
     {printf("Load music Fail");}
     music.setLoop(true);
-	music.play();
+	music.play();*/
+
+	sf::SoundBuffer buffer;
+	buffer.loadFromFile("ting.wav");
+	sf::Sound sound;
+	sound.setBuffer(buffer);
+	sound.play();
+	sound.setLoop(true);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -63,33 +70,32 @@ void View::initialisation() {
 
 		sf::Time myTime = Clock.getElapsedTime();
 
-		controller->ActionEvent(myTime);
+		int *map = NULL;
+		map = new int[sizeof(int) * 4096];
 
-		sf::Image image;
+		controller->ActionEvent(myTime, map);
 
-		if (!image.loadFromFile("mapi.png")) {
+		sf::Image map_image;
+
+		if (!map_image.loadFromFile("mapi.png")) {
 			std::cout << "Failure to load map" << std::endl;
 		}
 
-        int *map = NULL;
-        map = new int[sizeof(int) * 4096];
+		model->CreateMatrix(map_image);
 
-        gameobject->CreateMatrix(image, map);
-
-		BouclePrincipale(map);
+		BouclePrincipale();
 
 		window.setActive();
 		if (model->isDebug()) {
 			displayFramerate(window, Clock.restart());
 		}
 
-        delete(map);
 		window.display();
 		window.clear();
 	}
 }
 
-void View::BouclePrincipale(int *map) {
+void View::BouclePrincipale() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glMatrixMode(GL_MODELVIEW);
@@ -111,7 +117,7 @@ void View::BouclePrincipale(int *map) {
 //    glVertex3d(-1,1,1);
 
 	gameobject->CreateSol();
-	gameobject->CreateMap(map);
+	gameobject->GenerateMap();
 
 
 	/*std::ifstream map = model->LoadMap("map.txt");

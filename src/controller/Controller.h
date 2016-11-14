@@ -16,9 +16,11 @@ public:
 
 	Controller(sf::RenderWindow &window, Model *model);
 
-	void ActionEvent(sf::Time time1);
+	void ActionEvent(sf::Time time1, int *pointeurmap);
 
-	void MoveKeyPressed(sf::Event event, float d);
+	void MoveKeyPressed(sf::Event event, float d, int *pointeurmap);
+
+	void TestWall(int *pointeurmap);
 
 	~Controller();
 };
