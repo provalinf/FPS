@@ -48,12 +48,12 @@ void View::initialisation() {
     music.setLoop(true);
 	music.play();*/
 
-	sf::SoundBuffer buffer;
+	/*sf::SoundBuffer buffer;
 	buffer.loadFromFile("ting.wav");
 	sf::Sound sound;
 	sound.setBuffer(buffer);
 	sound.play();
-	sound.setLoop(true);
+	sound.setLoop(true);*/
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -67,19 +67,11 @@ void View::initialisation() {
 //    sf::Texture::bind(&texture);
 
 	while (window.isOpen()) {
-
 		sf::Time myTime = Clock.getElapsedTime();
 
+		model->CreateMatrix(model->LoadImgMap("mapi.png"));
+
 		controller->ActionEvent(myTime);
-
-		sf::Image map_image;
-
-		if (!map_image.loadFromFile("mapi.png")) {
-			std::cout << "Failure to load map" << std::endl;
-		}
-
-		model->CreateMatrix(map_image);
-
 		BouclePrincipale();
 
 		window.setActive();

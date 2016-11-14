@@ -26,13 +26,18 @@ Model::Model(bool debug) {
 void Model::InitFont() {
 	if (!font.loadFromFile("arial.ttf")) {
 		std::cout << "/!\\ Erreur chargement font \"arial.ttf\"" << std::endl;
+		std::exit(1);
 	}
 }
 
-/*std::ifstream Model::LoadMap(sf::String nomFichier) {
-	std::ifstream map(nomFichier, std::ios::in);
-	return map;
-}*/
+sf::Image Model::LoadImgMap(sf::String nomFichier) {
+	sf::Image map_image;
+	if (!map_image.loadFromFile(nomFichier)) {
+		std::cout << "Failure to load map : " << nomFichier.toAnsiString() << std::endl;
+		std::exit(1);
+	}
+	return map_image;
+}
 
 void Model::DefineTailleMap(sf::Image image) {
 	map.x = image.getSize().x;
@@ -46,7 +51,7 @@ Map &Model::getMap() {
 void Model::CreateMatrix(sf::Image image) {
 	DefineTailleMap(image);
 	matrice = new int *[map.x];
-	for (int i = 0; i < map.x; ++i) {
+	for (unsigned int i = 0; i < map.x; ++i) {
 		matrice[i] = new int[map.y];
 	}
 
@@ -64,7 +69,7 @@ void Model::CreateMatrix(sf::Image image) {
 }
 
 void Model::DestructionMatrix() {
-	for (int i = 0; i < map.x; ++i) {
+	for (unsigned int i = 0; i < map.x; ++i) {
 		delete matrice[i];
 	}
 	delete matrice;

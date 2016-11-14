@@ -56,25 +56,27 @@ void Controller::ActionEvent(sf::Time time) {
 }
 
 void Controller::MoveKeyPressed(sf::Event event, float myftime) {
-    float tempx = model->camera.x;
-    float tempy = model->camera.y;
+	float tempx = model->camera.x;
+	float tempy = model->camera.y;
 
 	if (event.type == sf::Event::KeyPressed) {
 		if (event.key.code == sf::Keyboard::Left) {
-			model->camera.y += model->getVitesseDep() * myftime * sin(model->camera.eyeX * PI / 90.0);
-			model->camera.x += model->getVitesseDep() * myftime * cos(model->camera.eyeX * PI / 90.0);
+			model->camera.eyeX -= 90;
+			model->camera.y += model->getVitesseDep() * myftime * sin(model->camera.eyeX * PI / 180.0);
+			model->camera.x += model->getVitesseDep() * myftime * cos(model->camera.eyeX * PI / 180.0);
+			model->camera.eyeX += 90;
+		}
 
-			//model->pos.y += model->getVitesseDep() * myftime;
-		}/** ellapsed_time*/;
 		if (event.key.code == sf::Keyboard::Right) {
-			model->camera.y -= model->getVitesseDep() * myftime * sin(model->camera.eyeX * PI / 90.0);
-			model->camera.x -= model->getVitesseDep() * myftime * cos(model->camera.eyeX * PI / 90.0);
-			//model->pos.y -= model->getVitesseDep() * myftime/** ellapsed_time*/;
+			model->camera.eyeX -= 90;
+			model->camera.y -= model->getVitesseDep() * myftime * sin(model->camera.eyeX * PI / 180.0);
+			model->camera.x -= model->getVitesseDep() * myftime * cos(model->camera.eyeX * PI / 180.0);
+			model->camera.eyeX += 90;
 		}
 
 		if (event.key.code == sf::Keyboard::Up) {
-            model->camera.y -= model->getVitesseDep() * myftime * sin(model->camera.eyeX * PI / 180.0);
-            model->camera.x -= model->getVitesseDep() * myftime * cos(model->camera.eyeX * PI / 180.0);
+			model->camera.y -= model->getVitesseDep() * myftime * sin(model->camera.eyeX * PI / 180.0);
+			model->camera.x -= model->getVitesseDep() * myftime * cos(model->camera.eyeX * PI / 180.0);
 		}
 
 		if (event.key.code == sf::Keyboard::Down) {
@@ -83,52 +85,46 @@ void Controller::MoveKeyPressed(sf::Event event, float myftime) {
 			model->camera.x += model->getVitesseDep() * myftime * cos(model->camera.eyeX * PI / 180.0);
 		}
 	}
-    std::cout << "cam y" << model->camera.y<<std::endl;
-    std::cout << "cam x" << model->camera.x<<std::endl;
 
-    // mur bleu
-    int pos_y = (int) ceilf(model->camera.y);
-    int pos_x = (int) ceilf(model->camera.x);
+	/*std::cout << "cam y" << model->camera.y << std::endl;
+	std::cout << "cam x" << model->camera.x << std::endl;*/
 
-    std::cout << "pos y" << pos_y<<std::endl;
-    std::cout << "pos x" << pos_x<<std::endl;
+	// mur bleu
+	int pos_y = (int) ceilf(model->camera.y);
+	int pos_x = (int) ceilf(model->camera.x);
 
-        if (model->getMatrice()[pos_x][pos_y] == 1) {
-            model->camera.x = tempx;
-            model->camera.y = tempy;
-        }
+	if (model->getMatrice()[pos_x][pos_y] == 1) {
+		model->camera.x = tempx;
+		model->camera.y = tempy;
+	}
 
+	// mur rouge
+	int pos_y2 = (int) floor(model->camera.y);
+	int pos_x2 = (int) floor(model->camera.x);
 
- // mur rouge
-    int pos_y2 = (int) floor(model->camera.y);
-    int pos_x2 = (int) floor(model->camera.x);
+	if (model->getMatrice()[pos_x2][pos_y2 - 1] == 1) {
+		model->camera.x = tempx;
+		model->camera.y = tempy;
+	}
 
-    if (model->getMatrice()[pos_x2][pos_y2-1] == 1) {
-        model->camera.x = tempx;
-        model->camera.y = tempy;
-    }
+	// mur vert
+	int pos_y3 = (int) ceilf(model->camera.y);
+	int pos_x3 = (int) floor(model->camera.x);
 
-// mur vert
-    int pos_y3 = (int) ceilf(model->camera.y);
-    int pos_x3 = (int) floor(model->camera.x);
+	if (model->getMatrice()[pos_x3 - 1][pos_y3] == 1) {
+		model->camera.x = tempx;
+		model->camera.y = tempy;
+	}
 
-    if (model->getMatrice()[pos_x3-1][pos_y3] == 1) {
-        model->camera.x = tempx;
-        model->camera.y = tempy;
-    }
+	// mur jaune
+	int pos_y4 = (int) floor(model->camera.y);
+	int pos_x4 = (int) ceilf(model->camera.x);
 
+	if (model->getMatrice()[pos_x4][pos_y4] == 1) {
+		model->camera.x = tempx;
+		model->camera.y = tempy;
+	}
 
-// mur jaune
-    int pos_y4 = (int) floor(model->camera.y);
-    int pos_x4 = (int) ceilf(model->camera.x);
-
-    if (model->getMatrice()[pos_x4][pos_y4] == 1) {
-        model->camera.x = tempx;
-        model->camera.y = tempy;
-    }
-
-
-    //}
 }
 
 Controller::~Controller() {

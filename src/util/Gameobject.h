@@ -16,8 +16,6 @@ public:
 
 	void CreateSol();
 
-	/*void CreateMatrix(sf::Image image);*/
-
 	~Gameobject();
 
 	void GenerateMap();

@@ -112,25 +112,6 @@ void Gameobject::CreateSol() {
 	glEnd();
 }
 
-/*void Gameobject::CreateMatrix(sf::Image image) {
-	int **matrice = new int *[image.getSize().x];
-	for (int i = 0; i < sizeof(matrice); ++i) {
-		matrice[i] = new int[image.getSize().y];
-	}
-
-	for (unsigned int x = 0; x < image.getSize().x; x++) {
-		for (unsigned int y = 0; y < image.getSize().y; y++) {
-			if (image.getPixel(x, y) == color.Black) {
-				matrice[x][y] = 1;
-			} else if (image.getPixel(x, y) == color.White) {
-				matrice[x][y] = 0;
-			} else if (image.getPixel(x, y) == color.Red) {
-				matrice[x][y] = 2;
-			}
-		}
-	}
-}*/
-
 void Gameobject::GenerateMap() {
 	for (unsigned int x = 0; x < model->getMap().x; x++) {
 		for (unsigned int y = 0; y < model->getMap().y; y++) {
@@ -143,19 +124,6 @@ void Gameobject::GenerateMap() {
 	}
 }
 
-/*for(int y = 0; y < 64; y++) {
-	for (int x = 0; x < 64; x++) {
-		if (image.getPixel(x,y) == color.Black) {
-			CreateCube(1, 1, 4, x, y, 0);
-		}
-		else if (image.getPixel(x,y) == color.Red) {
-			CreateCoin(x,y);
-			//CreateCube(0.3,0.3,0.3,x,y,1);
-		}
-
-		}
-	}
-}*/
 Gameobject::~Gameobject() {
 	std::cout << "Destructeur de gameobject" << std::endl;
 };
