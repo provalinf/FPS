@@ -70,10 +70,7 @@ void View::initialisation() {
 
 		sf::Time myTime = Clock.getElapsedTime();
 
-		int *map = NULL;
-		map = new int[sizeof(int) * 4096];
-
-		controller->ActionEvent(myTime, map);
+		controller->ActionEvent(myTime);
 
 		sf::Image map_image;
 
