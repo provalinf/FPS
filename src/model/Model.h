@@ -7,6 +7,7 @@
 
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Window/VideoMode.hpp>
+#include <SFML/Audio.hpp>
 
 struct Camera {
 	float x, y, z = 0.0f;
@@ -57,6 +58,8 @@ public:
 	void DestructionMatrix();
 
 	~Model();
+
+    void setMatrice(int x, int y, int val);
 };
 
 #endif //PACMAN_MODEL_H

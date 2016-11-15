@@ -11,11 +11,11 @@ Gameobject::Gameobject(Model *model) {
 
 void Gameobject::CreateCoin(int x, int y) {
 
-	glColor3ub(255, 0, 0);
+	glColor3ub(157, 0, 157);
 	GLUquadricObj *quadra = gluNewQuadric();
 	glPushMatrix();
 	glTranslatef(x, y, model->piece_height);
-	gluSphere(quadra, 0.1, 5, 5);
+	gluSphere(quadra, 0.3, 10, 10);
 	glPopMatrix();
 	gluDeleteQuadric(quadra);
 }

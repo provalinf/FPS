@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <SFML/Window/VideoMode.hpp>
+#include <SFML/Audio.hpp>
 #include "Model.h"
 
 Model::Model(bool debug) {
@@ -14,7 +15,7 @@ Model::Model(bool debug) {
 	camera.x = 20;
 	camera.y = 20;
 
-	camera.z = 10.5;	// Défaut : 1.5
+	camera.z = 1.5;	// Défaut : 1.5
 	camera.eyeZ = camera.z;
 	vitesseDep = 10.f;
 }
@@ -78,6 +79,10 @@ void Model::DestructionMatrix() {
 
 int **Model::getMatrice() {
 	return matrice;
+}
+
+void Model::setMatrice(int x, int y, int val) {
+    Model::matrice[x][y] = val;
 }
 
 bool Model::isDebug() const {

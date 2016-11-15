@@ -5,6 +5,8 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <iostream>
+#include <SFML/Audio.hpp>
+#include <afxres.h>
 #include "Controller.h"
 
 const double PI = 3.1415926535897932384626433832795;
@@ -13,9 +15,10 @@ Controller::Controller(sf::RenderWindow &window, Model *model) : window(window) 
 	this->model = model;
 }
 
-void Controller::ActionEvent(sf::Time time) {
+void Controller::ActionEvent(sf::Time time, sf::Sound sound) {
 	sf::Event event;
-	while (window.pollEvent(event)) {
+
+    while (window.pollEvent(event)) {
 
 		// évènement "fermeture demandée" : on ferme la fenêtre
 		if (event.type == sf::Event::Closed ||
@@ -48,14 +51,15 @@ void Controller::ActionEvent(sf::Time time) {
 
 		//std::cout << sf::Mouse::getPosition(window).x << window.getSize().x << std::endl;
 
-		MoveKeyPressed(event, time.asSeconds());
+
+		MoveKeyPressed(event, time.asSeconds(),sound);
 	}
-	MoveKeyPressed(event, time.asSeconds());
+	MoveKeyPressed(event, time.asSeconds(),sound);
 	// Évite/(Réduit) le temps d'attente système pour la répétition d'une touche (Temporaire, ne fonctionne que sur les architectures de faible puissance)
 
 }
 
-void Controller::MoveKeyPressed(sf::Event event, float myftime) {
+void Controller::MoveKeyPressed(sf::Event event, float myftime, sf::Sound sound) {
 	float tempx = model->camera.x;
 	float tempy = model->camera.y;
 
@@ -88,8 +92,10 @@ void Controller::MoveKeyPressed(sf::Event event, float myftime) {
 	// mur bleu
 	int pos_y = (int) ceilf(model->camera.y);
 	int pos_x = (int) ceilf(model->camera.x);
+    ramassePiece(pos_x, pos_y, sound);
 
-	if (model->getMatrice()[pos_x][pos_y] == 1) {
+
+    if (model->getMatrice()[pos_x][pos_y] == 1) {
 		model->camera.x = tempx;
 		model->camera.y = tempy;
 	}
@@ -97,8 +103,10 @@ void Controller::MoveKeyPressed(sf::Event event, float myftime) {
 	// mur rouge
 	int pos_y2 = (int) floor(model->camera.y);
 	int pos_x2 = (int) floor(model->camera.x);
+    ramassePiece(pos_x2, pos_y2,sound);
 
-	if (model->getMatrice()[pos_x2][pos_y2 - 1] == 1) {
+
+    if (model->getMatrice()[pos_x2][pos_y2 - 1] == 1) {
 		model->camera.x = tempx;
 		model->camera.y = tempy;
 	}
@@ -106,8 +114,10 @@ void Controller::MoveKeyPressed(sf::Event event, float myftime) {
 	// mur vert
 	int pos_y3 = (int) ceilf(model->camera.y);
 	int pos_x3 = (int) floor(model->camera.x);
+    ramassePiece(pos_x3, pos_y3,sound);
 
-	if (model->getMatrice()[pos_x3 - 1][pos_y3] == 1) {
+
+    if (model->getMatrice()[pos_x3 - 1][pos_y3] == 1) {
 		model->camera.x = tempx;
 		model->camera.y = tempy;
 	}
@@ -115,6 +125,7 @@ void Controller::MoveKeyPressed(sf::Event event, float myftime) {
 	// mur jaune
 	int pos_y4 = (int) floor(model->camera.y);
 	int pos_x4 = (int) ceilf(model->camera.x);
+    ramassePiece(pos_x4, pos_y4,sound);
 
 	if (model->getMatrice()[pos_x4][pos_y4] == 1) {
 		model->camera.x = tempx;
@@ -123,6 +134,15 @@ void Controller::MoveKeyPressed(sf::Event event, float myftime) {
 
 }
 
+
+void Controller::ramassePiece(int x, int y, sf::Sound sound) {
+    if (model->getMatrice()[x][y] == 2){
+        model->setMatrice(x, y, 0);
+        sound.play();
+        Sleep(80);
+    }
+
+}
 Controller::~Controller() {
 	std::cout << "Destructeur de controlleur" << std::endl;
 }

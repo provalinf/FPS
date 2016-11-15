@@ -42,22 +42,29 @@ void View::initialisation() {
 	text_framerate.setFont(model->getFont());
 	text_framerate.setCharacterSize(24); // in pixels, not points!
 
-/*	sf::Music music;
+/*
+	sf::Music music;
 	if(!music.openFromFile("environmentmusic.wav"))
     {printf("Load music Fail");}
     music.setLoop(true);
-	music.play();*/
+	music.play();
 
-	/*sf::SoundBuffer buffer;
-	buffer.loadFromFile("ting.wav");
-	sf::Sound sound;
-	sound.setBuffer(buffer);
-	sound.play();
-	sound.setLoop(true);*/
+*/
+    sf::SoundBuffer buffer;
+    buffer.loadFromFile("ting.wav");
+    sf::Sound sound;
+    sound.setBuffer(buffer);
+    sound.setLoop(true);
+/*    sf::SoundBuffer buffer;
+    buffer.loadFromFile("ting.wav");
+    sf::Sound sound;
+    sound.setBuffer(buffer);
+    sound.setLoop(true);
+    sound.play();*/
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(70, (double) window.getSize().x / window.getSize().y, 1, 1000);
+	gluPerspective(80, (double) window.getSize().x / window.getSize().y, 1, 1000);
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
 
@@ -66,12 +73,13 @@ void View::initialisation() {
 //    glEnable(GL_TEXTURE_2D);
 //    sf::Texture::bind(&texture);
 
-	while (window.isOpen()) {
-		sf::Time myTime = Clock.getElapsedTime();
+    model->CreateMatrix(model->LoadImgMap("mapi_ori.png"));
 
-		model->CreateMatrix(model->LoadImgMap("mapi.png"));
+    while (window.isOpen()) {
+        sf::Time myTime = Clock.getElapsedTime();
 
-		controller->ActionEvent(myTime);
+
+		controller->ActionEvent(myTime,sound);
 		BouclePrincipale();
 
 		window.setActive();
