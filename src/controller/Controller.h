@@ -7,7 +7,6 @@
 
 #include <SFML/Window/Event.hpp>
 #include "../model/Model.h"
-#include <SFML/Audio.hpp>
 
 class Controller {
 private:
@@ -17,13 +16,13 @@ public:
 
 	Controller(sf::RenderWindow &window, Model *model);
 
+	void ActionEvent(sf::Time time);
+
+	void MoveKeyPressed(sf::Event event, float myftime);
+
+	void ramassePiece(int x, int y);
+
 	~Controller();
-
-    void MoveKeyPressed(sf::Event event, float myftime, sf::Sound sound);
-
-    void ActionEvent(sf::Time time, sf::Sound sound);
-
-    void ramassePiece(int x, int y, sf::Sound sound);
 };
 
 

@@ -11,11 +11,13 @@
 Model::Model(bool debug) {
 	this->debug = debug;
 	InitFont();
+	InitialiseSoundPiece("ting.wav");
+
 	piece_height = 1;
 	camera.x = 20;
 	camera.y = 20;
 
-	camera.z = 1.5;	// Défaut : 1.5
+	camera.z = 1.5;    // Défaut : 1.5
 	camera.eyeZ = camera.z;
 	vitesseDep = 10.f;
 }
@@ -82,7 +84,7 @@ int **Model::getMatrice() {
 }
 
 void Model::setMatrice(int x, int y, int val) {
-    Model::matrice[x][y] = val;
+	Model::matrice[x][y] = val;
 }
 
 bool Model::isDebug() const {
@@ -99,6 +101,18 @@ float Model::getVitesseDep() {
 
 sf::VideoMode Model::getResolution() {
 	return sf::VideoMode::getDesktopMode();
+}
+
+void Model::InitialiseSoundPiece(sf::String nomFichier) {
+	if (!buf_SoundPiece.loadFromFile(nomFichier)) {
+		std::cout << "Failure to sound coin : " << nomFichier.toAnsiString() << std::endl;
+		std::exit(1);
+	}
+	Sound_piece = sf::Sound(buf_SoundPiece);
+}
+
+void Model::JoueSoundPiece() {
+	Sound_piece.play();
 }
 
 Model::~Model() {

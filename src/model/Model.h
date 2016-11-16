@@ -28,6 +28,9 @@ private:
 
 	sf::Color color;
 
+	sf::SoundBuffer buf_SoundPiece;
+	sf::Sound Sound_piece;
+
 	int **matrice;
 
 	void DefineTailleMap(sf::Image image);
@@ -55,11 +58,15 @@ public:
 
 	int **getMatrice();
 
+	void setMatrice(int x, int y, int val);
+
 	void DestructionMatrix();
 
-	~Model();
+	void InitialiseSoundPiece(sf::String nomFichier);
 
-    void setMatrice(int x, int y, int val);
+	void JoueSoundPiece();
+
+	~Model();
 };
 
 #endif //PACMAN_MODEL_H
