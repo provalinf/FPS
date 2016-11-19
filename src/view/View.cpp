@@ -48,19 +48,6 @@ void View::initialisation() {
     music.setLoop(true);
 	music.play();*/
 
-	/* sf::SoundBuffer buffer;
-	 buffer.loadFromFile("ting.wav");
-	 sf::Sound sound;
-	 sound.setBuffer(buffer);
-	 sound.setLoop(true);*/
-
-/*    sf::SoundBuffer buffer;
-    buffer.loadFromFile("ting.wav");
-    sf::Sound sound;
-    sound.setBuffer(buffer);
-    sound.setLoop(true);
-    sound.play();*/
-
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(70, (double) window.getSize().x / window.getSize().y, 1, 1000);
@@ -119,28 +106,18 @@ void View::BouclePrincipale() {
 	gameobject->GenerateMap();
 
 
-	/*std::ifstream map = model->LoadMap("map.txt");
-	if (map) {
-		for (int j = 0; j < 11; j += 1) {
-			std::string chaine;
-			if (!map.eof()) {
-				getline(map.ignore(0, '\n'), chaine);
-				for (int i = 0; i < 11; i += 1) {
-					if (chaine[i] == '1')gameobject->CreateCube(1, 1, 4, j, i, 0);
-				}
-			} else map.close();
-		}
-	} else { std::cout << "Impossible d'ouvrir la map /!\\" << std::endl; }*/
-
 	glFlush();
 }
 
 void View::displayFramerate(sf::RenderWindow &window, sf::Time clock) {
 	double framerate = 1 / (clock.asMilliseconds() * 0.001);
 
-	std::ostringstream buff;
-	buff << framerate;
-	text_framerate.setString("FPS : " + buff.str());
+	//std::ostringstream buff1;
+    std::ostringstream buff2;
+	//buff1 << framerate;
+    buff2 << controller->GetCompteur();
+    //text_framerate.setString("FPS : " + buff1.str());
+    text_framerate.setString(buff2.str() + "/142");
 
 	window.pushGLStates();          // Sauvegarde de l'état OpenGL
 	window.draw(text_framerate);    // Affichage du texte

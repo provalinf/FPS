@@ -137,8 +137,11 @@ void Controller::ramassePiece(int x, int y) {
 		model->setMatrice(x, y, 0);
 		model->JoueSoundPiece();
         compteur++;
-
 	}
+}
+
+int Controller::GetCompteur(){
+    return compteur;
 }
 
 Controller::~Controller() {
