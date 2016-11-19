@@ -67,7 +67,9 @@ void Model::CreateMatrix(sf::Image image) {
 				matrice[x][y] = 0;
 			} else if (image.getPixel(x, y) == color.Red) {
 				matrice[x][y] = 2;
-			}
+			} else if (image.getPixel(x, y) == color.Green){
+                matrice[x][y] = 3;
+            }
 		}
 	}
 }
@@ -97,6 +99,10 @@ sf::Font &Model::getFont() {
 
 float Model::getVitesseDep() {
 	return vitesseDep;
+}
+
+float Model::setVitesseDep(float acc){
+    return vitesseDep+=acc;
 }
 
 sf::VideoMode Model::getResolution() {

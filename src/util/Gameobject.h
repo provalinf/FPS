@@ -58,5 +58,7 @@ public:
     void Ghost3();
 
     void Ghost4();
+
+    void CreateSpeedCoin(int x, int y);
 };
 

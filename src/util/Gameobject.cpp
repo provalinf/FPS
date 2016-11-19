@@ -13,14 +13,26 @@ Gameobject::Gameobject(Model *model) {
 
 void Gameobject::CreateCoin(int x, int y) {
 
-	glColor3ub(157, 0, 157);
-	GLUquadricObj *quadra = gluNewQuadric();
-	glPushMatrix();
-	glTranslatef(x, y, model->piece_height);
-	gluSphere(quadra, 0.3, 10, 10);
-	glPopMatrix();
-	gluDeleteQuadric(quadra);
+    glColor3ub(157, 0, 157);
+    GLUquadricObj *quadra = gluNewQuadric();
+    glPushMatrix();
+    glTranslatef(x, y, model->piece_height);
+    gluSphere(quadra, 0.3, 10, 10);
+    glPopMatrix();
+    gluDeleteQuadric(quadra);
 }
+
+void Gameobject::CreateSpeedCoin(int x, int y) {
+
+    glColor3ub(0, 0, 0);
+    GLUquadricObj *quadra = gluNewQuadric();
+    glPushMatrix();
+    glTranslatef(x, y, model->piece_height);
+    gluSphere(quadra, 0.5, 10, 10);
+    glPopMatrix();
+    gluDeleteQuadric(quadra);
+}
+
 
 void Gameobject::CreateCube(float longueur, float largeur, float hauteur, float x, float y, float z) {
 
@@ -116,10 +128,14 @@ void Gameobject::GenerateMap() {
 	for (unsigned int x = 0; x < model->getMap().x; x++) {
 		for (unsigned int y = 0; y < model->getMap().y; y++) {
 			if (model->getMatrice()[x][y] == 1) {
-				CreateCube(1, 1, 4, x, y, 0);
-			} else if (model->getMatrice()[x][y] == 2) {
+				CreateCube(1, 1, 4, x, y, 0);}
+			else if (model->getMatrice()[x][y] == 2) {
 				CreateCoin(x, y);
 			}
+            else if (model->getMatrice()[x][y] == 3){
+                CreateSpeedCoin(x,y);
+            }
+
 		}
 	}
 }

@@ -67,6 +67,8 @@ public:
 	void JoueSoundPiece();
 
 	~Model();
+
+    float setVitesseDep(float acc);
 };
 
 #endif //PACMAN_MODEL_H

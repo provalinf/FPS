@@ -138,6 +138,12 @@ void Controller::ramassePiece(int x, int y) {
 		model->JoueSoundPiece();
         compteur++;
 	}
+    if (model->getMatrice()[x][y] == 3) {
+        model->setMatrice(x, y, 0);
+        model->JoueSoundPiece();
+        model->setVitesseDep(10.0);
+
+    }
 }
 
 int Controller::GetCompteur(){

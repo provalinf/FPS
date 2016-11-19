@@ -29,10 +29,11 @@ public:
 
 	void ramassePiece(int x, int y);
 
+    int GetCompteur();
+
 	~Controller();
 
 
-    int GetCompteur();
 };
 
 
