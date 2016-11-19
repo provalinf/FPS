@@ -132,11 +132,12 @@ void Controller::MoveKeyPressed(sf::Event event, float myftime) {
 
 }
 
-
 void Controller::ramassePiece(int x, int y) {
 	if (model->getMatrice()[x][y] == 2) {
 		model->setMatrice(x, y, 0);
 		model->JoueSoundPiece();
+        compteur++;
+
 	}
 }
 

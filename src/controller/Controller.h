@@ -12,6 +12,7 @@ class Controller {
 private:
 	sf::RenderWindow &window;
 	Model *model;
+    int compteur = 0;
 public:
 
 	Controller(sf::RenderWindow &window, Model *model);

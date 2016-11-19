@@ -112,6 +112,10 @@ void View::BouclePrincipale() {
 //    glVertex3d(-1,1,1);
 
 	gameobject->CreateSol();
+    gameobject->Ghost1();
+    gameobject->Ghost2();
+    gameobject->Ghost3();
+    gameobject->Ghost4();
 	gameobject->GenerateMap();
 
 
