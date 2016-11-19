@@ -5,9 +5,6 @@ class Gameobject {
 private:
 	Model *model;
 
-    time_t secondes;
-    struct tm instant;
-
     float x1 = 4;
     float y1 = 2;
 
@@ -60,5 +57,7 @@ public:
     void Ghost4();
 
     void CreateSpeedCoin(int x, int y);
+
+    void CreateSkyBox(float longueur, float largeur, float hauteur, float x, float y, float z);
 };
 

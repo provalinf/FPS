@@ -24,12 +24,16 @@ private:
 	bool debug;
 	float vitesseDep;
 
+    time_t depart, arrivee;
+
 	void InitFont();
 
 	sf::Color color;
 
 	sf::SoundBuffer buf_SoundPiece;
 	sf::Sound Sound_piece;
+
+    sf::Music music;
 
 	int **matrice;
 
@@ -69,6 +73,14 @@ public:
 	~Model();
 
     float setVitesseDep(float acc);
+
+    void Loadmusic();
+
+    void ChangePitch(float val);
+
+    void ResetSpeed();
+
+    time_t setDepart();
 };
 
 #endif //PACMAN_MODEL_H

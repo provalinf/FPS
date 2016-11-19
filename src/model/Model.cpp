@@ -101,8 +101,21 @@ float Model::getVitesseDep() {
 	return vitesseDep;
 }
 
+time_t Model::setDepart(){
+    return  time(&depart);
+}
+
 float Model::setVitesseDep(float acc){
     return vitesseDep+=acc;
+}
+
+void Model::ResetSpeed(){
+
+    time(&arrivee);
+    if(difftime(arrivee, depart) >= 10){
+        vitesseDep-=10;
+        ChangePitch(1);
+    }
 }
 
 sf::VideoMode Model::getResolution() {
@@ -119,9 +132,22 @@ void Model::InitialiseSoundPiece(sf::String nomFichier) {
 
 void Model::JoueSoundPiece() {
 	Sound_piece.play();
+    Sound_piece.setPitch(1.2);
+}
+
+void Model::Loadmusic(){
+
+    if(!music.openFromFile("music2.wav"))
+    {printf("Load music Fail");}
+    music.setLoop(true);
+    music.play();
+}
+
+void Model::ChangePitch(float val){
+    music.setPitch(val);
 }
 
 Model::~Model() {
 	std::cout << "Destructeur de model" << std::endl;
 	DestructionMatrix();
-};
+}

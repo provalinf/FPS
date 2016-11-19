@@ -14,6 +14,7 @@ private:
 	sf::RenderWindow &window;
     sf::Clock Clock;
     sf::Text text_framerate;
+    bool Speedpick=false;
 
 	Model *model;
 

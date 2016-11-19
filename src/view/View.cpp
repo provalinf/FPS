@@ -42,22 +42,13 @@ void View::initialisation() {
 	text_framerate.setFont(model->getFont());
 	text_framerate.setCharacterSize(24); // in pixels, not points!
 
-	sf::Music music;
-	if(!music.openFromFile("music2.wav"))
-    {printf("Load music Fail");}
-    music.setLoop(true);
-	music.play();
+    model->Loadmusic();
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(70, (double) window.getSize().x / window.getSize().y, 1, 1000);
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
-
-//    sf::Texture texture
-//    texture.loadFromFile("texture2.jpg");
-//    glEnable(GL_TEXTURE_2D);
-//    sf::Texture::bind(&texture);
 
 	model->CreateMatrix(model->LoadImgMap("mapi_ori.png"));
 
@@ -97,7 +88,7 @@ void View::BouclePrincipale() {
 //    glVertex3d(1,1,-1);
 //    glVertex3d(-1,1,-1);
 //    glVertex3d(-1,1,1);
-
+    gameobject->CreateSkyBox(500,500,500,-64,-64,0);
 	gameobject->CreateSol();
     gameobject->Ghost1();
     gameobject->Ghost2();

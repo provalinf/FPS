@@ -28,7 +28,6 @@ void Controller::ActionEvent(sf::Time time) {
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 			//model->camera.x = sf::Mouse::getPosition(window).x * 0.3;
 		}
-
 		// Position relative inexistante dans SFML, donc déplacement du pointeur pour émulation
 
 		// Faire le système "plus propre" au lieu de modifier la position de la souris "bord/bord" prendre le milieu de l'écran pour éviter tout problème (ex : Rustine)
@@ -84,8 +83,12 @@ void Controller::MoveKeyPressed(sf::Event event, float myftime) {
 		}
 	}
 
-	/*std::cout << "cam y" << model->camera.y << std::endl;
-	std::cout << "cam x" << model->camera.x << std::endl;*/
+    if(Speedpick) {
+        model->ResetSpeed();
+        if(model->getVitesseDep() == 10){
+            Speedpick = false;
+        }
+    }
 
 	// mur bleu
 	int pos_y = (int) ceilf(model->camera.y);
@@ -133,7 +136,8 @@ void Controller::MoveKeyPressed(sf::Event event, float myftime) {
 }
 
 void Controller::ramassePiece(int x, int y) {
-	if (model->getMatrice()[x][y] == 2) {
+
+    if (model->getMatrice()[x][y] == 2) {
 		model->setMatrice(x, y, 0);
 		model->JoueSoundPiece();
         compteur++;
@@ -141,8 +145,10 @@ void Controller::ramassePiece(int x, int y) {
     if (model->getMatrice()[x][y] == 3) {
         model->setMatrice(x, y, 0);
         model->JoueSoundPiece();
+        model->setDepart();
         model->setVitesseDep(10.0);
-
+        model->ChangePitch(1.5);
+        Speedpick = true;
     }
 }
 

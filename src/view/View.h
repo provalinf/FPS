@@ -15,6 +15,7 @@ const sf::String TITRE_FENETRE = "Pacman 3D";
 
 class View {
 private:
+
 	Model *model;
 	Controller *controller;
 	Gameobject *gameobject;
