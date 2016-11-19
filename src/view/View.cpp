@@ -42,11 +42,11 @@ void View::initialisation() {
 	text_framerate.setFont(model->getFont());
 	text_framerate.setCharacterSize(24); // in pixels, not points!
 
-	/*sf::Music music;
-	if(!music.openFromFile("environmentmusic.wav"))
+	sf::Music music;
+	if(!music.openFromFile("music2.wav"))
     {printf("Load music Fail");}
     music.setLoop(true);
-	music.play();*/
+	music.play();
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -110,7 +110,7 @@ void View::BouclePrincipale() {
 }
 
 void View::displayFramerate(sf::RenderWindow &window, sf::Time clock) {
-	double framerate = 1 / (clock.asMilliseconds() * 0.001);
+	//double framerate = 1 / (clock.asMilliseconds() * 0.001);
 
 	//std::ostringstream buff1;
     std::ostringstream buff2;

@@ -20,7 +20,7 @@ private:
     float x4 = 18;
     float y4 = 2;
 
-    float ennemyspeed = 0.1;
+    float ennemyspeed = 0.07;
 
     int up_y;
     int up_x;    //up

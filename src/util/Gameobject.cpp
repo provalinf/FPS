@@ -146,21 +146,29 @@ void Gameobject::Ghost1() {
     }
 
 
-    if (model->getMatrice()[up_x][up_y] == 1) { x1 += ennemyspeed; }
-    else if (model->getMatrice()[down_x][down_y] == 1) { x1 -= ennemyspeed; }
-    else if ((model->getMatrice()[left_x][left_y] == 1)) {y1 += ennemyspeed;}
-    else if (model->getMatrice()[right_x][right_y] == 1) { y1 -= ennemyspeed;}
-    if ((model->getMatrice()[left_x][left_y] == 1)&&(model->getMatrice()[down_x][down_y] == 1))
+    if (model->getMatrice()[up_x][up_y] == 1) { y1-= ennemyspeed; }
+    if (model->getMatrice()[down_x][down_y] == 1) { y1 += ennemyspeed; }
+    if ((model->getMatrice()[left_x][left_y] == 1)) {x1 += ennemyspeed;}
+    if (model->getMatrice()[right_x][right_y] == 1) { x1 -= ennemyspeed;}
+  /*  if ((model->getMatrice()[left_x][left_y] == 1)&&(model->getMatrice()[down_x][down_y] == 1))
     {x1+=ennemyspeed;y1+=ennemyspeed;}
     if ((model->getMatrice()[right_x][right_y] == 1)&&(model->getMatrice()[down_x][down_y] == 1))
     {x1-=ennemyspeed;y1+=ennemyspeed;}
     if ((model->getMatrice()[left_x][left_y] == 1)&&(model->getMatrice()[up_x][up_y] == 1))
     {x1+=ennemyspeed;y1-=ennemyspeed;}
     if ((model->getMatrice()[right_x][right_y] == 1)&&(model->getMatrice()[up_x][up_y] == 1))
-    {x1-=ennemyspeed;y1-=ennemyspeed;}
+    {x1-=ennemyspeed;y1-=ennemyspeed;}*/
     if((model->getMatrice()[up_x][up_y] != 1)&&(model->getMatrice()[left_x][left_y] != 1)&&(model->getMatrice()[right_x][right_y] != 1)&&(model->getMatrice()[down_x][down_y] != 1))
     {
-        if(chrono<=2){
+
+        if(x1<model->camera.x){x1+=ennemyspeed;}
+        if(x1>model->camera.x){x1-=ennemyspeed;}
+        if(y1<model->camera.y){y1+=ennemyspeed;}
+        if(y1>model->camera.y){y1-=ennemyspeed;}
+
+
+
+       /* if(chrono<=2){
             y1+=ennemyspeed;
         }
         else if(chrono<=4){             // utilisation du temps pour débloquer le fantome
@@ -171,9 +179,9 @@ void Gameobject::Ghost1() {
         }
         else if(chrono<=8){
             x1+=ennemyspeed;
-        }
+        }*/
     }
-    CreateCube(1, 1, 1, x1, y1, 0);
+    CreateCube(1, 1, 4, x1, y1, 0);
 
     }
 
@@ -199,35 +207,42 @@ void Gameobject::Ghost2() {
     }
 
 
-
-    if (model->getMatrice()[up_x][up_y] == 1) { x2 += ennemyspeed; }
-    else if (model->getMatrice()[down_x][down_y] == 1) { x2 -= ennemyspeed; }
-    else if ((model->getMatrice()[left_x][left_y] == 1)) {y2 += ennemyspeed;}
-    else if (model->getMatrice()[right_x][right_y] == 1) { y2 -= ennemyspeed;}
-    if ((model->getMatrice()[left_x][left_y] == 1)&&(model->getMatrice()[down_x][down_y] == 1))
-    {x2+=ennemyspeed;y2+=ennemyspeed;}
-    if ((model->getMatrice()[right_x][right_y] == 1)&&(model->getMatrice()[down_x][down_y] == 1))
-    {x2-=ennemyspeed;y2+=ennemyspeed;}
-    if ((model->getMatrice()[left_x][left_y] == 1)&&(model->getMatrice()[up_x][up_y] == 1))
-    {x2+=ennemyspeed;y2-=ennemyspeed;}
-    if ((model->getMatrice()[right_x][right_y] == 1)&&(model->getMatrice()[up_x][up_y] == 1))
-    {x2-=ennemyspeed;y2-=ennemyspeed;}
+    if (model->getMatrice()[up_x][up_y] == 1) { y2-= ennemyspeed; }
+    if (model->getMatrice()[down_x][down_y] == 1) { y2 += ennemyspeed; }
+    if ((model->getMatrice()[left_x][left_y] == 1)) {x2 += ennemyspeed;}
+    if (model->getMatrice()[right_x][right_y] == 1) { x2 -= ennemyspeed;}
+    /*  if ((model->getMatrice()[left_x][left_y] == 1)&&(model->getMatrice()[down_x][down_y] == 1))
+      {x2+=ennemyspeed;y2+=ennemyspeed;}
+      if ((model->getMatrice()[right_x][right_y] == 1)&&(model->getMatrice()[down_x][down_y] == 1))
+      {x2-=ennemyspeed;y2+=ennemyspeed;}
+      if ((model->getMatrice()[left_x][left_y] == 1)&&(model->getMatrice()[up_x][up_y] == 1))
+      {x2+=ennemyspeed;y2-=ennemyspeed;}
+      if ((model->getMatrice()[right_x][right_y] == 1)&&(model->getMatrice()[up_x][up_y] == 1))
+      {x2-=ennemyspeed;y2-=ennemyspeed;}*/
     if((model->getMatrice()[up_x][up_y] != 1)&&(model->getMatrice()[left_x][left_y] != 1)&&(model->getMatrice()[right_x][right_y] != 1)&&(model->getMatrice()[down_x][down_y] != 1))
     {
-        if(chrono<=2){
-            y2+=ennemyspeed;
-        }
-        else if(chrono<=4){             // utilisation du temps pour débloquer le fantome
-            x2-=ennemyspeed;
-        }
-        else if(chrono<=6){
-            y2-=ennemyspeed;
-        }
-        else if(chrono<=8){
-            x2+=ennemyspeed;
-        }
+
+        if(x2<model->camera.x){x2+=ennemyspeed;}
+        if(x2>model->camera.x){x2-=ennemyspeed;}
+        if(y2<model->camera.y){y2+=ennemyspeed;}
+        if(y2>model->camera.y){y2-=ennemyspeed;}
+
+
+
+        /* if(chrono<=2){
+             y2+=ennemyspeed;
+         }
+         else if(chrono<=4){             // utilisation du temps pour débloquer le fantome
+             x2-=ennemyspeed;
+         }
+         else if(chrono<=6){
+             y2-=ennemyspeed;
+         }
+         else if(chrono<=8){
+             x2+=ennemyspeed;
+         }*/
     }
-    CreateCube(1, 1, 1, x2, y2, 0);
+    CreateCube(1, 1, 4, x2, y2, 0);
 
 }
 
@@ -251,35 +266,44 @@ void Gameobject::Ghost3() {
     if(chrono>9){
         chrono=0;
     }
-    
-    if (model->getMatrice()[up_x][up_y] == 1) { x3 += ennemyspeed; }
-    else if (model->getMatrice()[down_x][down_y] == 1) { x3 -= ennemyspeed; }
-    else if ((model->getMatrice()[left_x][left_y] == 1)) {y3 += ennemyspeed;}
-    else if (model->getMatrice()[right_x][right_y] == 1) { y3 -= ennemyspeed;}
-    if ((model->getMatrice()[left_x][left_y] == 1)&&(model->getMatrice()[down_x][down_y] == 1))
-    {x3+=ennemyspeed;y3+=ennemyspeed;}
-    if ((model->getMatrice()[right_x][right_y] == 1)&&(model->getMatrice()[down_x][down_y] == 1))
-    {x3-=ennemyspeed;y3+=ennemyspeed;}
-    if ((model->getMatrice()[left_x][left_y] == 1)&&(model->getMatrice()[up_x][up_y] == 1))
-    {x3+=ennemyspeed;y3-=ennemyspeed;}
-    if ((model->getMatrice()[right_x][right_y] == 1)&&(model->getMatrice()[up_x][up_y] == 1))
-    {x3-=ennemyspeed;y3-=ennemyspeed;}
+
+
+    if (model->getMatrice()[up_x][up_y] == 1) { y3-= ennemyspeed; }
+    if (model->getMatrice()[down_x][down_y] == 1) { y3 += ennemyspeed; }
+    if ((model->getMatrice()[left_x][left_y] == 1)) {x3 += ennemyspeed;}
+    if (model->getMatrice()[right_x][right_y] == 1) { x3 -= ennemyspeed;}
+    /*  if ((model->getMatrice()[left_x][left_y] == 1)&&(model->getMatrice()[down_x][down_y] == 1))
+      {x3+=ennemyspeed;y3+=ennemyspeed;}
+      if ((model->getMatrice()[right_x][right_y] == 1)&&(model->getMatrice()[down_x][down_y] == 1))
+      {x3-=ennemyspeed;y3+=ennemyspeed;}
+      if ((model->getMatrice()[left_x][left_y] == 1)&&(model->getMatrice()[up_x][up_y] == 1))
+      {x3+=ennemyspeed;y3-=ennemyspeed;}
+      if ((model->getMatrice()[right_x][right_y] == 1)&&(model->getMatrice()[up_x][up_y] == 1))
+      {x3-=ennemyspeed;y3-=ennemyspeed;}*/
     if((model->getMatrice()[up_x][up_y] != 1)&&(model->getMatrice()[left_x][left_y] != 1)&&(model->getMatrice()[right_x][right_y] != 1)&&(model->getMatrice()[down_x][down_y] != 1))
     {
-        if(chrono<=2){
-            y3+=ennemyspeed;
-        }
-        else if(chrono<=4){             // utilisation du temps pour débloquer le fantome
-            x3-=ennemyspeed;
-        }
-        else if(chrono<=6){
-            y3-=ennemyspeed;
-        }
-        else if(chrono<=8){
-            x3+=ennemyspeed;
-        }
+
+        if(x3<model->camera.x){x3+=ennemyspeed;}
+        if(x3>model->camera.x){x3-=ennemyspeed;}
+        if(y3<model->camera.y){y3+=ennemyspeed;}
+        if(y3>model->camera.y){y3-=ennemyspeed;}
+
+
+
+        /* if(chrono<=2){
+             y3+=ennemyspeed;
+         }
+         else if(chrono<=4){             // utilisation du temps pour débloquer le fantome
+             x3-=ennemyspeed;
+         }
+         else if(chrono<=6){
+             y3-=ennemyspeed;
+         }
+         else if(chrono<=8){
+             x3+=ennemyspeed;
+         }*/
     }
-    CreateCube(1, 1, 1, x3, y3, 0);
+    CreateCube(1, 1, 4, x3, y3, 0);
 
 }
 
@@ -304,48 +328,43 @@ void Gameobject::Ghost4() {
         chrono=0;
     }
 
-/*    int up_y = (int) ceilf(model->camera.y);
-    int up_x = (int) ceilf(model->camera.x);
 
-    int down_y = (int) floor(model->camera.y);
-    int down_x = (int) floor(model->camera.x);
-
-    int left_y = (int) ceilf(model->camera.y);
-    int left_x = (int) floor(model->camera.x);
-
-    int right_y = (int) floor(model->camera.y);
-    int right_x = (int) ceilf(model->camera.x);*/
-
-
-
-    if (model->getMatrice()[up_x][up_y] == 1) { x4 += ennemyspeed; }
-    else if (model->getMatrice()[down_x][down_y] == 1) { x4 -= ennemyspeed; }
-    else if ((model->getMatrice()[left_x][left_y] == 1)) {y4 += ennemyspeed;}
-    else if (model->getMatrice()[right_x][right_y] == 1) { y4 -= ennemyspeed;}
-    if ((model->getMatrice()[left_x][left_y] == 1)&&(model->getMatrice()[down_x][down_y] == 1))
-    {x4+=ennemyspeed;y4+=ennemyspeed;}
-    if ((model->getMatrice()[right_x][right_y] == 1)&&(model->getMatrice()[down_x][down_y] == 1))
-    {x4-=ennemyspeed;y4+=ennemyspeed;}
-    if ((model->getMatrice()[left_x][left_y] == 1)&&(model->getMatrice()[up_x][up_y] == 1))
-    {x4+=ennemyspeed;y4-=ennemyspeed;}
-    if ((model->getMatrice()[right_x][right_y] == 1)&&(model->getMatrice()[up_x][up_y] == 1))
-    {x4-=ennemyspeed;y4-=ennemyspeed;}
+    if (model->getMatrice()[up_x][up_y] == 1) { y4-= ennemyspeed; }
+    if (model->getMatrice()[down_x][down_y] == 1) { y4 += ennemyspeed; }
+    if ((model->getMatrice()[left_x][left_y] == 1)) {x4 += ennemyspeed;}
+    if (model->getMatrice()[right_x][right_y] == 1) { x4 -= ennemyspeed;}
+    /*  if ((model->getMatrice()[left_x][left_y] == 1)&&(model->getMatrice()[down_x][down_y] == 1))
+      {x4+=ennemyspeed;y4+=ennemyspeed;}
+      if ((model->getMatrice()[right_x][right_y] == 1)&&(model->getMatrice()[down_x][down_y] == 1))
+      {x4-=ennemyspeed;y4+=ennemyspeed;}
+      if ((model->getMatrice()[left_x][left_y] == 1)&&(model->getMatrice()[up_x][up_y] == 1))
+      {x4+=ennemyspeed;y4-=ennemyspeed;}
+      if ((model->getMatrice()[right_x][right_y] == 1)&&(model->getMatrice()[up_x][up_y] == 1))
+      {x4-=ennemyspeed;y4-=ennemyspeed;}*/
     if((model->getMatrice()[up_x][up_y] != 1)&&(model->getMatrice()[left_x][left_y] != 1)&&(model->getMatrice()[right_x][right_y] != 1)&&(model->getMatrice()[down_x][down_y] != 1))
     {
-        if(chrono<=2){
-            y4+=ennemyspeed;
-        }
-        else if(chrono<=4){             // utilisation du temps pour débloquer le fantome
-            x4-=ennemyspeed;
-        }
-        else if(chrono<=6){
-            y4-=ennemyspeed;
-        }
-        else if(chrono<=8){
-            x4+=ennemyspeed;
-        }
+
+        if(x4<model->camera.x){x4+=ennemyspeed;}
+        if(x4>model->camera.x){x4-=ennemyspeed;}
+        if(y4<model->camera.y){y4+=ennemyspeed;}
+        if(y4>model->camera.y){y4-=ennemyspeed;}
+
+
+
+        /* if(chrono<=2){
+             y4+=ennemyspeed;
+         }
+         else if(chrono<=4){             // utilisation du temps pour débloquer le fantome
+             x4-=ennemyspeed;
+         }
+         else if(chrono<=6){
+             y4-=ennemyspeed;
+         }
+         else if(chrono<=8){
+             x4+=ennemyspeed;
+         }*/
     }
-    CreateCube(1, 1, 1, x4, y4, 0);
+    CreateCube(1, 1, 4, x4, y4, 0);
 
 }
 
