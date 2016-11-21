@@ -6,6 +6,7 @@
 #include <fstream>
 #include <SFML/Window/VideoMode.hpp>
 #include <SFML/Audio.hpp>
+#include <sstream>
 #include "Model.h"
 
 Model::Model(bool debug) {
@@ -19,7 +20,7 @@ Model::Model(bool debug) {
 
 	camera.z = 1.5;    // Défaut : 1.5
 	camera.eyeZ = camera.z;
-	vitesseDep = 10.f;
+	vitesseDep = 30.f;
 }
 
 /*Model::Model(bool debug) {	// Surcharge de constructeur inutile, valeur par défaut pour param disponible en C++
@@ -48,7 +49,7 @@ void Model::DefineTailleMap(sf::Image image) {
 	map.y = image.getSize().y;
 }
 
-Map &Model::getMap() {
+CoordMap &Model::getMap() {
 	return map;
 }
 
@@ -67,9 +68,9 @@ void Model::CreateMatrix(sf::Image image) {
 				matrice[x][y] = 0;
 			} else if (image.getPixel(x, y) == color.Red) {
 				matrice[x][y] = 2;
-			} else if (image.getPixel(x, y) == color.Green){
-                matrice[x][y] = 3;
-            }
+			} else if (image.getPixel(x, y) == color.Green) {
+				matrice[x][y] = 3;
+			}
 		}
 	}
 }
@@ -101,21 +102,21 @@ float Model::getVitesseDep() {
 	return vitesseDep;
 }
 
-time_t Model::setDepart(){
-    return  time(&depart);
+time_t Model::setDepart() {
+	return time(&depart);
 }
 
-float Model::setVitesseDep(float acc){
-    return vitesseDep+=acc;
+float Model::setVitesseDep(float v) {
+	return vitesseDep = v;
 }
 
-void Model::ResetSpeed(){
+void Model::ResetSpeed() {
 
-    time(&arrivee);
-    if(difftime(arrivee, depart) >= 10){
-        vitesseDep-=10;
-        ChangePitch(1);
-    }
+	time(&arrivee);
+	if (difftime(arrivee, depart) >= 20) {
+		setVitesseDep(getVitesseDep()-20.0f);
+		//ChangePitch(1);
+	}
 }
 
 sf::VideoMode Model::getResolution() {
@@ -128,23 +129,28 @@ void Model::InitialiseSoundPiece(sf::String nomFichier) {
 		std::exit(1);
 	}
 	Sound_piece = sf::Sound(buf_SoundPiece);
+	Sound_piece.setPitch(1.2);
 }
 
 void Model::JoueSoundPiece() {
 	Sound_piece.play();
-    Sound_piece.setPitch(1.2);
 }
 
-void Model::Loadmusic(){
+void Model::Loadmusic() {
 
-    if(!music.openFromFile("music2.wav"))
-    {printf("Load music Fail");}
-    music.setLoop(true);
-    music.play();
+	if (!music.openFromFile("music2.wav")) { printf("Load music Fail"); }
+	music.setLoop(true);
+	music.play();
 }
 
-void Model::ChangePitch(float val){
-    music.setPitch(val);
+void Model::ChangePitch(float val) {
+	music.setPitch(val);
+}
+
+std::string Model::toString(int integer) {
+	std::ostringstream os;
+	os << integer;
+	return os.str();
 }
 
 Model::~Model() {

@@ -12,13 +12,13 @@
 class Controller {
 private:
 	sf::RenderWindow &window;
-    sf::Clock Clock;
-    sf::Text text_framerate;
-    bool Speedpick=false;
+	sf::Clock Clock;
+	sf::Text text_framerate;
+	bool Speedpick = false;
 
 	Model *model;
 
-    int compteur = 0;
+	int compteur = 0;
 
 public:
 
@@ -30,7 +30,7 @@ public:
 
 	void ramassePiece(int x, int y);
 
-    int GetCompteur();
+	int GetCompteur();
 
 	~Controller();
 

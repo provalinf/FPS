@@ -38,10 +38,10 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files (x86)\JetBrains\CLion 163.6110.22\bin\cmake\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files (x86)\JetBrains\CLion 2016.3\bin\cmake\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files (x86)\JetBrains\CLion 163.6110.22\bin\cmake\bin\cmake.exe" -E remove -f
+RM = "C:\Program Files (x86)\JetBrains\CLion 2016.3\bin\cmake\bin\cmake.exe" -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -58,7 +58,7 @@ CMAKE_BINARY_DIR = "D:\Mes Documents\Travail\Programmation\PacmanMatrice\Clion_B
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	"C:\Program Files (x86)\JetBrains\CLion 163.6110.22\bin\cmake\bin\cmake.exe" -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	"C:\Program Files (x86)\JetBrains\CLion 2016.3\bin\cmake\bin\cmake.exe" -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -69,7 +69,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	"C:\Program Files (x86)\JetBrains\CLion 163.6110.22\bin\cmake\bin\cmake.exe" -E echo "No interactive CMake dialog available."
+	"C:\Program Files (x86)\JetBrains\CLion 2016.3\bin\cmake\bin\cmake.exe" -E echo "No interactive CMake dialog available."
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -203,32 +203,248 @@ src/model/Model.cpp.s:
 	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/model/Model.cpp.s
 .PHONY : src/model/Model.cpp.s
 
-src/util/Gameobject.obj: src/util/Gameobject.cpp.obj
+src/util/Enemy.obj: src/util/Enemy.cpp.obj
 
-.PHONY : src/util/Gameobject.obj
+.PHONY : src/util/Enemy.obj
 
 # target to build an object file
-src/util/Gameobject.cpp.obj:
-	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/Gameobject.cpp.obj
-.PHONY : src/util/Gameobject.cpp.obj
+src/util/Enemy.cpp.obj:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/Enemy.cpp.obj
+.PHONY : src/util/Enemy.cpp.obj
 
-src/util/Gameobject.i: src/util/Gameobject.cpp.i
+src/util/Enemy.i: src/util/Enemy.cpp.i
 
-.PHONY : src/util/Gameobject.i
+.PHONY : src/util/Enemy.i
 
 # target to preprocess a source file
-src/util/Gameobject.cpp.i:
-	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/Gameobject.cpp.i
-.PHONY : src/util/Gameobject.cpp.i
+src/util/Enemy.cpp.i:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/Enemy.cpp.i
+.PHONY : src/util/Enemy.cpp.i
 
-src/util/Gameobject.s: src/util/Gameobject.cpp.s
+src/util/Enemy.s: src/util/Enemy.cpp.s
 
-.PHONY : src/util/Gameobject.s
+.PHONY : src/util/Enemy.s
 
 # target to generate assembly for a file
-src/util/Gameobject.cpp.s:
-	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/Gameobject.cpp.s
-.PHONY : src/util/Gameobject.cpp.s
+src/util/Enemy.cpp.s:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/Enemy.cpp.s
+.PHONY : src/util/Enemy.cpp.s
+
+src/util/LibObj/list.obj: src/util/LibObj/list.cpp.obj
+
+.PHONY : src/util/LibObj/list.obj
+
+# target to build an object file
+src/util/LibObj/list.cpp.obj:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/LibObj/list.cpp.obj
+.PHONY : src/util/LibObj/list.cpp.obj
+
+src/util/LibObj/list.i: src/util/LibObj/list.cpp.i
+
+.PHONY : src/util/LibObj/list.i
+
+# target to preprocess a source file
+src/util/LibObj/list.cpp.i:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/LibObj/list.cpp.i
+.PHONY : src/util/LibObj/list.cpp.i
+
+src/util/LibObj/list.s: src/util/LibObj/list.cpp.s
+
+.PHONY : src/util/LibObj/list.s
+
+# target to generate assembly for a file
+src/util/LibObj/list.cpp.s:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/LibObj/list.cpp.s
+.PHONY : src/util/LibObj/list.cpp.s
+
+src/util/LibObj/objLoader.obj: src/util/LibObj/objLoader.cpp.obj
+
+.PHONY : src/util/LibObj/objLoader.obj
+
+# target to build an object file
+src/util/LibObj/objLoader.cpp.obj:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/LibObj/objLoader.cpp.obj
+.PHONY : src/util/LibObj/objLoader.cpp.obj
+
+src/util/LibObj/objLoader.i: src/util/LibObj/objLoader.cpp.i
+
+.PHONY : src/util/LibObj/objLoader.i
+
+# target to preprocess a source file
+src/util/LibObj/objLoader.cpp.i:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/LibObj/objLoader.cpp.i
+.PHONY : src/util/LibObj/objLoader.cpp.i
+
+src/util/LibObj/objLoader.s: src/util/LibObj/objLoader.cpp.s
+
+.PHONY : src/util/LibObj/objLoader.s
+
+# target to generate assembly for a file
+src/util/LibObj/objLoader.cpp.s:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/LibObj/objLoader.cpp.s
+.PHONY : src/util/LibObj/objLoader.cpp.s
+
+src/util/LibObj/obj_parser.obj: src/util/LibObj/obj_parser.cpp.obj
+
+.PHONY : src/util/LibObj/obj_parser.obj
+
+# target to build an object file
+src/util/LibObj/obj_parser.cpp.obj:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/LibObj/obj_parser.cpp.obj
+.PHONY : src/util/LibObj/obj_parser.cpp.obj
+
+src/util/LibObj/obj_parser.i: src/util/LibObj/obj_parser.cpp.i
+
+.PHONY : src/util/LibObj/obj_parser.i
+
+# target to preprocess a source file
+src/util/LibObj/obj_parser.cpp.i:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/LibObj/obj_parser.cpp.i
+.PHONY : src/util/LibObj/obj_parser.cpp.i
+
+src/util/LibObj/obj_parser.s: src/util/LibObj/obj_parser.cpp.s
+
+.PHONY : src/util/LibObj/obj_parser.s
+
+# target to generate assembly for a file
+src/util/LibObj/obj_parser.cpp.s:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/LibObj/obj_parser.cpp.s
+.PHONY : src/util/LibObj/obj_parser.cpp.s
+
+src/util/LibObj/string_extra.obj: src/util/LibObj/string_extra.cpp.obj
+
+.PHONY : src/util/LibObj/string_extra.obj
+
+# target to build an object file
+src/util/LibObj/string_extra.cpp.obj:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/LibObj/string_extra.cpp.obj
+.PHONY : src/util/LibObj/string_extra.cpp.obj
+
+src/util/LibObj/string_extra.i: src/util/LibObj/string_extra.cpp.i
+
+.PHONY : src/util/LibObj/string_extra.i
+
+# target to preprocess a source file
+src/util/LibObj/string_extra.cpp.i:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/LibObj/string_extra.cpp.i
+.PHONY : src/util/LibObj/string_extra.cpp.i
+
+src/util/LibObj/string_extra.s: src/util/LibObj/string_extra.cpp.s
+
+.PHONY : src/util/LibObj/string_extra.s
+
+# target to generate assembly for a file
+src/util/LibObj/string_extra.cpp.s:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/LibObj/string_extra.cpp.s
+.PHONY : src/util/LibObj/string_extra.cpp.s
+
+src/util/Map.obj: src/util/Map.cpp.obj
+
+.PHONY : src/util/Map.obj
+
+# target to build an object file
+src/util/Map.cpp.obj:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/Map.cpp.obj
+.PHONY : src/util/Map.cpp.obj
+
+src/util/Map.i: src/util/Map.cpp.i
+
+.PHONY : src/util/Map.i
+
+# target to preprocess a source file
+src/util/Map.cpp.i:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/Map.cpp.i
+.PHONY : src/util/Map.cpp.i
+
+src/util/Map.s: src/util/Map.cpp.s
+
+.PHONY : src/util/Map.s
+
+# target to generate assembly for a file
+src/util/Map.cpp.s:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/Map.cpp.s
+.PHONY : src/util/Map.cpp.s
+
+src/util/Object.obj: src/util/Object.cpp.obj
+
+.PHONY : src/util/Object.obj
+
+# target to build an object file
+src/util/Object.cpp.obj:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/Object.cpp.obj
+.PHONY : src/util/Object.cpp.obj
+
+src/util/Object.i: src/util/Object.cpp.i
+
+.PHONY : src/util/Object.i
+
+# target to preprocess a source file
+src/util/Object.cpp.i:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/Object.cpp.i
+.PHONY : src/util/Object.cpp.i
+
+src/util/Object.s: src/util/Object.cpp.s
+
+.PHONY : src/util/Object.s
+
+# target to generate assembly for a file
+src/util/Object.cpp.s:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/Object.cpp.s
+.PHONY : src/util/Object.cpp.s
+
+src/util/Piece.obj: src/util/Piece.cpp.obj
+
+.PHONY : src/util/Piece.obj
+
+# target to build an object file
+src/util/Piece.cpp.obj:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/Piece.cpp.obj
+.PHONY : src/util/Piece.cpp.obj
+
+src/util/Piece.i: src/util/Piece.cpp.i
+
+.PHONY : src/util/Piece.i
+
+# target to preprocess a source file
+src/util/Piece.cpp.i:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/Piece.cpp.i
+.PHONY : src/util/Piece.cpp.i
+
+src/util/Piece.s: src/util/Piece.cpp.s
+
+.PHONY : src/util/Piece.s
+
+# target to generate assembly for a file
+src/util/Piece.cpp.s:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/Piece.cpp.s
+.PHONY : src/util/Piece.cpp.s
+
+src/util/Skybox.obj: src/util/Skybox.cpp.obj
+
+.PHONY : src/util/Skybox.obj
+
+# target to build an object file
+src/util/Skybox.cpp.obj:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/Skybox.cpp.obj
+.PHONY : src/util/Skybox.cpp.obj
+
+src/util/Skybox.i: src/util/Skybox.cpp.i
+
+.PHONY : src/util/Skybox.i
+
+# target to preprocess a source file
+src/util/Skybox.cpp.i:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/Skybox.cpp.i
+.PHONY : src/util/Skybox.cpp.i
+
+src/util/Skybox.s: src/util/Skybox.cpp.s
+
+.PHONY : src/util/Skybox.s
+
+# target to generate assembly for a file
+src/util/Skybox.cpp.s:
+	$(MAKE) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/util/Skybox.cpp.s
+.PHONY : src/util/Skybox.cpp.s
 
 src/view/View.obj: src/view/View.cpp.obj
 
@@ -275,9 +491,33 @@ help:
 	@echo ... src/model/Model.obj
 	@echo ... src/model/Model.i
 	@echo ... src/model/Model.s
-	@echo ... src/util/Gameobject.obj
-	@echo ... src/util/Gameobject.i
-	@echo ... src/util/Gameobject.s
+	@echo ... src/util/Enemy.obj
+	@echo ... src/util/Enemy.i
+	@echo ... src/util/Enemy.s
+	@echo ... src/util/LibObj/list.obj
+	@echo ... src/util/LibObj/list.i
+	@echo ... src/util/LibObj/list.s
+	@echo ... src/util/LibObj/objLoader.obj
+	@echo ... src/util/LibObj/objLoader.i
+	@echo ... src/util/LibObj/objLoader.s
+	@echo ... src/util/LibObj/obj_parser.obj
+	@echo ... src/util/LibObj/obj_parser.i
+	@echo ... src/util/LibObj/obj_parser.s
+	@echo ... src/util/LibObj/string_extra.obj
+	@echo ... src/util/LibObj/string_extra.i
+	@echo ... src/util/LibObj/string_extra.s
+	@echo ... src/util/Map.obj
+	@echo ... src/util/Map.i
+	@echo ... src/util/Map.s
+	@echo ... src/util/Object.obj
+	@echo ... src/util/Object.i
+	@echo ... src/util/Object.s
+	@echo ... src/util/Piece.obj
+	@echo ... src/util/Piece.i
+	@echo ... src/util/Piece.s
+	@echo ... src/util/Skybox.obj
+	@echo ... src/util/Skybox.i
+	@echo ... src/util/Skybox.s
 	@echo ... src/view/View.obj
 	@echo ... src/view/View.i
 	@echo ... src/view/View.s

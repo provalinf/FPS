@@ -51,7 +51,7 @@ void Controller::ActionEvent(sf::Time time) {
 
 		MoveKeyPressed(event, time.asSeconds());
 	}
-	MoveKeyPressed(event, time.asSeconds());
+	//MoveKeyPressed(event, time.asSeconds());
 	// Évite/(Réduit) le temps d'attente système pour la répétition d'une touche (Temporaire, ne fonctionne que sur les architectures de faible puissance)
 
 }
@@ -83,12 +83,12 @@ void Controller::MoveKeyPressed(sf::Event event, float myftime) {
 		}
 	}
 
-    if(Speedpick) {
-        model->ResetSpeed();
-        if(model->getVitesseDep() == 10){
-            Speedpick = false;
-        }
-    }
+	if (Speedpick) {
+		model->ResetSpeed();
+		if (model->getVitesseDep() == 30) {
+			Speedpick = false;
+		}
+	}
 
 	// mur bleu
 	int pos_y = (int) ceilf(model->camera.y);
@@ -137,26 +137,26 @@ void Controller::MoveKeyPressed(sf::Event event, float myftime) {
 
 void Controller::ramassePiece(int x, int y) {
 
-    if (model->getMatrice()[x][y] == 2) {
+	if (model->getMatrice()[x][y] == 2) {
 		model->setMatrice(x, y, 0);
 		model->JoueSoundPiece();
-        compteur++;
+		compteur++;
 	}
-    if (model->getMatrice()[x][y] == 3) {
-        model->setMatrice(x, y, 0);
-        model->JoueSoundPiece();
-        model->setDepart();
-        model->setVitesseDep(10.0);
-        model->ChangePitch(1.5);
-        Speedpick = true;
-    }
+	if (model->getMatrice()[x][y] == 3) {
+		model->setMatrice(x, y, 0);
+		model->JoueSoundPiece();
+		model->setDepart();
+		model->setVitesseDep(model->getVitesseDep() + 20.0f);
+		model->ChangePitch(1.5);
+		Speedpick = true;
+	}
 }
 
-int Controller::GetCompteur(){
-    return compteur;
+int Controller::GetCompteur() {
+	return compteur;
 }
 
 Controller::~Controller() {
-	std::cout << "Destructeur de controlleur" << std::endl;
+	std::cout << "Destructeur de controleur" << std::endl;
 }
 

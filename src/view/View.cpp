@@ -13,7 +13,6 @@ View::View(Model *model, bool fullscreen) {
 	this->fullscreen = fullscreen;
 	CreationFenetre();
 	controller = new Controller(window, model);
-	gameobject = new Gameobject(model);
 }
 
 void View::CreationFenetre() {
@@ -28,13 +27,6 @@ void View::CreationFenetre() {
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(60);
 	window.setMouseCursorVisible(false);
-
-//    glGenTextures(1, &m_id);
-//    glBindTexture(GL_TEXTURE_2D, m_id);
-//    glTexImage2D(GL_TEXTURE_2D, 0, formatInterne, imageSDL->w, imageSDL->h, 0, format, GL_UNSIGNED_BYTE, imageSDL->pixels);
-//
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 }
 
 void View::initialisation() {
@@ -42,7 +34,13 @@ void View::initialisation() {
 	text_framerate.setFont(model->getFont());
 	text_framerate.setCharacterSize(24); // in pixels, not points!
 
-    model->Loadmusic();
+	// -- TEMPO
+	text_nbpiece.setFont(model->getFont());
+	text_nbpiece.setCharacterSize(24); // in pixels, not points!
+	text_nbpiece.move(0, 20);
+	// -- TEMPO
+
+	model->Loadmusic();
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -50,7 +48,18 @@ void View::initialisation() {
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
 
-	model->CreateMatrix(model->LoadImgMap("mapi_ori.png"));
+
+	map = new Map(model, "mapi_ori.png");
+	skybox = new Skybox(model);
+
+	for (int i = 0; i < 4; ++i) {
+		ennemis[i] = new Enemy(model);
+	}
+	ennemis[0]->SetPosition(4, 2);
+	ennemis[1]->SetPosition(45, 9);
+	ennemis[2]->SetPosition(25, 26);
+	ennemis[3]->SetPosition(18, 2);
+
 
 	while (window.isOpen()) {
 		sf::Time myTime = Clock.getElapsedTime();
@@ -62,6 +71,7 @@ void View::initialisation() {
 		if (model->isDebug()) {
 			displayFramerate(window, Clock.restart());
 		}
+		displayNBPieceTempo(window);
 
 		window.display();
 		window.clear();
@@ -78,45 +88,45 @@ void View::BouclePrincipale() {
 			  model->camera.y + sin(-model->camera.eyeX * RAD),
 			  model->camera.eyeZ, 0, 0, 1);
 
-	//glTranslated(model->pos.x, model->pos.y, model->pos.z);
+	map->GenerateMap();
+	skybox->GenerateSkyBox();
 
-	//glBegin(GL_QUADS);
+	/*for (int i = 0; i < 4; ++i) {
+		ennemis[i]->GenerateEnemy();
+	}*/
 
-	/*...*/
-
-//    glVertex3d(1,1,1);
-//    glVertex3d(1,1,-1);
-//    glVertex3d(-1,1,-1);
-//    glVertex3d(-1,1,1);
-    gameobject->CreateSkyBox(500,500,500,-64,-64,0);
-	gameobject->CreateSol();
-    gameobject->Ghost1();
-    gameobject->Ghost2();
-    gameobject->Ghost3();
-    gameobject->Ghost4();
-	gameobject->GenerateMap();
-
+	// -- TEMPO débug ennemi
+	ennemis[0]->GenerateEnemy();
+	// -- TEMPO débug ennemi
 
 	glFlush();
 }
 
 void View::displayFramerate(sf::RenderWindow &window, sf::Time clock) {
-	//double framerate = 1 / (clock.asMilliseconds() * 0.001);
+	double framerate = 1 / (clock.asMilliseconds() * 0.001);
 
-	//std::ostringstream buff1;
-    std::ostringstream buff2;
-	//buff1 << framerate;
-    buff2 << controller->GetCompteur();
-    //text_framerate.setString("FPS : " + buff1.str());
-    text_framerate.setString(buff2.str() + "/142");
+	std::ostringstream buff1;
+	buff1 << framerate;
+	text_framerate.setString("FPS : " + buff1.str());
 
 	window.pushGLStates();          // Sauvegarde de l'état OpenGL
 	window.draw(text_framerate);    // Affichage du texte
 	window.popGLStates();           // Restauration de l'état OpenGL
 }
 
+void View::displayNBPieceTempo(sf::RenderWindow &window) {
+	std::ostringstream buff2;
+	buff2 << controller->GetCompteur();
+	text_nbpiece.setString(buff2.str() + "/142");
+
+	window.pushGLStates();          // Sauvegarde de l'état OpenGL
+	window.draw(text_nbpiece);    // Affichage du texte
+	window.popGLStates();           // Restauration de l'état OpenGL
+}
+
 View::~View() {
 	std::cout << "Destructeur de vue" << std::endl;
-	delete controller;
-	delete gameobject;
+	delete (controller);
+	delete (skybox);
+	delete (map);
 }

@@ -9,7 +9,9 @@
 #include <SFML/Graphics/Text.hpp>
 #include "../model/Model.h"
 #include "../controller/Controller.h"
-#include "../util/Gameobject.h"
+#include "../util/Skybox.h"
+#include "../util/Map.h"
+#include "../util/Enemy.h"
 
 const sf::String TITRE_FENETRE = "Pacman 3D";
 
@@ -18,16 +20,23 @@ private:
 
 	Model *model;
 	Controller *controller;
-	Gameobject *gameobject;
+	Map *map;
+	Skybox *skybox;
+	Enemy *ennemis[4];
+
 	bool fullscreen;
 
 	sf::RenderWindow window;
 
 	sf::Clock Clock;
 	sf::Text text_framerate;
+	sf::Text text_nbpiece;
+
 
 public:
 	View(Model *model, bool fullscreen);
+
+	~View();
 
 	void CreationFenetre();
 
@@ -37,7 +46,8 @@ public:
 
 	void displayFramerate(sf::RenderWindow &window, sf::Time clock);
 
-	~View();
+	void displayNBPieceTempo(sf::RenderWindow &window);
+
 };
 
 

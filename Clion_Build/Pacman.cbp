@@ -34,7 +34,10 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add option="-DGLEW_STATIC"/>
 					<Add directory="D:/Mes Documents/Desktop/SFML-2.4.0/include"/>
+					<Add directory="D:/Mes Documents/Desktop/glm"/>
+					<Add directory="D:/Mes Documents/Desktop/glew-2.0.0/include"/>
 					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/include"/>
 					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/../../../../include"/>
 					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/include-fixed"/>
@@ -57,7 +60,10 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add option="-DGLEW_STATIC"/>
 					<Add directory="D:/Mes Documents/Desktop/SFML-2.4.0/include"/>
+					<Add directory="D:/Mes Documents/Desktop/glm"/>
+					<Add directory="D:/Mes Documents/Desktop/glew-2.0.0/include"/>
 					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/include"/>
 					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/../../../../include"/>
 					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/include-fixed"/>
@@ -99,10 +105,58 @@
 		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/model/Model.h">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/util/Gameobject.cpp">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/util/Enemy.cpp">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/util/Gameobject.h">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/util/Enemy.h">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/util/LibObj/list.cpp">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/util/LibObj/list.h">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/util/LibObj/objLoader.cpp">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/util/LibObj/objLoader.h">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/util/LibObj/obj_parser.cpp">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/util/LibObj/obj_parser.h">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/util/LibObj/string_extra.cpp">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/util/LibObj/string_extra.h">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/util/Map.cpp">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/util/Map.h">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/util/Object.cpp">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/util/Object.h">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/util/Piece.cpp">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/util/Piece.h">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/util/Skybox.cpp">
+			<Option target="Pacman"/>
+		</Unit>
+		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/util/Skybox.h">
 			<Option target="Pacman"/>
 		</Unit>
 		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice/src/view/View.cpp">

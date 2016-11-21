@@ -13,8 +13,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -static-libgcc -Wall")
 
 #include_directories("${PROJECT_SOURCE_DIR}/Libs")
 
-set(SFMLDIR "C:/Users/Cyril/Documents/Librairie/SFML-2.4.0")
-set(SFML_ROOT "C:/Users/Cyril/Documents/Librairie/SFML-2.4.0")
+set(SFMLDIR "D:/Mes Documents/Desktop/SFML-2.4.0")
+set(SFML_ROOT "D:/Mes Documents/Desktop/SFML-2.4.0")
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${SFMLDIR}/cmake/Modules/")
 set(SFML_LIBRARIES "${SFMLDIR}/lib")
@@ -35,7 +35,7 @@ set(SFML_INCLUDE_DIR "${SFMLDIR}/include")
 file(GLOB_RECURSE SOURCE_FILES
 		"src/*.h" "src/*.cpp")
 
-add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+add_executable(${PROJECT_NAME} ${SOURCE_FILES} )
 
 find_package(SFML 2 COMPONENTS system window graphics audio REQUIRED)
 
@@ -51,3 +51,13 @@ if (OPENGL_FOUND)
 	# or: target_link_libraries(${EXECUTABLE_NAME} ${OPENGL_gl_LIBRARY})
 	target_link_libraries(${EXECUTABLE_NAME} m)  # if you use maths.h
 endif ()
+
+# GLM
+set(GLM_DIRS "D:/Mes Documents/Desktop/glm")
+include_directories(${GLM_DIRS})
+
+# GLEW
+set(GLEW_DIR "D:/Mes Documents/Desktop/glew-2.0.0")
+include_directories(${GLEW_DIR}/include)
+add_definitions(-DGLEW_STATIC)
+link_directories(${GLEW_DIR}/lib)

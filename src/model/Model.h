@@ -10,12 +10,17 @@
 #include <SFML/Audio.hpp>
 
 struct Camera {
-	float x, y, z = 0.0f;
-	float eyeX, eyeZ = 0.0f;
+	float x = 0.0f, y = 0.0f, z = 0.0f;
+	float eyeX = 0.0f, eyeZ = 0.0f;
 };
 
-struct Map {
-	unsigned int x, y = 0;
+struct CoordMap {
+	unsigned int x = 0, y = 0;
+};
+
+struct PosObjet {
+	unsigned int ix = 0, iy = 0, iz = 0;
+	float fx = 0, fy = 0, fz = 0;
 };
 
 class Model {
@@ -24,7 +29,7 @@ private:
 	bool debug;
 	float vitesseDep;
 
-    time_t depart, arrivee;
+	time_t depart, arrivee;
 
 	void InitFont();
 
@@ -33,7 +38,7 @@ private:
 	sf::SoundBuffer buf_SoundPiece;
 	sf::Sound Sound_piece;
 
-    sf::Music music;
+	sf::Music music;
 
 	int **matrice;
 
@@ -41,7 +46,7 @@ private:
 
 public:
 	Camera camera;
-	Map map;
+	CoordMap map;
 	int piece_height;
 
 	Model(bool debug = false);
@@ -56,7 +61,7 @@ public:
 
 	sf::Image LoadImgMap(sf::String nomFichier);
 
-	Map &getMap();
+	CoordMap &getMap();
 
 	void CreateMatrix(sf::Image image);
 
@@ -72,15 +77,17 @@ public:
 
 	~Model();
 
-    float setVitesseDep(float acc);
+	float setVitesseDep(float acc);
 
-    void Loadmusic();
+	void Loadmusic();
 
-    void ChangePitch(float val);
+	void ChangePitch(float val);
 
-    void ResetSpeed();
+	void ResetSpeed();
 
-    time_t setDepart();
+	time_t setDepart();
+
+	std::string toString(int integer);
 };
 
 #endif //PACMAN_MODEL_H
