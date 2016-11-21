@@ -129,4 +129,7 @@ View::~View() {
 	delete (controller);
 	delete (skybox);
 	delete (map);
+	for (int i = 0; i < 4; ++i) {
+		delete (ennemis[i]);
+	}
 }
