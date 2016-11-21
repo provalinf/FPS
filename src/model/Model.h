@@ -20,7 +20,7 @@ struct CoordMap {
 
 struct PosObjet {
 	unsigned int ix = 0, iy = 0, iz = 0;
-	float fx = 0, fy = 0, fz = 0;
+	float fx = 0.0f, fy = 0.0f, fz = 0.0f;
 };
 
 class Model {

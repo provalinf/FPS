@@ -26,23 +26,23 @@ void Enemy::GenerateEnemy() {
 
 void Enemy::GenerateEnemyCube() {
 
-	up_y = (int) y1 + 1;
-	up_x = (int) x1;
+	int up_y = (int) position.fy + 1;
+	int up_x = (int) position.fx;
 
-	down_y = (int) y1 - 1;
-	down_x = (int) x1;
+	int down_y = (int) position.fy - 1;
+	int down_x = (int) position.fx;
 
-	left_y = (int) y1;
-	left_x = (int) x1 - 1;
+	int left_y = (int) position.fy;
+	int left_x = (int) position.fx - 1;
 
-	right_y = (int) y1;
-	right_x = (int) x1 + 1;
+	int right_y = (int) position.fy;
+	int right_x = (int) position.fx + 1;
 
 
-	if (model->getMatrice()[up_x][up_y] == 1) { y1 -= ennemyspeed; }
-	if (model->getMatrice()[down_x][down_y] == 1) { y1 += ennemyspeed; }
-	if ((model->getMatrice()[left_x][left_y] == 1)) { x1 += ennemyspeed; }
-	if (model->getMatrice()[right_x][right_y] == 1) { x1 -= ennemyspeed; }
+	if (model->getMatrice()[up_x][up_y] == 1) { position.fy -= ennemyspeed; }
+	if (model->getMatrice()[down_x][down_y] == 1) { position.fy += ennemyspeed; }
+	if ((model->getMatrice()[left_x][left_y] == 1)) { position.fx += ennemyspeed; }
+	if (model->getMatrice()[right_x][right_y] == 1) { position.fx -= ennemyspeed; }
 	/*  if ((model->getMatrice()[left_x][left_y] == 1)&&(model->getMatrice()[down_x][down_y] == 1))
 	  {x1+=ennemyspeed;y1+=ennemyspeed;}
 	  if ((model->getMatrice()[right_x][right_y] == 1)&&(model->getMatrice()[down_x][down_y] == 1))
@@ -54,10 +54,10 @@ void Enemy::GenerateEnemyCube() {
 	if ((model->getMatrice()[up_x][up_y] != 1) && (model->getMatrice()[left_x][left_y] != 1) &&
 		(model->getMatrice()[right_x][right_y] != 1) && (model->getMatrice()[down_x][down_y] != 1)) {
 
-		if (x1 < model->camera.x) { x1 += ennemyspeed; }
-		if (x1 > model->camera.x) { x1 -= ennemyspeed; }
-		if (y1 < model->camera.y) { y1 += ennemyspeed; }
-		if (y1 > model->camera.y) { y1 -= ennemyspeed; }
+		if (position.fx < model->camera.x) { position.fx += ennemyspeed; }
+		if (position.fx > model->camera.x) { position.fx -= ennemyspeed; }
+		if (position.fy < model->camera.y) { position.fy += ennemyspeed; }
+		if (position.fy > model->camera.y) { position.fy -= ennemyspeed; }
 
 
 
@@ -74,7 +74,7 @@ void Enemy::GenerateEnemyCube() {
 			 x1+=ennemyspeed;
 		 }*/
 	}
-	CreateCube(1, 1, 4, x1, y1, 0);
+	CreateCube(1, 1, 4, position.fx, position.fy, 0);
 
 
 }

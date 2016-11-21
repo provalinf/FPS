@@ -55,10 +55,10 @@ void View::initialisation() {
 	for (int i = 0; i < 4; ++i) {
 		ennemis[i] = new Enemy(model);
 	}
-	ennemis[0]->SetPosition(4, 2);
-	ennemis[1]->SetPosition(45, 9);
-	ennemis[2]->SetPosition(25, 26);
-	ennemis[3]->SetPosition(18, 2);
+	ennemis[0]->SetPosition(4.0f, 2.0f);
+	ennemis[1]->SetPosition(45.0f, 9.0f);
+	ennemis[2]->SetPosition(25.0f, 26.0f);
+	ennemis[3]->SetPosition(18.0f, 2.0f);
 
 
 	while (window.isOpen()) {
@@ -91,13 +91,9 @@ void View::BouclePrincipale() {
 	map->GenerateMap();
 	skybox->GenerateSkyBox();
 
-	/*for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < 4; ++i) {
 		ennemis[i]->GenerateEnemy();
-	}*/
-
-	// -- TEMPO débug ennemi
-	ennemis[0]->GenerateEnemy();
-	// -- TEMPO débug ennemi
+	}
 
 	glFlush();
 }
