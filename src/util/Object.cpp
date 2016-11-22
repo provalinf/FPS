@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <GL/glu.h>
 #include "Object.h"
 
 Object::Object(Model *model) {
@@ -15,17 +16,18 @@ void Object::CreateTexture(sf::String repertoire, unsigned int nb_texture) {
 	Texture = new GLuint[nb_texture];
 
 	for (unsigned int i = 0; i < nb_texture; i++) {
-		if (!img_tex[i].loadFromFile("img/" + repertoire + "/face" + model->toString(i + 1) + ".bmp")) {
+		if (!img_tex[i].loadFromFile("img/" + repertoire + "/face" + model->toString((int)i + 1) + ".jpg")) {
 			std::cout << "Erreur chargement img_tex pour texture img/" + repertoire.toAnsiString() + "/face" << i + 1
-					  << ".bmp" << std::endl;
+					  << ".jpg" << std::endl;
 			std::exit(1);
 		}
+		PreLoadTexture(i);
 	}
 }
 
-void Object::LoadTexture(unsigned int num_texture) {
-	if (num_texture >= nb_texture) { std::cout << "Erreur, seul " << nb_texture << " sont disponibles" << std::endl; }
-	glBindTexture(GL_TEXTURE_2D, Texture[num_texture]);
+void Object::PreLoadTexture(unsigned int num_texture) {
+	if (num_texture >= nb_texture) { std::cout << "Erreur, seul " << nb_texture << " sont disponibles" << std::endl; std::exit(1);}
+	/*glBindTexture(GL_TEXTURE_2D, Texture[num_texture]);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
@@ -38,10 +40,22 @@ void Object::LoadTexture(unsigned int num_texture) {
 			GL_RGBA, //format of the external texture data
 			GL_UNSIGNED_BYTE,
 			img_tex[num_texture].getPixelsPtr() //pointer to array of pixel data
-	);
+	);*/
 
+	glGenTextures(1, &Texture[num_texture]);
+	glBindTexture(GL_TEXTURE_2D, Texture[num_texture]);
+	gluBuild2DMipmaps(GL_TEXTURE_2D, 3, img_tex[num_texture].getSize().x, img_tex[num_texture].getSize().y, GL_RGBA, GL_UNSIGNED_BYTE, img_tex[num_texture].getPixelsPtr());
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+	//glColor3d(255, 255, 255);
+
+	/*glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, Texture[num_texture]);*/
+}
+
+void Object::LoadTexture(unsigned int num_texture) {
 	glColor3d(255, 255, 255);
-
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, Texture[num_texture]);
 }

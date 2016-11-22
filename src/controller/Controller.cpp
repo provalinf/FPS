@@ -83,11 +83,10 @@ void Controller::MoveKeyPressed(sf::Event event, float myftime) {
 		}
 	}
 
-	if (Speedpick) {
-		model->ResetSpeed();
-		if (model->getVitesseDep() == 30) {
-			Speedpick = false;
-		}
+	if (Etat_PieceNoire &&
+		((sf::Time) Clock_ActionEvent.getElapsedTime()).asSeconds() - Clock_time_PieceNoire.asSeconds() > 10) {
+		//std::cout << "tmps " << ((sf::Time) Clock_ActionEvent.getElapsedTime()).asSeconds() - Clock_time_PieceNoire.asSeconds() << std::endl;
+		DesactivationPieceNoire();
 	}
 
 	// mur bleu
@@ -145,11 +144,23 @@ void Controller::ramassePiece(int x, int y) {
 	if (model->getMatrice()[x][y] == 3) {
 		model->setMatrice(x, y, 0);
 		model->JoueSoundPiece();
-		model->setDepart();
-		model->setVitesseDep(model->getVitesseDep() + 20.0f);
-		model->ChangePitch(1.5);
-		Speedpick = true;
+		ActivationPieceNoire();
 	}
+}
+
+void Controller::ActivationPieceNoire() {
+	Etat_PieceNoire = true;
+	model->ChangeMusicPitch(1.5);
+	Clock_time_PieceNoire = Clock_ActionEvent.getElapsedTime();    // /!\ Le chrono n'est jamais réinitialisé (pas besoin)
+	model->setVitesseDep(model->getVitesseDep() + 20.0f);
+	//std::cout << "Piece noire vitesse : " << model->getVitesseDep() << std::endl;
+}
+
+void Controller::DesactivationPieceNoire() {
+	Etat_PieceNoire = false;
+	model->ResetVitesseDep();
+	model->ResetMusicPitch();
+	//std::cout << "Desactivation piece noire vitesse : " << model->getVitesseDep() << std::endl;
 }
 
 int Controller::GetCompteur() {

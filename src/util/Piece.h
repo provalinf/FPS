@@ -11,11 +11,11 @@ class Piece : public Object {
 public:
 	Piece(Model *model);
 
+	~Piece();
+
 	void CreateCoin(int x, int y);
 
 	void CreateSpeedCoin(int x, int y);
-
-	~Piece();
 };
 
 

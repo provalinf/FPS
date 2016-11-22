@@ -12,17 +12,19 @@
 class Controller {
 private:
 	sf::RenderWindow &window;
-	sf::Clock Clock;
-	sf::Text text_framerate;
-	bool Speedpick = false;
-
 	Model *model;
+
+	sf::Clock Clock_ActionEvent;
+	sf::Time Clock_time_PieceNoire;
+	bool Etat_PieceNoire = false;
 
 	int compteur = 0;
 
 public:
 
 	Controller(sf::RenderWindow &window, Model *model);
+
+	~Controller();
 
 	void ActionEvent(sf::Time time);
 
@@ -32,9 +34,9 @@ public:
 
 	int GetCompteur();
 
-	~Controller();
+	void ActivationPieceNoire();
 
-
+	void DesactivationPieceNoire();
 };
 
 

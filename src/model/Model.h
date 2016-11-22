@@ -27,9 +27,10 @@ class Model {
 private:
 	sf::Font font;
 	bool debug;
-	float vitesseDep;
 
-	time_t depart, arrivee;
+	float vitesseDep;
+	int piece_height;
+	int nombreDePieces = 0;
 
 	void InitFont();
 
@@ -41,21 +42,26 @@ private:
 	sf::Music music;
 
 	int **matrice;
+	CoordMap map;
 
 	void DefineTailleMap(sf::Image image);
 
 public:
 	Camera camera;
-	CoordMap map;
-	int piece_height;
 
 	Model(bool debug = false);
+
+	~Model();
 
 	bool isDebug() const;
 
 	sf::Font &getFont();
 
 	float getVitesseDep();
+
+	void setVitesseDep(float acc);
+
+	void ResetVitesseDep();
 
 	sf::VideoMode getResolution();
 
@@ -71,23 +77,29 @@ public:
 
 	void DestructionMatrix();
 
+	int getHauteurPiece();
+
+	int getNombreTotalPiece();
+
+	void IncremNombreTotalPiece();
+
 	void InitialiseSoundPiece(sf::String nomFichier);
 
 	void JoueSoundPiece();
 
-	~Model();
+	void InitialiseMusic(sf::String nomFichier);
 
-	float setVitesseDep(float acc);
+	void LanceMusic();
 
-	void Loadmusic();
+	void ChangeMusicPitch(float val);
 
-	void ChangePitch(float val);
-
-	void ResetSpeed();
-
-	time_t setDepart();
+	void ResetMusicPitch();
 
 	std::string toString(int integer);
+
+	std::string toString(double dble);
+
+	std::string toString(float flt);
 };
 
 #endif //PACMAN_MODEL_H

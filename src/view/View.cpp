@@ -40,14 +40,13 @@ void View::initialisation() {
 	text_nbpiece.move(0, 20);
 	// -- TEMPO
 
-	model->Loadmusic();
+	model->LanceMusic();
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(70, (double) window.getSize().x / window.getSize().y, 1, 1000);
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
-
 
 	map = new Map(model, "mapi_ori.png");
 	skybox = new Skybox(model);
@@ -100,10 +99,7 @@ void View::BouclePrincipale() {
 
 void View::displayFramerate(sf::RenderWindow &window, sf::Time clock) {
 	double framerate = 1 / (clock.asMilliseconds() * 0.001);
-
-	std::ostringstream buff1;
-	buff1 << framerate;
-	text_framerate.setString("FPS : " + buff1.str());
+	text_framerate.setString("FPS : " + model->toString(framerate));
 
 	window.pushGLStates();          // Sauvegarde de l'état OpenGL
 	window.draw(text_framerate);    // Affichage du texte
@@ -111,9 +107,8 @@ void View::displayFramerate(sf::RenderWindow &window, sf::Time clock) {
 }
 
 void View::displayNBPieceTempo(sf::RenderWindow &window) {
-	std::ostringstream buff2;
-	buff2 << controller->GetCompteur();
-	text_nbpiece.setString(buff2.str() + "/142");
+	text_nbpiece.setString(
+			model->toString(controller->GetCompteur()) + "/" + model->toString(model->getNombreTotalPiece()));
 
 	window.pushGLStates();          // Sauvegarde de l'état OpenGL
 	window.draw(text_nbpiece);    // Affichage du texte

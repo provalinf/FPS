@@ -9,9 +9,12 @@
 #include <sstream>
 #include "Model.h"
 
+const float vitesseDepDefaut = 30.f;
+
 Model::Model(bool debug) {
 	this->debug = debug;
 	InitFont();
+	InitialiseMusic("music2.wav");
 	InitialiseSoundPiece("ting.wav");
 
 	piece_height = 1;
@@ -20,7 +23,7 @@ Model::Model(bool debug) {
 
 	camera.z = 1.5;    // Défaut : 1.5
 	camera.eyeZ = camera.z;
-	vitesseDep = 30.f;
+	ResetVitesseDep();
 }
 
 /*Model::Model(bool debug) {	// Surcharge de constructeur inutile, valeur par défaut pour param disponible en C++
@@ -68,6 +71,7 @@ void Model::CreateMatrix(sf::Image image) {
 				matrice[x][y] = 0;
 			} else if (image.getPixel(x, y) == color.Red) {
 				matrice[x][y] = 2;
+				IncremNombreTotalPiece();
 			} else if (image.getPixel(x, y) == color.Green) {
 				matrice[x][y] = 3;
 			}
@@ -102,21 +106,24 @@ float Model::getVitesseDep() {
 	return vitesseDep;
 }
 
-time_t Model::setDepart() {
-	return time(&depart);
+void Model::setVitesseDep(float v) {
+	vitesseDep = v;
 }
 
-float Model::setVitesseDep(float v) {
-	return vitesseDep = v;
+void Model::ResetVitesseDep() {
+	vitesseDep = vitesseDepDefaut;
 }
 
-void Model::ResetSpeed() {
+int Model::getHauteurPiece() {
+	return piece_height;
+}
 
-	time(&arrivee);
-	if (difftime(arrivee, depart) >= 20) {
-		setVitesseDep(getVitesseDep()-20.0f);
-		//ChangePitch(1);
-	}
+int Model::getNombreTotalPiece() {
+	return nombreDePieces;
+}
+
+void Model::IncremNombreTotalPiece() {
+	nombreDePieces++;
 }
 
 sf::VideoMode Model::getResolution() {
@@ -136,15 +143,33 @@ void Model::JoueSoundPiece() {
 	Sound_piece.play();
 }
 
-void Model::Loadmusic() {
-
-	if (!music.openFromFile("music2.wav")) { printf("Load music Fail"); }
+void Model::InitialiseMusic(sf::String nomFichier) {
+	if (!music.openFromFile(nomFichier)) { printf("Load music Fail"); }
 	music.setLoop(true);
+}
+
+void Model::LanceMusic() {
 	music.play();
 }
 
-void Model::ChangePitch(float val) {
+void Model::ChangeMusicPitch(float val) {
 	music.setPitch(val);
+}
+
+void Model::ResetMusicPitch() {
+	music.setPitch(1);
+}
+
+std::string Model::toString(double dble) {
+	std::ostringstream os;
+	os << dble;
+	return os.str();
+}
+
+std::string Model::toString(float flt) {
+	std::ostringstream os;
+	os << flt;
+	return os.str();
 }
 
 std::string Model::toString(int integer) {

@@ -13,7 +13,7 @@ class Object {
 protected:
 	Model *model;
 	PosObjet position;
-	unsigned int nb_texture;
+	unsigned int nb_texture = 0;
 	sf::Image *img_tex = NULL;
 	GLuint *Texture = NULL;
 
@@ -37,6 +37,7 @@ public:
 
 	PosObjet &getPosition();
 
+	void PreLoadTexture(unsigned int num_texture);
 };
 
 
