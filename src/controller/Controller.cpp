@@ -19,68 +19,76 @@ void Controller::ActionEvent(sf::Time time) {
 
 	while (window.pollEvent(event)) {
 
-		// évènement "fermeture demandée" : on ferme la fenêtre
 		if (event.type == sf::Event::Closed ||
 			(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {
 			window.close();
 		}
 
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-			//model->camera.x = sf::Mouse::getPosition(window).x * 0.3;
 		}
+
 		// Position relative inexistante dans SFML, donc déplacement du pointeur pour émulation
-
-		// Faire le système "plus propre" au lieu de modifier la position de la souris "bord/bord" prendre le milieu de l'écran pour éviter tout problème (ex : Rustine)
-		int Rustine = 1;
-
-		if (sf::Mouse::getPosition(window).x <= 0 + Rustine) {
+		if (sf::Mouse::getPosition(window).x <= 100) {
 			sf::Mouse::setPosition(
-					sf::Vector2i(window.getSize().x - (Rustine + Rustine), sf::Mouse::getPosition(window).y), window);
+					sf::Vector2i(window.getSize().x - 100, sf::Mouse::getPosition(window).y), window);
 		}
-		if (((unsigned) sf::Mouse::getPosition(window).x) >= window.getSize().x - Rustine) {
-			sf::Mouse::setPosition(sf::Vector2i(0 + Rustine + Rustine, sf::Mouse::getPosition(window).y), window);
+		if (((unsigned) sf::Mouse::getPosition(window).x) >= window.getSize().x - 100) {
+			sf::Mouse::setPosition(sf::Vector2i(100, sf::Mouse::getPosition(window).y), window);
 		}
 
 		model->camera.eyeX =
-				((-sf::Mouse::getPosition(window).x + (float) window.getSize().x / 2) / (float) window.getSize().x) *
+				((-sf::Mouse::getPosition(window).x + (float) (window.getSize().x - 200) / 2) /
+				 (float) (window.getSize().x - 200)) *
 				360;
 		model->camera.eyeZ = model->camera.z + ((-sf::Mouse::getPosition(window).y + (float) window.getSize().y / 2) /
 												(float) window.getSize().y) * 4;
 
 		//std::cout << sf::Mouse::getPosition(window).x << window.getSize().x << std::endl;
 
-		MoveKeyPressed(event, time.asSeconds());
+		MoveKeyboard(event);
 	}
-	//MoveKeyPressed(event, time.asSeconds());
-	// Évite/(Réduit) le temps d'attente système pour la répétition d'une touche (Temporaire, ne fonctionne que sur les architectures de faible puissance)
+
+	MoveKeyPressed(event, time);
 
 }
 
-void Controller::MoveKeyPressed(sf::Event event, float myftime) {
+void Controller::MoveKeyboard(sf::Event event) {
+	if (event.type == sf::Event::KeyPressed) {
+		Keyboard[0] = (event.key.code == sf::Keyboard::Left) ? true : Keyboard[0];
+		Keyboard[1] = (event.key.code == sf::Keyboard::Right) ? true : Keyboard[1];
+		Keyboard[2] = (event.key.code == sf::Keyboard::Up) ? true : Keyboard[2];
+		Keyboard[3] = (event.key.code == sf::Keyboard::Down) ? true : Keyboard[3];
+	}
+
+	if (event.type == sf::Event::KeyReleased) {
+		Keyboard[0] = (event.key.code == sf::Keyboard::Left) ? false : Keyboard[0];
+		Keyboard[1] = (event.key.code == sf::Keyboard::Right) ? false : Keyboard[1];
+		Keyboard[2] = (event.key.code == sf::Keyboard::Up) ? false : Keyboard[2];
+		Keyboard[3] = (event.key.code == sf::Keyboard::Down) ? false : Keyboard[3];
+	}
+
+}
+
+
+void Controller::MoveKeyPressed(sf::Event event, sf::Time myftime) {
 	float tempx = model->camera.x;
 	float tempy = model->camera.y;
 
-	if (event.type == sf::Event::KeyPressed) {
-		if (event.key.code == sf::Keyboard::Left) {
-			model->camera.y += model->getVitesseDep() * myftime * sin((model->camera.eyeX - 90) * PI / 180.0);
-			model->camera.x += model->getVitesseDep() * myftime * cos((model->camera.eyeX - 90) * PI / 180.0);
-		}
-
-		if (event.key.code == sf::Keyboard::Right) {
-			model->camera.y -= model->getVitesseDep() * myftime * sin((model->camera.eyeX - 90) * PI / 180.0);
-			model->camera.x -= model->getVitesseDep() * myftime * cos((model->camera.eyeX - 90) * PI / 180.0);
-		}
-
-		if (event.key.code == sf::Keyboard::Up) {
-			model->camera.y -= model->getVitesseDep() * myftime * sin(model->camera.eyeX * PI / 180.0);
-			model->camera.x -= model->getVitesseDep() * myftime * cos(model->camera.eyeX * PI / 180.0);
-		}
-
-		if (event.key.code == sf::Keyboard::Down) {
-			//model->camera.x += model->getVitesseDep() * myftime/** ellapsed_time*/;
-			model->camera.y += model->getVitesseDep() * myftime * sin(model->camera.eyeX * PI / 180.0);
-			model->camera.x += model->getVitesseDep() * myftime * cos(model->camera.eyeX * PI / 180.0);
-		}
+	if (Keyboard[0]) {
+		model->camera.y += model->getVitesseDep() * myftime.asSeconds() * sin((model->camera.eyeX - 90) * PI / 180.0);
+		model->camera.x += model->getVitesseDep() * myftime.asSeconds() * cos((model->camera.eyeX - 90) * PI / 180.0);
+	}
+	if (Keyboard[1]) {
+		model->camera.y -= model->getVitesseDep() * myftime.asSeconds() * sin((model->camera.eyeX - 90) * PI / 180.0);
+		model->camera.x -= model->getVitesseDep() * myftime.asSeconds() * cos((model->camera.eyeX - 90) * PI / 180.0);
+	}
+	if (Keyboard[2]) {
+		model->camera.y -= model->getVitesseDep() * myftime.asSeconds() * sin(model->camera.eyeX * PI / 180.0);
+		model->camera.x -= model->getVitesseDep() * myftime.asSeconds() * cos(model->camera.eyeX * PI / 180.0);
+	}
+	if (Keyboard[3]) {
+		model->camera.y += model->getVitesseDep() * myftime.asSeconds() * sin(model->camera.eyeX * PI / 180.0);
+		model->camera.x += model->getVitesseDep() * myftime.asSeconds() * cos(model->camera.eyeX * PI / 180.0);
 	}
 
 	if (Etat_PieceNoire &&
@@ -90,46 +98,69 @@ void Controller::MoveKeyPressed(sf::Event event, float myftime) {
 	}
 
 	// mur bleu
-	int pos_y = (int) ceilf(model->camera.y);
 	int pos_x = (int) ceilf(model->camera.x);
+	int pos_y = (int) ceilf(model->camera.y);
 	ramassePiece(pos_x, pos_y);
 
-
 	if (model->getMatrice()[pos_x][pos_y] == 1) {
-		model->camera.x = tempx;
-		model->camera.y = tempy;
+		if (model->getMatrice()[(int) ceilf(tempx)][pos_y] == 1) {
+			model->camera.y = tempy;
+		} else if (model->getMatrice()[pos_x][(int) ceilf(tempy)] == 1) {
+			model->camera.x = tempx;
+		} else {
+			model->camera.x = tempx;
+			model->camera.y = tempy;
+		}
 	}
 
 	// mur rouge
-	int pos_y2 = (int) floor(model->camera.y);
 	int pos_x2 = (int) floor(model->camera.x);
+	int pos_y2 = (int) floor(model->camera.y);
 	ramassePiece(pos_x2, pos_y2);
 
 
 	if (model->getMatrice()[pos_x2][pos_y2 - 1] == 1) {
-		model->camera.x = tempx;
-		model->camera.y = tempy;
+		if (model->getMatrice()[(int) floor(tempx)][pos_y2 - 1] == 1) {
+			model->camera.y = tempy;
+		} else if (model->getMatrice()[pos_x2][(int) floor(tempy) - 1] == 1) {
+			model->camera.x = tempx;
+		} else {
+			model->camera.x = tempx;
+			model->camera.y = tempy;
+		}
 	}
 
 	// mur vert
-	int pos_y3 = (int) ceilf(model->camera.y);
 	int pos_x3 = (int) floor(model->camera.x);
+	int pos_y3 = (int) ceilf(model->camera.y);
 	ramassePiece(pos_x3, pos_y3);
 
 
 	if (model->getMatrice()[pos_x3 - 1][pos_y3] == 1) {
-		model->camera.x = tempx;
-		model->camera.y = tempy;
+		if (model->getMatrice()[(int) floor(tempx) - 1][pos_y3] == 1) {
+			model->camera.y = tempy;
+		} else if (model->getMatrice()[pos_x3 - 1][(int) ceilf(tempy)] == 1) {
+			model->camera.x = tempx;
+		} else {
+			model->camera.x = tempx;
+			model->camera.y = tempy;
+		}
 	}
 
 	// mur jaune
-	int pos_y4 = (int) floor(model->camera.y);
 	int pos_x4 = (int) ceilf(model->camera.x);
+	int pos_y4 = (int) floor(model->camera.y);
 	ramassePiece(pos_x4, pos_y4);
 
 	if (model->getMatrice()[pos_x4][pos_y4] == 1) {
-		model->camera.x = tempx;
-		model->camera.y = tempy;
+		if (model->getMatrice()[(int) ceilf(tempx)][pos_y4] == 1) {
+			model->camera.y = tempy;
+		} else if (model->getMatrice()[pos_x4][(int) floor(tempy)] == 1) {
+			model->camera.x = tempx;
+		} else {
+			model->camera.x = tempx;
+			model->camera.y = tempy;
+		}
 	}
 
 }
@@ -170,4 +201,3 @@ int Controller::GetCompteur() {
 Controller::~Controller() {
 	std::cout << "Destructeur de controleur" << std::endl;
 }
-

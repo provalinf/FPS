@@ -28,7 +28,7 @@ public:
 
 	void ActionEvent(sf::Time time);
 
-	void MoveKeyPressed(sf::Event event, float myftime);
+	void MoveKeyPressed(sf::Event event, sf::Time myftime);
 
 	void ramassePiece(int x, int y);
 
@@ -37,6 +37,10 @@ public:
 	void ActivationPieceNoire();
 
 	void DesactivationPieceNoire();
+
+	bool *Keyboard = new bool[4]{false};
+
+	void MoveKeyboard(sf::Event event);
 };
 
 

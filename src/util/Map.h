@@ -13,7 +13,7 @@ class Map : public Object {
 	Piece *pieces;
 
 public:
-	Map(Model *Model, sf::String nomMap);
+	Map(Model *model, sf::String nomMap);
 
 	~Map();
 

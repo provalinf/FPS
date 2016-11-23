@@ -17,9 +17,9 @@ View::View(Model *model, bool fullscreen) {
 
 void View::CreationFenetre() {
 	sf::ContextSettings Settings;
-	Settings.depthBits = 32;        // Request a 24-bit depth buffer
-	Settings.stencilBits = 10;      // Request a 8 bits stencil buffer
-	Settings.antialiasingLevel = 4; // Request 2 levels of antialiasing
+	Settings.depthBits = 24;        // Request a 24-bit depth buffer
+	Settings.stencilBits = 8;      // Request a 8 bits stencil buffer
+	Settings.antialiasingLevel = 6; // Request 2 levels of antialiasing
 	window.create(sf::VideoMode((fullscreen ? model->getResolution().width : 800),
 								(fullscreen ? model->getResolution().height : 600),
 								32), TITRE_FENETRE, (fullscreen ? sf::Style::Fullscreen : sf::Style::Close), Settings
@@ -27,6 +27,7 @@ void View::CreationFenetre() {
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(60);
 	window.setMouseCursorVisible(false);
+	window.setKeyRepeatEnabled(false);
 }
 
 void View::initialisation() {
