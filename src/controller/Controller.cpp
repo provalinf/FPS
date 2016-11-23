@@ -167,7 +167,7 @@ void Controller::MoveKeyPressed(sf::Event event, sf::Time myftime) {
 
 void Controller::ramassePiece(int x, int y) {
 
-	if (model->getMatrice()[x][y] == 2) {
+    if ((model->getMatrice()[x][y] == 2)||(model->getMatrice()[x+1][y] == 2)||(model->getMatrice()[x-1][y] == 2)||(model->getMatrice()[x][y+1] == 2)||(model->getMatrice()[x][y-1] == 2)) {
 		model->setMatrice(x, y, 0);
 		model->JoueSoundPiece();
 		compteur++;
