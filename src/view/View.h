@@ -23,6 +23,7 @@ private:
 	Map *map;
 	Skybox *skybox;
 	Enemy *ennemis[4];
+    sf::Texture pacman;
 
 	bool fullscreen;
 
@@ -48,6 +49,7 @@ public:
 
 	void displayNBPieceTempo(sf::RenderWindow &window);
 
+    void displayMiniMap(sf::RenderWindow &window);
 };
 
 

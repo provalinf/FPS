@@ -9,7 +9,7 @@
 #include <sstream>
 #include "Model.h"
 
-const float vitesseDepDefaut = 30.f;
+const float vitesseDepDefaut = 10.f;
 
 Model::Model(bool debug) {
 	this->debug = debug;
