@@ -9,7 +9,7 @@
 #include <sstream>
 #include "Model.h"
 
-const float vitesseDepDefaut = 15.f;
+const float vitesseDepDefaut = 12.f;
 
 Model::Model(bool debug) {
 	this->debug = debug;
@@ -132,7 +132,7 @@ sf::VideoMode Model::getResolution() {
 
 void Model::InitialiseSoundPiece(sf::String nomFichier) {
 	if (!buf_SoundPiece.loadFromFile(nomFichier)) {
-		std::cout << "Failure to sound coin : " << nomFichier.toAnsiString() << std::endl;
+		std::cout << "Failure to load sound coin : " << nomFichier.toAnsiString() << std::endl;
 		std::exit(1);
 	}
 	Sound_piece = sf::Sound(buf_SoundPiece);
@@ -144,7 +144,10 @@ void Model::JoueSoundPiece() {
 }
 
 void Model::InitialiseMusic(sf::String nomFichier) {
-	if (!music.openFromFile(nomFichier)) { printf("Load music Fail"); }
+	if (!music.openFromFile(nomFichier)) {
+		std::cout << "Failure to load music : " << nomFichier.toAnsiString() << std::endl;
+		std::exit(1);
+	}
 	music.setLoop(true);
 }
 

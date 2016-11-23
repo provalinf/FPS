@@ -183,7 +183,7 @@ void Controller::ActivationPieceNoire() {
 	Etat_PieceNoire = true;
 	model->ChangeMusicPitch(1.5);
 	Clock_time_PieceNoire = Clock_ActionEvent.getElapsedTime();    // /!\ Le chrono n'est jamais réinitialisé (pas besoin)
-	model->setVitesseDep(model->getVitesseDep() + 20.0f);
+	model->setVitesseDep(model->getVitesseDep() + 8.0f);
 	//std::cout << "Piece noire vitesse : " << model->getVitesseDep() << std::endl;
 }
 
@@ -200,4 +200,5 @@ int Controller::GetCompteur() {
 
 Controller::~Controller() {
 	std::cout << "Destructeur de controleur" << std::endl;
+	delete (Keyboard);
 }

@@ -19,6 +19,7 @@ private:
 	bool Etat_PieceNoire = false;
 
 	int compteur = 0;
+	bool *Keyboard = new bool[4]{false};
 
 public:
 
@@ -37,8 +38,6 @@ public:
 	void ActivationPieceNoire();
 
 	void DesactivationPieceNoire();
-
-	bool *Keyboard = new bool[4]{false};
 
 	void MoveKeyboard(sf::Event event);
 };
