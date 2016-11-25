@@ -16,6 +16,7 @@ Model::Model(bool debug) {
 	InitFont();
 	InitialiseMusic("music2.wav");
 	InitialiseSoundPiece("ting.wav");
+    InitialiseSoundFreeze("freeze.wav");
 
 	piece_height = 1;
 	camera.x = 20;
@@ -139,8 +140,22 @@ void Model::InitialiseSoundPiece(sf::String nomFichier) {
 	Sound_piece.setPitch(1.2);
 }
 
+void Model::InitialiseSoundFreeze(sf::String nomFichier) {
+    if (!buff_SoundFreeze.loadFromFile(nomFichier)) {
+        std::cout << "Failure to load sound freeze : " << nomFichier.toAnsiString() << std::endl;
+        std::exit(1);
+    }
+    Sound_Freeze = sf::Sound(buff_SoundFreeze);
+    Sound_Freeze.setPitch(0.9);
+}
+
+
 void Model::JoueSoundPiece() {
 	Sound_piece.play();
+}
+
+void Model::JoueSoundFreeze() {
+    Sound_Freeze.play();
 }
 
 void Model::InitialiseMusic(sf::String nomFichier) {
@@ -181,6 +196,13 @@ std::string Model::toString(int integer) {
 	return os.str();
 }
 
+bool Model::GetFreeze(){
+    return Freeze;
+}
+
+void Model::SetFreeze(bool etat){
+    Freeze = etat;
+}
 Model::~Model() {
 	std::cout << "Destructeur de model" << std::endl;
 	DestructionMatrix();

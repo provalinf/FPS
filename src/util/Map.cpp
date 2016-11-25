@@ -9,7 +9,7 @@
 Map::Map(Model *model, sf::String nomMap) : Object(model) {
 	pieces = new Piece(model);
 	model->CreateMatrix(model->LoadImgMap(nomMap));
-	CreateTexture("Map", 1);	// Si qu'une texture, nommer l'image face1.jpg...
+	CreateTexture("Map", 7);	// Si qu'une texture, nommer l'image face1.jpg...
 }
 
 void Map::GenerateMap() {
@@ -29,7 +29,7 @@ void Map::GenerateMap() {
 
 void Map::CreateCube(float longueur, float largeur, float hauteur, float x, float y, float z) {
 
-	LoadTexture(0);
+	LoadTexture(6);
 	glBegin(GL_QUADS);
 	//glColor3ub(255, 0, 0); //face rouge
 	glTexCoord2d(0.0, 0.0);
@@ -42,7 +42,7 @@ void Map::CreateCube(float longueur, float largeur, float hauteur, float x, floa
 	glVertex3d(x + 0, y + largeur, z + hauteur);
 	glEnd();
 
-	LoadTexture(0);
+	LoadTexture(6);
 	glBegin(GL_QUADS);
 	//glColor3ub(0, 255, 0); //face verte
 	glTexCoord2d(0.0, 0.0);
@@ -55,7 +55,7 @@ void Map::CreateCube(float longueur, float largeur, float hauteur, float x, floa
 	glVertex3d(x + longueur, y + largeur, z + hauteur);
 	glEnd();
 
-	LoadTexture(0);
+	LoadTexture(6);
 	glBegin(GL_QUADS);
 	//glColor3ub(0, 0, 255); //face bleue
 	glTexCoord2d(0.0, 0.0);
@@ -68,7 +68,7 @@ void Map::CreateCube(float longueur, float largeur, float hauteur, float x, floa
 	glVertex3d(x + longueur, y + 0, z + hauteur);
 	glEnd();
 
-	LoadTexture(0);
+	LoadTexture(6);
 	glBegin(GL_QUADS);
 	//glColor3ub(255, 255, 0); //face jaune
 	glTexCoord2d(0.0, 0.0);
@@ -81,7 +81,7 @@ void Map::CreateCube(float longueur, float largeur, float hauteur, float x, floa
 	glVertex3d(x + 0, y + 0, z + hauteur);
 	glEnd();
 
-	LoadTexture(0);
+	LoadTexture(6);
 	glBegin(GL_QUADS);
 	//glColor3ub(0, 255, 255); //face cyan	(Bas)
 	glTexCoord2d(0.0, 0.0);
@@ -94,7 +94,7 @@ void Map::CreateCube(float longueur, float largeur, float hauteur, float x, floa
 	glVertex3d(x + 0, y + largeur, z + 0);
 	glEnd();
 
-	LoadTexture(0);
+	LoadTexture(6);
 	glBegin(GL_QUADS);
 	//glColor3ub(255, 0, 255); //face magenta	(Haut)
 	glTexCoord2d(0.0, 0.0);

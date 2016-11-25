@@ -39,41 +39,21 @@ void Enemy::GenerateEnemyCube() {
 	int right_x = (int) position.fx + 1;
 
 
-	if (model->getMatrice()[up_x][up_y] == 1) { position.fy -= ennemyspeed; }
-	if (model->getMatrice()[down_x][down_y] == 1) { position.fy += ennemyspeed; }
-	if ((model->getMatrice()[left_x][left_y] == 1)) { position.fx += ennemyspeed; }
-	if (model->getMatrice()[right_x][right_y] == 1) { position.fx -= ennemyspeed; }
-	/*  if ((model->getMatrice()[left_x][left_y] == 1)&&(model->getMatrice()[down_x][down_y] == 1))
-	  {x1+=ennemyspeed;y1+=ennemyspeed;}
-	  if ((model->getMatrice()[right_x][right_y] == 1)&&(model->getMatrice()[down_x][down_y] == 1))
-	  {x1-=ennemyspeed;y1+=ennemyspeed;}
-	  if ((model->getMatrice()[left_x][left_y] == 1)&&(model->getMatrice()[up_x][up_y] == 1))
-	  {x1+=ennemyspeed;y1-=ennemyspeed;}
-	  if ((model->getMatrice()[right_x][right_y] == 1)&&(model->getMatrice()[up_x][up_y] == 1))
-	  {x1-=ennemyspeed;y1-=ennemyspeed;}*/
-	if ((model->getMatrice()[up_x][up_y] != 1) && (model->getMatrice()[left_x][left_y] != 1) &&
-		(model->getMatrice()[right_x][right_y] != 1) && (model->getMatrice()[down_x][down_y] != 1)) {
+    if(!model->GetFreeze()) {
+        if (model->getMatrice()[up_x][up_y] == 1) { position.fy -= ennemyspeed; }
+        if (model->getMatrice()[down_x][down_y] == 1) { position.fy += ennemyspeed; }
+        if ((model->getMatrice()[left_x][left_y] == 1)) { position.fx += ennemyspeed; }
+        if (model->getMatrice()[right_x][right_y] == 1) { position.fx -= ennemyspeed; }
+        if ((model->getMatrice()[up_x][up_y] != 1) && (model->getMatrice()[left_x][left_y] != 1) &&
+            (model->getMatrice()[right_x][right_y] != 1) && (model->getMatrice()[down_x][down_y] != 1)) {
 
-		if (position.fx < model->camera.x) { position.fx += ennemyspeed; }
-		if (position.fx > model->camera.x) { position.fx -= ennemyspeed; }
-		if (position.fy < model->camera.y) { position.fy += ennemyspeed; }
-		if (position.fy > model->camera.y) { position.fy -= ennemyspeed; }
+            if (position.fx < model->camera.x) { position.fx += ennemyspeed; }
+            if (position.fx > model->camera.x) { position.fx -= ennemyspeed; }
+            if (position.fy < model->camera.y) { position.fy += ennemyspeed; }
+            if (position.fy > model->camera.y) { position.fy -= ennemyspeed; }
 
-
-
-		/* if(chrono<=2){
-			 y1+=ennemyspeed;
-		 }
-		 else if(chrono<=4){             // utilisation du temps pour débloquer le fantome
-			 x1-=ennemyspeed;
-		 }
-		 else if(chrono<=6){
-			 y1-=ennemyspeed;
-		 }
-		 else if(chrono<=8){
-			 x1+=ennemyspeed;
-		 }*/
-	}
+        }
+    }
 	CreateCube(1, 1, 4, position.fx, position.fy, 0);
 
 

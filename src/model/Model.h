@@ -38,8 +38,13 @@ private:
 
 	sf::SoundBuffer buf_SoundPiece;
 	sf::Sound Sound_piece;
-
 	sf::Music music;
+
+    sf::SoundBuffer buff_SoundFreeze;
+    sf::Sound Sound_Freeze;
+
+
+    bool Freeze = false;
 
 	int **matrice;
 	CoordMap map;
@@ -100,6 +105,14 @@ public:
 	std::string toString(double dble);
 
 	std::string toString(float flt);
+
+    bool GetFreeze();
+
+    void SetFreeze(bool etat);
+
+    void JoueSoundFreeze();
+
+    void InitialiseSoundFreeze(sf::String nomFichier);
 };
 
 #endif //PACMAN_MODEL_H
