@@ -8,7 +8,9 @@
 #include <GL/gl.h>
 #include "Enemy.h"
 
-Enemy::Enemy(Model *model) : Object(model) {};
+Enemy::Enemy(Model *model) : Object(model) {
+	ennemyspeed = 0.3f;
+};
 
 void Enemy::EnemyLoadObj(const char *ObjFile) {
 	objData = new objLoader();
@@ -22,6 +24,7 @@ void Enemy::GenerateEnemy() {
 	} else {
 		GenerateEnemyObj();
 	}
+	TempsFramePrecedente = model->getTimeFrame();
 }
 
 void Enemy::GenerateEnemyCube() {
@@ -40,17 +43,17 @@ void Enemy::GenerateEnemyCube() {
 
 
     if(!model->GetFreeze()) {
-        if (model->getMatrice()[up_x][up_y] == 1) { position.fy -= ennemyspeed; }
-        if (model->getMatrice()[down_x][down_y] == 1) { position.fy += ennemyspeed; }
-        if ((model->getMatrice()[left_x][left_y] == 1)) { position.fx += ennemyspeed; }
-        if (model->getMatrice()[right_x][right_y] == 1) { position.fx -= ennemyspeed; }
+        if (model->getMatrice()[up_x][up_y] == 1) { position.fy -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+        if (model->getMatrice()[down_x][down_y] == 1) { position.fy += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+        if ((model->getMatrice()[left_x][left_y] == 1)) { position.fx += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+        if (model->getMatrice()[right_x][right_y] == 1) { position.fx -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
         if ((model->getMatrice()[up_x][up_y] != 1) && (model->getMatrice()[left_x][left_y] != 1) &&
             (model->getMatrice()[right_x][right_y] != 1) && (model->getMatrice()[down_x][down_y] != 1)) {
 
-            if (position.fx < model->camera.x) { position.fx += ennemyspeed; }
-            if (position.fx > model->camera.x) { position.fx -= ennemyspeed; }
-            if (position.fy < model->camera.y) { position.fy += ennemyspeed; }
-            if (position.fy > model->camera.y) { position.fy -= ennemyspeed; }
+            if (position.fx < model->camera.x) { position.fx += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+            if (position.fx > model->camera.x) { position.fx -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+            if (position.fy < model->camera.y) { position.fy += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+            if (position.fy > model->camera.y) { position.fy -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
 
         }
     }

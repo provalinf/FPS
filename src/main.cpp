@@ -10,8 +10,8 @@ int main(int, char const **) {
 	view->initialisation();
 
 	// "delete" : Appelle le destructeur & désalloue la mémoire
-	delete view;
-	delete model;
+	delete (view);
+	delete (model);
 
 	return 0;
 }

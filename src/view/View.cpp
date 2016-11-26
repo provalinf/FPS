@@ -16,7 +16,6 @@ View::View(Model *model, bool fullscreen) {
 	CreationFenetre();
 	controller = new Controller(window, model);
 
-
     pacman.loadFromFile("Img/Pacman-Logo.png");
 }
 
@@ -30,7 +29,7 @@ void View::CreationFenetre() {
 								32), TITRE_FENETRE, (fullscreen ? sf::Style::Fullscreen : sf::Style::Close), Settings
 	);
 	window.setVerticalSyncEnabled(true);
-	window.setFramerateLimit(60);
+	window.setFramerateLimit(70);
 	window.setMouseCursorVisible(false);
 	window.setKeyRepeatEnabled(false);
 }
@@ -54,9 +53,8 @@ void View::initialisation() {
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
 
-	map = new Map(model, window, "map1.png");
+	map = new Map(model, "map1.png");
 	skybox = new Skybox(model);
-	pieces = new Piece(model, window);
 
 	for (int i = 0; i < 4; ++i) {
 		ennemis[i] = new Enemy(model);
@@ -68,18 +66,15 @@ void View::initialisation() {
 
 
 	while (window.isOpen()) {
-		sf::Time myTime = Clock.getElapsedTime();
-
-		controller->ActionEvent(myTime);
 		BouclePrincipale();
 
 		window.setActive();
-		if (model->isDebug()) {
-			displayFramerate(window, Clock.restart());
-		}
-        //displayMiniMap(window);
+
+		displayMiniMap(window);
 		displayNBPieceTempo(window);
 
+		controller->ActionEvent();
+		if (model->isDebug()) displayFramerate(window, Clock_framerate.restart());
 		window.display();
 		window.clear();
 	}
@@ -95,10 +90,8 @@ void View::BouclePrincipale() {
 			  model->camera.y + sin(-model->camera.eyeX * RAD),
 			  model->camera.eyeZ, 0, 0, 1);
 
-	//map->GenerateMap();
-	//map->GenerateMiniMap();
-	GenerateMapAndMiniMap();
-	//skybox->GenerateSkyBox();
+	map->GenerateMap();
+	skybox->GenerateSkyBox();
 
 	for (int i = 0; i < 4; ++i) {
 		ennemis[i]->GenerateEnemy();
@@ -107,42 +100,56 @@ void View::BouclePrincipale() {
 	glFlush();
 }
 
-void View::GenerateMapAndMiniMap() {
+void View::displayMiniMap(sf::RenderWindow &window) {
+	window.pushGLStates();          // Sauvegarde de l'état OpenGL
+
+	float taille = 3;
+
+	sf::RectangleShape rectangle(sf::Vector2f(model->getMap().x*taille, model->getMap().y*taille));
+	rectangle.setPosition(window.getSize().x-(model->getMap().x*taille)-10, 10);
+	rectangle.setFillColor(sf::Color(0, 0, 0, 150));
+	window.draw(rectangle);    // Affichage du texte
 
 	for (unsigned int x = 0; x < model->getMap().x; x++) {
 		for (unsigned int y = 0; y < model->getMap().y; y++) {
 			if (model->getMatrice()[x][y] == 1) {
-				map->CreateMur(1, 1, 4, x, y, 0);
-				//map->CreateBlocMiniMap(x, y, 10, 10, 10);
+				TraceBlocMiniMap(x, y, 10, 10, 10);
+
 			} else if (model->getMatrice()[x][y] == 2) {
-				//pieces->CreateCoin(x, y);
-				//pieces->CreatePieceMiniMap(x, y, 255, 255, 0);
+				TraceBlocMiniMap(x, y, 255, 255, 0);
+
 			} else if (model->getMatrice()[x][y] == 3) {
-				//pieces->CreateSpeedCoin(x, y);
-				//pieces->CreatePieceMiniMap(x, y, 255, 0, 0);
-			} else if (model->getMatrice()[x][y] == 0) {	// Background minimap
-				//map->CreateBlocMiniMap(x, y, 0, 0, 0, 150);
+				TraceBlocMiniMap(x, y, 255, 0, 0);
 			}
 		}
-	window.pushGLStates();          // Sauvegarde de l'état OpenGL
-
-		for (unsigned int y = 0; y < model->getMap().y; y++) {
-			if (model->getMatrice()[x][y] == 1) {
-				map->CreateBlocMiniMap(x, y, 10, 10, 10);
-			} else if (model->getMatrice()[x][y] == 2) {
-				//pieces->CreatePieceMiniMap(x, y, 255, 255, 0);
-			} else if (model->getMatrice()[x][y] == 3) {
-				//pieces->CreatePieceMiniMap(x, y, 255, 0, 0);
-			} else if (model->getMatrice()[x][y] == 0) {	// Background minimap
-				map->CreateBlocMiniMap(x, y, 0, 0, 0, 150);
-			}
-		}
-			window.popGLStates();           // Restauration de l'état OpenGL
-
 	}
 
+	for (int i = 0; i < 4; ++i) {
+		rectangle.setSize(sf::Vector2f(taille+5, taille+5));
+		rectangle.setPosition(window.getSize().x+(ennemis[i]->getPosition().fx*taille)-(model->getMap().x*taille)-10, 10+(ennemis[i]->getPosition().fy*taille));
+		rectangle.setFillColor(sf::Color(0, 255, 0, 150));
+		window.draw(rectangle);    // Affichage du texte
+	}
+
+
+	int radius = 8;
+	sf::CircleShape cercle(radius);
+	cercle.setPosition(window.getSize().x+(model->camera.x*taille)-(model->getMap().x*taille)-10, 10+(model->camera.y*taille));
+	//cercle.setFillColor(sf::Color(0, 0, 0, 150));
+	cercle.setOrigin(radius, radius);
+	cercle.setRotation(model->camera.eyeX-180);
+	cercle.setTexture(&pacman);
+	window.draw(cercle);    // Affichage du texte
+
+	window.popGLStates();           // Restauration de l'état OpenGL
 }
 
+void View::TraceBlocMiniMap(int x, int y, sf::Uint8 R, sf::Uint8 V, sf::Uint8 B, sf::Uint8 A) {
+	sf::RectangleShape bloc(sf::Vector2f(model->getTailleMiniMap(), model->getTailleMiniMap()));
+	bloc.setPosition(window.getSize().x+(x*model->getTailleMiniMap())-(model->getMap().x*model->getTailleMiniMap())-10, 10+(y*model->getTailleMiniMap()));
+	bloc.setFillColor(sf::Color(R, V, B, A));
+	window.draw(bloc);
+}
 
 void View::displayFramerate(sf::RenderWindow &window, sf::Time clock) {
 	double framerate = 1 / (clock.asMilliseconds() * 0.001);
@@ -167,7 +174,6 @@ View::~View() {
 	delete (controller);
 	delete (skybox);
 	delete (map);
-	delete (pieces);
 	for (int i = 0; i < 4; ++i) {
 		delete (ennemis[i]);
 	}

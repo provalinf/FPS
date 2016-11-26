@@ -11,16 +11,17 @@
 
 class Map : public Object {
 	float TailleMiniMap;
+	Piece *pieces;
 
 public:
-	Map(Model *model, sf::RenderWindow &window, sf::String nomMap);
-	sf::RenderWindow &window;
+	Map(Model *model, sf::String nomMap);
 
 	~Map();
 
-	void CreateMur(float longueur, float largeur, float hauteur, float x, float y, float z);
+	void GenerateMap();
 
-	void CreateBlocMiniMap(int x, int y, sf::Uint8 R, sf::Uint8 V, sf::Uint8 B, sf::Uint8 A = 255);
+	void CreateCube(float longueur, float largeur, float hauteur, float x, float y, float z);
+
 };
 
 

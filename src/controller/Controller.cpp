@@ -14,7 +14,7 @@ Controller::Controller(sf::RenderWindow &window, Model *model) : window(window) 
 	this->model = model;
 }
 
-void Controller::ActionEvent(sf::Time time) {
+void Controller::ActionEvent() {
 	sf::Event event;
 
 	while (window.pollEvent(event)) {
@@ -47,9 +47,8 @@ void Controller::ActionEvent(sf::Time time) {
 
 		MoveKeyboard(event);
 	}
-
-	MoveKeyPressed(event, time);
-
+	MoveKeyPressed(event);
+	TempsFramePrecedente = model->getTimeFrame();
 }
 
 void Controller::MoveKeyboard(sf::Event event) {
@@ -58,7 +57,6 @@ void Controller::MoveKeyboard(sf::Event event) {
 		Keyboard[1] = (event.key.code == sf::Keyboard::Right) ? true : Keyboard[1];
 		Keyboard[2] = (event.key.code == sf::Keyboard::Up) ? true : Keyboard[2];
 		Keyboard[3] = (event.key.code == sf::Keyboard::Down) ? true : Keyboard[3];
-		//Keyboard[4] = (event.key.code == sf::Keyboard::F) ? true : Keyboard[4];
 	}
 
 	if (event.type == sf::Event::KeyReleased) {
@@ -66,41 +64,47 @@ void Controller::MoveKeyboard(sf::Event event) {
 		Keyboard[1] = (event.key.code == sf::Keyboard::Right) ? false : Keyboard[1];
 		Keyboard[2] = (event.key.code == sf::Keyboard::Up) ? false : Keyboard[2];
 		Keyboard[3] = (event.key.code == sf::Keyboard::Down) ? false : Keyboard[3];
-        //Keyboard[4] = (event.key.code == sf::Keyboard::F) ? false : Keyboard[4];
 	}
 
 }
 
 
-void Controller::MoveKeyPressed(sf::Event event, sf::Time myftime) {
+void Controller::MoveKeyPressed(sf::Event event) {
 	float tempx = model->camera.x;
 	float tempy = model->camera.y;
 
 	if (Keyboard[0]) {
-		model->camera.y += model->getVitesseDep() * myftime.asSeconds() * sin((model->camera.eyeX - 90) * PI / 180.0);
-		model->camera.x += model->getVitesseDep() * myftime.asSeconds() * cos((model->camera.eyeX - 90) * PI / 180.0);
+		model->camera.y += model->getVitesseDep() * model->getDeltaTimeFrame(TempsFramePrecedente) / 100 *
+						   sin((model->camera.eyeX - 90) * PI / 180.0);
+		model->camera.x += model->getVitesseDep() * model->getDeltaTimeFrame(TempsFramePrecedente) / 100 *
+						   cos((model->camera.eyeX - 90) * PI / 180.0);
 	}
 	if (Keyboard[1]) {
-		model->camera.y -= model->getVitesseDep() * myftime.asSeconds() * sin((model->camera.eyeX - 90) * PI / 180.0);
-		model->camera.x -= model->getVitesseDep() * myftime.asSeconds() * cos((model->camera.eyeX - 90) * PI / 180.0);
+		model->camera.y -= model->getVitesseDep() * model->getDeltaTimeFrame(TempsFramePrecedente) / 100 *
+						   sin((model->camera.eyeX - 90) * PI / 180.0);
+		model->camera.x -= model->getVitesseDep() * model->getDeltaTimeFrame(TempsFramePrecedente) / 100 *
+						   cos((model->camera.eyeX - 90) * PI / 180.0);
 	}
 	if (Keyboard[2]) {
-		model->camera.y -= model->getVitesseDep() * myftime.asSeconds() * sin(model->camera.eyeX * PI / 180.0);
-		model->camera.x -= model->getVitesseDep() * myftime.asSeconds() * cos(model->camera.eyeX * PI / 180.0);
+		model->camera.y -= model->getVitesseDep() * model->getDeltaTimeFrame(TempsFramePrecedente) / 100 *
+						   sin(model->camera.eyeX * PI / 180.0);
+		model->camera.x -= model->getVitesseDep() * model->getDeltaTimeFrame(TempsFramePrecedente) / 100 *
+						   cos(model->camera.eyeX * PI / 180.0);
 	}
 	if (Keyboard[3]) {
-		model->camera.y += model->getVitesseDep() * myftime.asSeconds() * sin(model->camera.eyeX * PI / 180.0);
-		model->camera.x += model->getVitesseDep() * myftime.asSeconds() * cos(model->camera.eyeX * PI / 180.0);
+		model->camera.y += model->getVitesseDep() * model->getDeltaTimeFrame(TempsFramePrecedente) / 100 *
+						   sin(model->camera.eyeX * PI / 180.0);
+		model->camera.x += model->getVitesseDep() * model->getDeltaTimeFrame(TempsFramePrecedente) / 100 *
+						   cos(model->camera.eyeX * PI / 180.0);
 	}
 
-    if (event.key.code == sf::Keyboard::F) {
-        model->SetFreeze(true);
-        model->JoueSoundFreeze();
-    }
+	if (event.key.code == sf::Keyboard::F) {
+		model->SetFreeze(true);
+		model->JoueSoundFreeze();
+	}
 
 
-	if (Etat_PieceNoire &&
-		((sf::Time) Clock_ActionEvent.getElapsedTime()).asSeconds() - Clock_time_PieceNoire.asSeconds() > 10) {
+	if (Etat_PieceNoire && Clock_ActionEvent.getElapsedTime().asSeconds() - Clock_time_PieceNoire.asSeconds() > 10) {
 		//std::cout << "tmps " << ((sf::Time) Clock_ActionEvent.getElapsedTime()).asSeconds() - Clock_time_PieceNoire.asSeconds() << std::endl;
 		DesactivationPieceNoire();
 	}
@@ -175,7 +179,7 @@ void Controller::MoveKeyPressed(sf::Event event, sf::Time myftime) {
 
 void Controller::ramassePiece(int x, int y) {
 
-    if (model->getMatrice()[x][y] == 2) {
+	if (model->getMatrice()[x][y] == 2) {
 		model->setMatrice(x, y, 0);
 		model->JoueSoundPiece();
 		compteur++;
@@ -191,7 +195,7 @@ void Controller::ActivationPieceNoire() {
 	Etat_PieceNoire = true;
 	model->ChangeMusicPitch(1.5);
 	Clock_time_PieceNoire = Clock_ActionEvent.getElapsedTime();    // /!\ Le chrono n'est jamais réinitialisé (pas besoin)
-	model->setVitesseDep(model->getVitesseDep() + 8.0f);
+	model->setVitesseDep(model->getVitesseDep() + 0.2f);
 	//std::cout << "Piece noire vitesse : " << model->getVitesseDep() << std::endl;
 }
 

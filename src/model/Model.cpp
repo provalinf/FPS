@@ -9,7 +9,7 @@
 #include <sstream>
 #include "Model.h"
 
-const float vitesseDepDefaut = 12.f;
+const float vitesseDepDefaut = 0.6f;
 const int TailleMiniMap = 3;
 
 const sf::String REP_FONT = "Font";
@@ -115,6 +115,14 @@ const int Model::getTailleMiniMap() const {
 
 sf::Font &Model::getFont() {
 	return font;
+}
+
+float Model::getDeltaTimeFrame(sf::Time FramePrec) {
+	return ClockFrame.getElapsedTime().asMilliseconds() - FramePrec.asMilliseconds();
+}
+
+sf::Time Model::getTimeFrame() {
+	return ClockFrame.getElapsedTime();
 }
 
 float Model::getVitesseDep() {
