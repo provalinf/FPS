@@ -1,4 +1,4 @@
-# Install script for directory: D:/Mes Documents/Travail/Programmation/PacmanMatrice
+# Install script for directory: D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -35,5 +35,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/Mes Documents/Travail/Programmation/PacmanMatrice/Clion_Build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -24,6 +24,7 @@ private:
 	Skybox *skybox;
 	Enemy *ennemis[4];
     sf::Texture pacman;
+	Piece *pieces;
 
 	bool fullscreen;
 
@@ -49,7 +50,7 @@ public:
 
 	void displayNBPieceTempo(sf::RenderWindow &window);
 
-    void displayMiniMap(sf::RenderWindow &window);
+	void GenerateMapAndMiniMap();
 };
 
 

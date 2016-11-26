@@ -7,9 +7,13 @@
 #include "Skybox.h"
 
 Skybox::Skybox(Model *model) : Object(model) {
-	longueur = model->getMap().x;
-	largeur = model->getMap().y;
-	hauteur = 50;
+	int distanceParRapportMap = 100;
+
+	longueur = model->getMap().x + distanceParRapportMap * 2;
+	largeur = model->getMap().y + distanceParRapportMap * 2;
+	hauteur = distanceParRapportMap;
+	position.fx = -distanceParRapportMap;
+	position.fy = -distanceParRapportMap;
 
 	CreateTexture("Skybox", 6);
 }

@@ -10,13 +10,21 @@
 #include "Model.h"
 
 const float vitesseDepDefaut = 12.f;
+const int TailleMiniMap = 3;
+
+const sf::String REP_FONT = "Font";
+const sf::String REP_FX = "Fx";
+const sf::String REP_IMG = "Img";
+const sf::String REP_MATRICE = "Matrice";
+const sf::String REP_MUSIC = "Music";
+const sf::String REP_OBJ = "Obj";
 
 Model::Model(bool debug) {
 	this->debug = debug;
-	InitFont();
-	InitialiseMusic("music2.wav");
-	InitialiseSoundPiece("ting.wav");
-    InitialiseSoundFreeze("freeze.wav");
+	InitFont("arial.ttf");
+	InitialiseMusic("music.wav");
+	InitialiseSoundPiece("ramassepiece.wav");
+	InitialiseSoundFreeze("freeze.wav");
 
 	piece_height = 1;
 	camera.x = 20;
@@ -32,17 +40,19 @@ Model::Model(bool debug) {
 	this->debug = debug;
 }*/
 
-void Model::InitFont() {
-	if (!font.loadFromFile("arial.ttf")) {
-		std::cout << "/!\\ Erreur chargement font \"arial.ttf\"" << std::endl;
+void Model::InitFont(sf::String nomFichier) {
+	nomFichier = REP_FONT + "/" + nomFichier;
+	if (!font.loadFromFile(nomFichier)) {
+		std::cout << "/!\\ Failure to load font : " << nomFichier.toAnsiString() << std::endl;
 		std::exit(1);
 	}
 }
 
 sf::Image Model::LoadImgMap(sf::String nomFichier) {
+	nomFichier = REP_MATRICE + "/" + nomFichier;
 	sf::Image map_image;
 	if (!map_image.loadFromFile(nomFichier)) {
-		std::cout << "Failure to load map : " << nomFichier.toAnsiString() << std::endl;
+		std::cout << "/!\\ Failure to load map : " << nomFichier.toAnsiString() << std::endl;
 		std::exit(1);
 	}
 	return map_image;
@@ -99,6 +109,10 @@ bool Model::isDebug() const {
 	return debug;
 }
 
+const int Model::getTailleMiniMap() const {
+	return TailleMiniMap;
+}
+
 sf::Font &Model::getFont() {
 	return font;
 }
@@ -132,8 +146,9 @@ sf::VideoMode Model::getResolution() {
 }
 
 void Model::InitialiseSoundPiece(sf::String nomFichier) {
+	nomFichier = REP_FX + "/" + nomFichier;
 	if (!buf_SoundPiece.loadFromFile(nomFichier)) {
-		std::cout << "Failure to load sound coin : " << nomFichier.toAnsiString() << std::endl;
+		std::cout << "/!\\ Failure to load sound coin : " << nomFichier.toAnsiString() << std::endl;
 		std::exit(1);
 	}
 	Sound_piece = sf::Sound(buf_SoundPiece);
@@ -141,12 +156,13 @@ void Model::InitialiseSoundPiece(sf::String nomFichier) {
 }
 
 void Model::InitialiseSoundFreeze(sf::String nomFichier) {
-    if (!buff_SoundFreeze.loadFromFile(nomFichier)) {
-        std::cout << "Failure to load sound freeze : " << nomFichier.toAnsiString() << std::endl;
-        std::exit(1);
-    }
-    Sound_Freeze = sf::Sound(buff_SoundFreeze);
-    Sound_Freeze.setPitch(0.9);
+	nomFichier = REP_FX + "/" + nomFichier;
+	if (!buff_SoundFreeze.loadFromFile(nomFichier)) {
+		std::cout << "/!\\ Failure to load sound freeze : " << nomFichier.toAnsiString() << std::endl;
+		std::exit(1);
+	}
+	Sound_Freeze = sf::Sound(buff_SoundFreeze);
+	Sound_Freeze.setPitch(0.9);
 }
 
 
@@ -155,12 +171,13 @@ void Model::JoueSoundPiece() {
 }
 
 void Model::JoueSoundFreeze() {
-    Sound_Freeze.play();
+	Sound_Freeze.play();
 }
 
 void Model::InitialiseMusic(sf::String nomFichier) {
+	nomFichier = REP_MUSIC + "/" + nomFichier;
 	if (!music.openFromFile(nomFichier)) {
-		std::cout << "Failure to load music : " << nomFichier.toAnsiString() << std::endl;
+		std::cout << "/!\\ Failure to load music : " << nomFichier.toAnsiString() << std::endl;
 		std::exit(1);
 	}
 	music.setLoop(true);
@@ -196,13 +213,14 @@ std::string Model::toString(int integer) {
 	return os.str();
 }
 
-bool Model::GetFreeze(){
-    return Freeze;
+bool Model::GetFreeze() {
+	return Freeze;
 }
 
-void Model::SetFreeze(bool etat){
-    Freeze = etat;
+void Model::SetFreeze(bool etat) {
+	Freeze = etat;
 }
+
 Model::~Model() {
 	std::cout << "Destructeur de model" << std::endl;
 	DestructionMatrix();

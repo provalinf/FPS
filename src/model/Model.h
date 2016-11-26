@@ -32,8 +32,6 @@ private:
 	int piece_height;
 	int nombreDePieces = 0;
 
-	void InitFont();
-
 	sf::Color color;
 
 	sf::SoundBuffer buf_SoundPiece;
@@ -113,6 +111,10 @@ public:
     void JoueSoundFreeze();
 
     void InitialiseSoundFreeze(sf::String nomFichier);
+
+	void InitFont(sf::String nomFichier);
+
+	const int getTailleMiniMap() const;
 };
 
 #endif //PACMAN_MODEL_H
