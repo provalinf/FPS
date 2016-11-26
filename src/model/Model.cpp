@@ -9,14 +9,14 @@
 #include <sstream>
 #include "Model.h"
 
-const float vitesseDepDefaut = 12.f;
+const float vitesseDepDefaut = 0.6f;
 
 Model::Model(bool debug) {
 	this->debug = debug;
 	InitFont();
 	InitialiseMusic("music2.wav");
 	InitialiseSoundPiece("ting.wav");
-    InitialiseSoundFreeze("freeze.wav");
+	InitialiseSoundFreeze("freeze.wav");
 
 	piece_height = 1;
 	camera.x = 20;
@@ -103,6 +103,14 @@ sf::Font &Model::getFont() {
 	return font;
 }
 
+float Model::getDeltaTimeFrame(sf::Time FramePrec) {
+	return ClockFrame.getElapsedTime().asMilliseconds() - FramePrec.asMilliseconds();
+}
+
+sf::Time Model::getTimeFrame() {
+	return ClockFrame.getElapsedTime();
+}
+
 float Model::getVitesseDep() {
 	return vitesseDep;
 }
@@ -141,12 +149,12 @@ void Model::InitialiseSoundPiece(sf::String nomFichier) {
 }
 
 void Model::InitialiseSoundFreeze(sf::String nomFichier) {
-    if (!buff_SoundFreeze.loadFromFile(nomFichier)) {
-        std::cout << "Failure to load sound freeze : " << nomFichier.toAnsiString() << std::endl;
-        std::exit(1);
-    }
-    Sound_Freeze = sf::Sound(buff_SoundFreeze);
-    Sound_Freeze.setPitch(0.9);
+	if (!buff_SoundFreeze.loadFromFile(nomFichier)) {
+		std::cout << "Failure to load sound freeze : " << nomFichier.toAnsiString() << std::endl;
+		std::exit(1);
+	}
+	Sound_Freeze = sf::Sound(buff_SoundFreeze);
+	Sound_Freeze.setPitch(0.9);
 }
 
 
@@ -155,7 +163,7 @@ void Model::JoueSoundPiece() {
 }
 
 void Model::JoueSoundFreeze() {
-    Sound_Freeze.play();
+	Sound_Freeze.play();
 }
 
 void Model::InitialiseMusic(sf::String nomFichier) {
@@ -196,13 +204,14 @@ std::string Model::toString(int integer) {
 	return os.str();
 }
 
-bool Model::GetFreeze(){
-    return Freeze;
+bool Model::GetFreeze() {
+	return Freeze;
 }
 
-void Model::SetFreeze(bool etat){
-    Freeze = etat;
+void Model::SetFreeze(bool etat) {
+	Freeze = etat;
 }
+
 Model::~Model() {
 	std::cout << "Destructeur de model" << std::endl;
 	DestructionMatrix();

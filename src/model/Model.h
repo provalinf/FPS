@@ -32,6 +32,8 @@ private:
 	int piece_height;
 	int nombreDePieces = 0;
 
+	sf::Clock ClockFrame;
+
 	void InitFont();
 
 	sf::Color color;
@@ -40,11 +42,11 @@ private:
 	sf::Sound Sound_piece;
 	sf::Music music;
 
-    sf::SoundBuffer buff_SoundFreeze;
-    sf::Sound Sound_Freeze;
+	sf::SoundBuffer buff_SoundFreeze;
+	sf::Sound Sound_Freeze;
 
 
-    bool Freeze = false;
+	bool Freeze = false;
 
 	int **matrice;
 	CoordMap map;
@@ -106,13 +108,17 @@ public:
 
 	std::string toString(float flt);
 
-    bool GetFreeze();
+	bool GetFreeze();
 
-    void SetFreeze(bool etat);
+	void SetFreeze(bool etat);
 
-    void JoueSoundFreeze();
+	void JoueSoundFreeze();
 
-    void InitialiseSoundFreeze(sf::String nomFichier);
+	void InitialiseSoundFreeze(sf::String nomFichier);
+
+	float getDeltaTimeFrame(sf::Time FramePrec);
+
+	sf::Time getTimeFrame();
 };
 
 #endif //PACMAN_MODEL_H

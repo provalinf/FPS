@@ -17,7 +17,7 @@ View::View(Model *model, bool fullscreen) {
 	controller = new Controller(window, model);
 
 
-    pacman.loadFromFile("Pacman-Logo.png");
+	pacman.loadFromFile("Pacman-Logo.png");
 }
 
 void View::CreationFenetre() {
@@ -30,7 +30,7 @@ void View::CreationFenetre() {
 								32), TITRE_FENETRE, (fullscreen ? sf::Style::Fullscreen : sf::Style::Close), Settings
 	);
 	window.setVerticalSyncEnabled(true);
-	window.setFramerateLimit(60);
+	window.setFramerateLimit(70);
 	window.setMouseCursorVisible(false);
 	window.setKeyRepeatEnabled(false);
 }
@@ -67,18 +67,14 @@ void View::initialisation() {
 
 
 	while (window.isOpen()) {
-		sf::Time myTime = Clock.getElapsedTime();
-
-		controller->ActionEvent(myTime);
 		BouclePrincipale();
 
 		window.setActive();
-		if (model->isDebug()) {
-			displayFramerate(window, Clock.restart());
-		}
-        displayMiniMap(window);
+		displayMiniMap(window);
 		displayNBPieceTempo(window);
 
+		controller->ActionEvent();
+		if (model->isDebug()) displayFramerate(window, Clock_framerate.restart());
 		window.display();
 		window.clear();
 	}
