@@ -127,6 +127,11 @@ void View::displayMiniMap(sf::RenderWindow &window) {
 
     float taille = 3;
 
+	sf::RectangleShape rectangle(sf::Vector2f(model->getMap().x*taille, model->getMap().y*taille));
+	rectangle.setPosition(window.getSize().x-(model->getMap().x*taille)-10, 10);
+	rectangle.setFillColor(sf::Color(0, 0, 0, 150));
+	window.draw(rectangle);    // Affichage du texte
+
     for (unsigned int x = 0; x < model->getMap().x; x++) {
         for (unsigned int y = 0; y < model->getMap().y; y++) {
             if (model->getMatrice()[x][y] == 1) {
@@ -147,11 +152,6 @@ void View::displayMiniMap(sf::RenderWindow &window) {
                 sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
                 rectangle.setPosition(window.getSize().x+(x*taille)-(model->getMap().x*taille)-10, 10+(y*taille));
                 rectangle.setFillColor(sf::Color(255, 0, 0));
-                window.draw(rectangle);    // Affichage du texte
-            } else if (model->getMatrice()[x][y] == 0) {
-                sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
-                rectangle.setPosition(window.getSize().x+(x*taille)-(model->getMap().x*taille)-10, 10+(y*taille));
-                rectangle.setFillColor(sf::Color(0, 0, 0, 150));
                 window.draw(rectangle);    // Affichage du texte
             }
         }
