@@ -7,9 +7,10 @@
 #include <iostream>
 #include <GL/gl.h>
 #include "Enemy.h"
+#include "Object.h"
 
 Enemy::Enemy(Model *model) : Object(model) {
-	ennemyspeed = 0.3f;
+	ennemyspeed = 0.6f;
 };
 
 void Enemy::EnemyLoadObj(const char *ObjFile) {
@@ -41,9 +42,40 @@ void Enemy::GenerateEnemyCube() {
 	int right_y = (int) position.fy;
 	int right_x = (int) position.fx + 1;
 
+    int diagupleft_y = (int) position.fy + 1;
+    int diagupleft_x = (int) position.fx - 1;
 
+    int diagupright_y = (int) position.fy + 1;
+    int diagupright_x = (int) position.fx + 1;
+
+    int diagdownleft_y = (int) position.fy - 1;
+    int diagdownleft_x = (int) position.fx - 1;
+
+    int diagdownright_y = (int) position.fy - 1;
+    int diagdownright_x = (int) position.fx + 1;
+    
     if(!model->GetFreeze()) {
-        if (model->getMatrice()[up_x][up_y] == 1) { position.fy -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+
+        if ((model->getMatrice()[up_x][up_y] == 1)||(model->getMatrice()[down_x][down_y] == 1)||(model->getMatrice()[left_x][left_y] == 1)
+                ||(model->getMatrice()[right_x][right_y] == 1)||(model->getMatrice()[diagdownleft_x][diagdownleft_y] == 1)
+                ||(model->getMatrice()[diagdownright_x][diagdownright_y] == 1)||(model->getMatrice()[diagupleft_x][diagupleft_y] == 1)
+                ||(model->getMatrice()[diagupright_x][diagupright_y] == 1))
+        {
+            position.fx=memposx;
+            position.fy=memposy;
+            alea = rand()%4;
+        }
+        else{
+            memposx = position.fx;
+            memposy = position.fy;
+            if(alea == 0){position.fy -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;}
+            if(alea == 1){position.fy += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;}
+            if(alea == 2){position.fx -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;}
+            if(alea == 3){position.fx += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;}
+
+        }
+    }
+ /*       if (model->getMatrice()[up_x][up_y] == 1) { position.fy -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
         if (model->getMatrice()[down_x][down_y] == 1) { position.fy += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
         if ((model->getMatrice()[left_x][left_y] == 1)) { position.fx += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
         if (model->getMatrice()[right_x][right_y] == 1) { position.fx -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
@@ -57,9 +89,9 @@ void Enemy::GenerateEnemyCube() {
 
         }
     }
-	CreateCube(1, 1, 4, position.fx, position.fy, 0);
+	CreateCube(1, 1, 4, position.fx, position.fy, 0);*/
 
-
+    CreateCube(1, 1, 4, position.fx, position.fy, 0);
 }
 
 // -- TEMPO

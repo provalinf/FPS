@@ -53,16 +53,20 @@ void View::initialisation() {
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
 
-	map = new Map(model, "map1.png");
+	map = new Map(model, "mappacman.png");
 	skybox = new Skybox(model);
 
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < 8; ++i) {
 		ennemis[i] = new Enemy(model);
 	}
-	ennemis[0]->SetPosition(4.0f, 2.0f);
-	ennemis[1]->SetPosition(45.0f, 9.0f);
-	ennemis[2]->SetPosition(25.0f, 26.0f);
-	ennemis[3]->SetPosition(18.0f, 2.0f);
+	ennemis[0]->SetPosition(42.0f, 42.0f);
+    ennemis[1]->SetPosition(42.0f, 42.0f);
+    ennemis[2]->SetPosition(42.0f, 42.0f);
+    ennemis[3]->SetPosition(42.0f, 42.0f);
+    ennemis[4]->SetPosition(42.0f, 42.0f);
+    ennemis[5]->SetPosition(42.0f, 42.0f);
+    ennemis[6]->SetPosition(42.0f, 42.0f);
+    ennemis[7]->SetPosition(42.0f, 42.0f);
 
 
 	while (window.isOpen()) {
@@ -93,7 +97,7 @@ void View::BouclePrincipale() {
 	map->GenerateMap();
 	skybox->GenerateSkyBox();
 
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < 8; ++i) {
 		ennemis[i]->GenerateEnemy();
 	}
 
@@ -124,7 +128,7 @@ void View::displayMiniMap(sf::RenderWindow &window) {
 		}
 	}
 
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < 8; ++i) {
 		rectangle.setSize(sf::Vector2f(taille+5, taille+5));
 		rectangle.setPosition(window.getSize().x+(ennemis[i]->getPosition().fx*taille)-(model->getMap().x*taille)-10, 10+(ennemis[i]->getPosition().fy*taille));
 		rectangle.setFillColor(sf::Color(0, 255, 0, 150));
@@ -174,7 +178,7 @@ View::~View() {
 	delete (controller);
 	delete (skybox);
 	delete (map);
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < 7; ++i) {
 		delete (ennemis[i]);
 	}
 }

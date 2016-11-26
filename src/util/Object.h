@@ -17,6 +17,8 @@ protected:
 	sf::Image *img_tex = NULL;
 	GLuint *Texture = NULL;
 
+
+
 	void CreateTexture(sf::String repertoire, unsigned int nb_texture);
 
 	void LoadTexture(unsigned int num_texture);
