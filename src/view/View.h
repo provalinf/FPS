@@ -23,13 +23,13 @@ private:
 	Map *map;
 	Skybox *skybox;
 	Enemy *ennemis[4];
-    sf::Texture pacman;
+	sf::Texture pacman;
 
 	bool fullscreen;
 
 	sf::RenderWindow window;
 
-	sf::Clock Clock;
+	sf::Clock Clock_framerate;
 	sf::Text text_framerate;
 	sf::Text text_nbpiece;
 
@@ -49,7 +49,7 @@ public:
 
 	void displayNBPieceTempo(sf::RenderWindow &window);
 
-    void displayMiniMap(sf::RenderWindow &window);
+	void displayMiniMap(sf::RenderWindow &window);
 };
 
 

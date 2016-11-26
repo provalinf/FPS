@@ -16,6 +16,7 @@
 class Enemy : public Object {
 
 	objLoader *objData = NULL;
+	sf::Time TempsFramePrecedente;
 
 	void toString();
 
@@ -43,7 +44,7 @@ public:
 
 	void GenerateEnemy();
 
-	float ennemyspeed = 0.06;
+	float ennemyspeed;
 };
 
 

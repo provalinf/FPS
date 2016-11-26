@@ -17,7 +17,7 @@ View::View(Model *model, bool fullscreen) {
 	controller = new Controller(window, model);
 
 
-    pacman.loadFromFile("Pacman-Logo.png");
+	pacman.loadFromFile("Pacman-Logo.png");
 }
 
 void View::CreationFenetre() {
@@ -30,7 +30,7 @@ void View::CreationFenetre() {
 								32), TITRE_FENETRE, (fullscreen ? sf::Style::Fullscreen : sf::Style::Close), Settings
 	);
 	window.setVerticalSyncEnabled(true);
-	window.setFramerateLimit(60);
+	window.setFramerateLimit(70);
 	window.setMouseCursorVisible(false);
 	window.setKeyRepeatEnabled(false);
 }
@@ -67,18 +67,14 @@ void View::initialisation() {
 
 
 	while (window.isOpen()) {
-		sf::Time myTime = Clock.getElapsedTime();
-
-		controller->ActionEvent(myTime);
+		controller->ActionEvent();
 		BouclePrincipale();
 
 		window.setActive();
-		if (model->isDebug()) {
-			displayFramerate(window, Clock.restart());
-		}
-        displayMiniMap(window);
+		//displayMiniMap(window);
 		displayNBPieceTempo(window);
 
+		if (model->isDebug()) displayFramerate(window, Clock_framerate.restart());
 		window.display();
 		window.clear();
 	}
@@ -123,56 +119,63 @@ void View::displayNBPieceTempo(sf::RenderWindow &window) {
 }
 
 void View::displayMiniMap(sf::RenderWindow &window) {
-    window.pushGLStates();          // Sauvegarde de l'état OpenGL
+	window.pushGLStates();          // Sauvegarde de l'état OpenGL
 
-    float taille = 3;
+	float taille = 3;
 
-    for (unsigned int x = 0; x < model->getMap().x; x++) {
-        for (unsigned int y = 0; y < model->getMap().y; y++) {
-            if (model->getMatrice()[x][y] == 1) {
-                sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
-                rectangle.setPosition(window.getSize().x+(x*taille)-(model->getMap().x*taille)-10, 10+(y*taille));
-                rectangle.setFillColor(sf::Color(10, 10, 10));
+	for (unsigned int x = 0; x < model->getMap().x; x++) {
+		for (unsigned int y = 0; y < model->getMap().y; y++) {
+			if (model->getMatrice()[x][y] == 1) {
+				sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
+				rectangle.setPosition(window.getSize().x + (x * taille) - (model->getMap().x * taille) - 10,
+									  10 + (y * taille));
+				rectangle.setFillColor(sf::Color(10, 10, 10));
 
-                window.draw(rectangle);    // Affichage du texte
+				window.draw(rectangle);    // Affichage du texte
 
-                //CreateCube(1, 1, 4, x, y, 0);
-            } else if (model->getMatrice()[x][y] == 2) {
-                sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
-                rectangle.setPosition(window.getSize().x+(x*taille)-(model->getMap().x*taille)-10, 10+(y*taille));
-                rectangle.setFillColor(sf::Color(255, 255, 0));
-                window.draw(rectangle);    // Affichage du texte
-            } else if (model->getMatrice()[x][y] == 3) {
-                //pieces->CreateSpeedCoin(x, y);
-                sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
-                rectangle.setPosition(window.getSize().x+(x*taille)-(model->getMap().x*taille)-10, 10+(y*taille));
-                rectangle.setFillColor(sf::Color(255, 0, 0));
-                window.draw(rectangle);    // Affichage du texte
-            } else if (model->getMatrice()[x][y] == 0) {
-                sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
-                rectangle.setPosition(window.getSize().x+(x*taille)-(model->getMap().x*taille)-10, 10+(y*taille));
-                rectangle.setFillColor(sf::Color(0, 0, 0, 150));
-                window.draw(rectangle);    // Affichage du texte
-            }
-        }
-    }
+				//CreateCube(1, 1, 4, x, y, 0);
+			} else if (model->getMatrice()[x][y] == 2) {
+				sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
+				rectangle.setPosition(window.getSize().x + (x * taille) - (model->getMap().x * taille) - 10,
+									  10 + (y * taille));
+				rectangle.setFillColor(sf::Color(255, 255, 0));
+				window.draw(rectangle);    // Affichage du texte
+			} else if (model->getMatrice()[x][y] == 3) {
+				//pieces->CreateSpeedCoin(x, y);
+				sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
+				rectangle.setPosition(window.getSize().x + (x * taille) - (model->getMap().x * taille) - 10,
+									  10 + (y * taille));
+				rectangle.setFillColor(sf::Color(255, 0, 0));
+				window.draw(rectangle);    // Affichage du texte
+			} else if (model->getMatrice()[x][y] == 0) {
+				sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
+				rectangle.setPosition(window.getSize().x + (x * taille) - (model->getMap().x * taille) - 10,
+									  10 + (y * taille));
+				rectangle.setFillColor(sf::Color(0, 0, 0, 150));
+				window.draw(rectangle);    // Affichage du texte
+			}
+		}
+	}
 
-    for (int i = 0; i < 4; ++i) {
-        sf::RectangleShape rectangle(sf::Vector2f(taille+5, taille+5));
-        rectangle.setPosition(window.getSize().x+(ennemis[i]->getPosition().fx*taille)-(model->getMap().x*taille)-10, 10+(ennemis[i]->getPosition().fy*taille));
-        rectangle.setFillColor(sf::Color(0, 255, 0, 150));
-        window.draw(rectangle);    // Affichage du texte
-    }
+	for (int i = 0; i < 4; ++i) {
+		sf::RectangleShape rectangle(sf::Vector2f(taille + 5, taille + 5));
+		rectangle.setPosition(
+				window.getSize().x + (ennemis[i]->getPosition().fx * taille) - (model->getMap().x * taille) - 10,
+				10 + (ennemis[i]->getPosition().fy * taille));
+		rectangle.setFillColor(sf::Color(0, 255, 0, 150));
+		window.draw(rectangle);    // Affichage du texte
+	}
 
 
-    int radius = 8;
-    sf::CircleShape cercle(radius);
-    cercle.setPosition(window.getSize().x+(model->camera.x*taille)-(model->getMap().x*taille)-10, 10+(model->camera.y*taille));
-    //cercle.setFillColor(sf::Color(0, 0, 0, 150));
-    cercle.setOrigin(radius, radius);
-    cercle.setRotation(model->camera.eyeX-180);
-    cercle.setTexture(&pacman);
-    window.draw(cercle);    // Affichage du texte
+	int radius = 8;
+	sf::CircleShape cercle(radius);
+	cercle.setPosition(window.getSize().x + (model->camera.x * taille) - (model->getMap().x * taille) - 10,
+					   10 + (model->camera.y * taille));
+	//cercle.setFillColor(sf::Color(0, 0, 0, 150));
+	cercle.setOrigin(radius, radius);
+	cercle.setRotation(model->camera.eyeX - 180);
+	cercle.setTexture(&pacman);
+	window.draw(cercle);    // Affichage du texte
 
 	window.popGLStates();           // Restauration de l'état OpenGL
 }

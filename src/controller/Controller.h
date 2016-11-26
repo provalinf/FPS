@@ -16,6 +16,7 @@ private:
 
 	sf::Clock Clock_ActionEvent;
 	sf::Time Clock_time_PieceNoire;
+	sf::Time TempsFramePrecedente;
 	bool Etat_PieceNoire = false;
 
 	int compteur = 0;
@@ -27,9 +28,9 @@ public:
 
 	~Controller();
 
-	void ActionEvent(sf::Time time);
+	void ActionEvent();
 
-	void MoveKeyPressed(sf::Event event, sf::Time myftime);
+	void MoveKeyPressed(sf::Event event);
 
 	void ramassePiece(int x, int y);
 
