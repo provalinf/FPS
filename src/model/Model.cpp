@@ -22,7 +22,7 @@ const sf::String REP_OBJ = "Obj";
 Model::Model(bool debug) {
 	this->debug = debug;
 	InitFont("arial.ttf");
-	//InitialiseMusic("music.wav");
+	InitialiseMusic("music.wav");
 	InitialiseSoundPiece("ramassepiece.wav");
 	InitialiseSoundFreeze("freeze.wav");
 

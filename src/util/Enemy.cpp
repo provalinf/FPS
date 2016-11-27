@@ -53,7 +53,7 @@ void Enemy::GenerateEnemyCube() {
 
     int diagdownright_y = (int) position.fy - 1;
     int diagdownright_x = (int) position.fx + 1;
-    
+
     if(!model->GetFreeze()) {
 
         if ((model->getMatrice()[up_x][up_y] == 1)||(model->getMatrice()[down_x][down_y] == 1)||(model->getMatrice()[left_x][left_y] == 1)

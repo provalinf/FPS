@@ -48,7 +48,7 @@ public:
 
     float memposx = 0;
     float memposy = 0;
-	int alea = rand()%4;
+	int alea = 0;
 };
 
 
