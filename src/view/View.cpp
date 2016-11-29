@@ -14,6 +14,7 @@ View::View(Model *model, bool fullscreen) {
 	this->model = model;
 	this->fullscreen = fullscreen;
 	CreationFenetre();
+
 	controller = new Controller(window, model);
 
     pacman.loadFromFile("Img/Pacman-Logo.png");
@@ -32,6 +33,49 @@ void View::CreationFenetre() {
 	window.setFramerateLimit(70);
 	window.setMouseCursorVisible(false);
 	window.setKeyRepeatEnabled(false);
+}
+
+void View::Menu() {
+
+    sf::Texture background;
+    background.loadFromFile("Img/Menu/background.jpg");
+
+	BoutonMenu jouer = CreationBouton("Jouer", 10, 10, 10, 40);
+
+    while (window.isOpen()) {
+        //std::cout << "Test" << std::endl;
+
+        sf::Event event;
+
+        while (window.pollEvent(event)) {
+
+            if (event.type == sf::Event::Closed ||
+                (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {
+                window.close();
+            }
+        }
+
+
+        window.draw(jouer.background);
+        window.draw(jouer.texte);
+
+        window.setActive();
+        window.display();
+        window.clear();
+    }
+}
+
+BoutonMenu View::CreationBouton(sf::String text, int x, int y, int longu, int larg) {
+    BoutonMenu bouton;
+    bouton.texte.setString(text);
+    bouton.x = x;
+    bouton.y = y;
+    bouton.longueur = longu;
+    bouton.largeur = larg;
+    bouton.background = sf::RectangleShape(sf::Vector2f(bouton.longueur, bouton.largeur));
+    bouton.background.setFillColor(sf::Color(255, 0, 0, 150));
+    bouton.background.setPosition(bouton.x, bouton.y);
+    return bouton;
 }
 
 void View::initialisation() {
@@ -176,8 +220,8 @@ void View::displayNBPieceTempo(sf::RenderWindow &window) {
 View::~View() {
 	std::cout << "Destructeur de vue" << std::endl;
 	delete (controller);
-	delete (skybox);
-	delete (map);
+    if (skybox != NULL ) delete (skybox);
+    if (map != NULL) delete (map);
 	for (int i = 0; i < 7; ++i) {
 		delete (ennemis[i]);
 	}

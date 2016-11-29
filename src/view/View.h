@@ -20,8 +20,8 @@ private:
 
 	Model *model;
 	Controller *controller;
-	Map *map;
-	Skybox *skybox;
+	Map *map = NULL;
+	Skybox *skybox = NULL;
 	Enemy *ennemis[7];
 	sf::Texture pacman;
 
@@ -53,6 +53,9 @@ public:
 
 	void TraceBlocMiniMap(int x, int y, sf::Uint8 R, sf::Uint8 V, sf::Uint8 B, sf::Uint8 A = 255);
 
+    void Menu();
+
+    BoutonMenu CreationBouton(sf::String text, int x, int y, int longu, int larg);
 };
 
 

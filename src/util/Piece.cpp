@@ -6,10 +6,14 @@
 #include <iostream>
 #include "Piece.h"
 
-Piece::Piece(Model *model) : Object(model) {}
+Piece::Piece(Model *model) : Object(model) {
+	CreateTexture("Obj",1);
+}
 
 void Piece::CreateCoin(int x, int y) {
-	glColor3ub(157, 0, 157);
+
+	//glColor3ub(157, 0, 157);
+	LoadTexture(0);
 	GLUquadricObj *quadra = gluNewQuadric();
 	glPushMatrix();
 	glTranslatef(x, y, model->getHauteurPiece());

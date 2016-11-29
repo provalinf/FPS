@@ -8,6 +8,8 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Window/VideoMode.hpp>
 #include <SFML/Audio.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 struct Camera {
 	float x = 0.0f, y = 0.0f, z = 0.0f;
@@ -21,6 +23,13 @@ struct CoordMap {
 struct PosObjet {
 	unsigned int ix = 0, iy = 0, iz = 0;
 	float fx = 0.0f, fy = 0.0f, fz = 0.0f;
+};
+
+struct BoutonMenu {
+	int x = 0, y = 0;
+	int longueur = 0, largeur = 0;
+	sf::RectangleShape background;
+	sf::Text texte;
 };
 
 class Model {
