@@ -25,6 +25,7 @@ Model::Model(bool debug) {
 	InitialiseMusic("music.wav");
 	InitialiseSoundPiece("ramassepiece.wav");
 	InitialiseSoundFreeze("freeze.wav");
+	InitialiseSoundTP("TPsound.wav");
 
 	piece_height = 1;
 	camera.x = 20;
@@ -85,6 +86,8 @@ void Model::CreateMatrix(sf::Image image) {
 				IncremNombreTotalPiece();
 			} else if (image.getPixel(x, y) == color.Green) {
 				matrice[x][y] = 3;
+			} else if (image.getPixel(x, y) == color.Yellow) {
+				matrice[x][y] = 4;
 			}
 		}
 	}
@@ -153,6 +156,17 @@ sf::VideoMode Model::getResolution() {
 	return sf::VideoMode::getDesktopMode();
 }
 
+void Model::InitialiseSoundTP(sf::String nomFichier) {
+	nomFichier = REP_FX + "/" + nomFichier;
+	if (!buff_SoundTP.loadFromFile(nomFichier)) {
+		std::cout << "/!\\ Failure to load sound TP : " << nomFichier.toAnsiString() << std::endl;
+		std::exit(1);
+	}
+	Sound_TP = sf::Sound(buff_SoundTP);
+	Sound_TP.setPitch(1.2);
+}
+
+
 void Model::InitialiseSoundPiece(sf::String nomFichier) {
 	nomFichier = REP_FX + "/" + nomFichier;
 	if (!buf_SoundPiece.loadFromFile(nomFichier)) {
@@ -173,7 +187,9 @@ void Model::InitialiseSoundFreeze(sf::String nomFichier) {
 	Sound_Freeze.setPitch(0.9);
 }
 
-
+void Model::JoueSoundTP(){
+	Sound_TP.play();
+}
 void Model::JoueSoundPiece() {
 	Sound_piece.play();
 }

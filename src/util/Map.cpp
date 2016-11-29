@@ -21,9 +21,28 @@ void Map::GenerateMap() {
 				pieces->CreateCoin(x, y);
 			} else if (model->getMatrice()[x][y] == 3) {
 				pieces->CreateSpeedCoin(x, y);
-			}
+			} else if (model->getMatrice()[x][y] == 4) {
+                CreateTP(1, 1, 4, x, y ,0);
+            }
 		}
 	}
+}
+
+void Map::CreateTP(float longueur, float largeur, float hauteur, float x, float y, float z) {
+
+    LoadTexture(0);
+    glBegin(GL_QUADS);
+    //glColor3ub(0, 255, 0); //face verte
+    glTexCoord2d(0.0, 0.0);
+    glVertex3d(x + longueur, y + 0, z + hauteur);
+    glTexCoord2d(0.0, 1.0);
+    glVertex3d(x + longueur, y + 0, z + 0);
+    glTexCoord2d(1.0, 1.0);
+    glVertex3d(x + longueur, y + largeur, z + 0);
+    glTexCoord2d(1.0, 0.0);
+    glVertex3d(x + longueur, y + largeur, z + hauteur);
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
 }
 
 void Map::CreateCube(float longueur, float largeur, float hauteur, float x, float y, float z) {

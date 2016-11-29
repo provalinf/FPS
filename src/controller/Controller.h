@@ -41,6 +41,8 @@ public:
 	void DesactivationPieceNoire();
 
 	void MoveKeyboard(sf::Event event);
+
+	void Teleport();
 };
 
 

@@ -48,6 +48,9 @@ void Controller::ActionEvent() {
 		MoveKeyboard(event);
 	}
 	MoveKeyPressed(event);
+
+	Teleport();
+
 	TempsFramePrecedente = model->getTimeFrame();
 }
 
@@ -175,6 +178,18 @@ void Controller::MoveKeyPressed(sf::Event event) {
 		}
 	}
 
+}
+
+void Controller::Teleport(){
+
+	if((ceilf(model->camera.x) == 82)&&(ceilf(model->camera.y) == 42)){
+		model->camera.x = 4;
+		model->JoueSoundTP();
+	}
+	if((ceilf(model->camera.x) == 2)&&(ceilf(model->camera.y) == 42)){
+		model->camera.x = 80;
+		model->JoueSoundTP();
+	}
 }
 
 void Controller::ramassePiece(int x, int y) {

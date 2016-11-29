@@ -51,6 +51,9 @@ private:
 	sf::SoundBuffer buff_SoundFreeze;
 	sf::Sound Sound_Freeze;
 
+	sf::SoundBuffer buff_SoundTP;
+	sf::Sound Sound_TP;
+
 
 	bool Freeze = false;
 
@@ -128,6 +131,10 @@ public:
 
 	const int getTailleMiniMap() const;
 	sf::Time getTimeFrame();
+
+	void InitialiseSoundTP(sf::String nomFichier);
+
+	void JoueSoundTP();
 };
 
 #endif //PACMAN_MODEL_H
