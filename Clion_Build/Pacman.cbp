@@ -8,28 +8,28 @@
 		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\Desktop\;CMake Files\..\..\..\Desktop\SFML-2.4.0\;CMake Files\..\..\..\Desktop\SFML-2.4.0\cmake\;CMake Files\..\..\..\Desktop\SFML-2.4.0\cmake\Modules\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build"/>
+				<Option working_dir="D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build"/>
+				<Option working_dir="D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Pacman">
-				<Option output="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Pacman.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build"/>
+				<Option output="D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Pacman.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -47,15 +47,15 @@
 					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/include/c++/backward"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Makefile&quot;  VERBOSE=1 Pacman"/>
-					<CompileFile command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Makefile&quot;  VERBOSE=1 Pacman"/>
+					<CompileFile command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Pacman/fast">
-				<Option output="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Pacman.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build"/>
+				<Option output="D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Pacman.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -73,102 +73,102 @@
 					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/include/c++/backward"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Makefile&quot;  VERBOSE=1 Pacman/fast"/>
-					<CompileFile command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Makefile&quot;  VERBOSE=1 Pacman/fast"/>
+					<CompileFile command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build"/>
+				<Option working_dir="D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW2/bin/mingw32-make.exe -f &quot;D:/Mes Documents/Travail/Programmation/Pacman3D/Clion_Build/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/controller/Controller.cpp">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/controller/Controller.cpp">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/controller/Controller.h">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/controller/Controller.h">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/main.cpp">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/main.cpp">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/model/Model.cpp">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/model/Model.cpp">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/model/Model.h">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/model/Model.h">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/util/Enemy.cpp">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/util/Enemy.cpp">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/util/Enemy.h">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/util/Enemy.h">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/util/LibObj/list.cpp">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/util/LibObj/list.cpp">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/util/LibObj/list.h">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/util/LibObj/list.h">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/util/LibObj/objLoader.cpp">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/util/LibObj/objLoader.cpp">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/util/LibObj/objLoader.h">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/util/LibObj/objLoader.h">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/util/LibObj/obj_parser.cpp">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/util/LibObj/obj_parser.cpp">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/util/LibObj/obj_parser.h">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/util/LibObj/obj_parser.h">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/util/LibObj/string_extra.cpp">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/util/LibObj/string_extra.cpp">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/util/LibObj/string_extra.h">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/util/LibObj/string_extra.h">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/util/Map.cpp">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/util/Map.cpp">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/util/Map.h">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/util/Map.h">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/util/Object.cpp">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/util/Object.cpp">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/util/Object.h">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/util/Object.h">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/util/Piece.cpp">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/util/Piece.cpp">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/util/Piece.h">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/util/Piece.h">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/util/Skybox.cpp">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/util/Skybox.cpp">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/util/Skybox.h">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/util/Skybox.h">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/view/View.cpp">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/view/View.cpp">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/src/view/View.h">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/src/view/View.h">
 			<Option target="Pacman"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/CMakeLists.txt">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="D:/Mes Documents/Travail/Programmation/PacmanMatrice - CopieModifMinimap/../../../Desktop/SFML-2.4.0/cmake/Modules/FindSFML.cmake">
+		<Unit filename="D:/Mes Documents/Travail/Programmation/Pacman3D/../../../Desktop/SFML-2.4.0/cmake/Modules/FindSFML.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\Desktop\SFML-2.4.0\cmake\Modules\"/>
 		</Unit>
 	</Project>

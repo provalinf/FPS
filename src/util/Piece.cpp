@@ -7,7 +7,7 @@
 #include "Piece.h"
 
 Piece::Piece(Model *model) : Object(model) {
-	CreateTexture("Obj",1);
+	//CreateTexture("Obj",1);
 }
 
 void Piece::CreateCoin(int x, int y) {

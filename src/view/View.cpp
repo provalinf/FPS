@@ -40,7 +40,7 @@ void View::Menu() {
     sf::Texture background;
     background.loadFromFile("Img/Menu/background.jpg");
 
-	BoutonMenu jouer = CreationBouton("Jouer", 10, 10, 10, 40);
+	BoutonMenu jouer = CreationBouton("Jouerrrrr", 100, 80, 300, 80);
 
     while (window.isOpen()) {
         //std::cout << "Test" << std::endl;
@@ -67,8 +67,12 @@ void View::Menu() {
 
 BoutonMenu View::CreationBouton(sf::String text, int x, int y, int longu, int larg) {
     BoutonMenu bouton;
-    bouton.texte.setString(text);
-    bouton.x = x;
+	bouton.texte.setFont(model->getFont());
+	bouton.texte.setCharacterSize(24); // in pixels, not points!
+	bouton.texte.setString(text);
+	bouton.texte.setOrigin(floor(bouton.texte.getLocalBounds().width /2) , floor(bouton.texte.getLocalBounds().height /2));
+	bouton.texte.setPosition(x+longu/2, (y+larg/2)-5);
+	bouton.x = x;
     bouton.y = y;
     bouton.longueur = longu;
     bouton.largeur = larg;
@@ -158,7 +162,33 @@ void View::displayMiniMap(sf::RenderWindow &window) {
 	rectangle.setFillColor(sf::Color(0, 0, 0, 150));
 	window.draw(rectangle);    // Affichage du texte
 
-	for (unsigned int x = 0; x < model->getMap().x; x++) {
+	int distance_affichage = 20;
+
+	unsigned int x_mat = (unsigned int) (floor(model->camera.x - distance_affichage) >= 0 ? floor(model->camera.x - distance_affichage) : 0);
+	unsigned int x_mat_fin = (unsigned int) (ceilf(model->camera.x + distance_affichage) <= model->getMap().x ? ceilf(model->camera.x + distance_affichage) : model->getMap().x);
+
+	unsigned int y_mat = (unsigned int) (floor(model->camera.y - distance_affichage) >= 0 ? floor(model->camera.y - distance_affichage) : 0);
+	unsigned int y_mat_fin = (unsigned int) (ceilf(model->camera.y + distance_affichage) <= model->getMap().y ? ceilf(model->camera.y + distance_affichage) : model->getMap().y);
+
+	int x_t = 0;
+	int y_t = 0;
+
+	for (unsigned int x = x_mat; x < x_mat_fin; x++) {
+		y_t = 0;
+		for (unsigned int y = y_mat; y < y_mat_fin; y++) {
+			if (model->getMatrice()[x][y] == 1) {
+				TraceBlocMiniMap(x_t, y_t, 200, 200, 200, 100);
+			} else if (model->getMatrice()[x][y] == 2) {
+				TraceBlocMiniMap(x_t, y_t, 255, 255, 0);
+			} else if (model->getMatrice()[x][y] == 3) {
+				TraceBlocMiniMap(x_t, y_t, 255, 0, 0);
+			}
+			y_t++;
+		}
+		x_t++;
+	}
+
+	/*for (unsigned int x = 0; x < model->getMap().x; x++) {
 		for (unsigned int y = 0; y < model->getMap().y; y++) {
 			if (model->getMatrice()[x][y] == 1) {
 				TraceBlocMiniMap(x, y, 10, 10, 10);
@@ -170,7 +200,7 @@ void View::displayMiniMap(sf::RenderWindow &window) {
 				TraceBlocMiniMap(x, y, 255, 0, 0);
 			}
 		}
-	}
+	}*/
 
 	for (int i = 0; i < 8; ++i) {
 		rectangle.setSize(sf::Vector2f(taille+5, taille+5));

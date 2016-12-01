@@ -7,8 +7,8 @@ const bool FULLSCREEN = false;
 int main(int, char const **) {
 	Model *model = new Model(DEBUG);
 	View *view = new View(model, FULLSCREEN);
-    //view->Menu();
-	view->initialisation();
+    view->Menu();
+	//view->initialisation();
 
 	// "delete" : Appelle le destructeur & désalloue la mémoire
 	delete (view);
