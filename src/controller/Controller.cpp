@@ -186,7 +186,7 @@ void Controller::Teleport(){
 		model->camera.x = 4;
 		model->JoueSoundTP();
 	}
-	if((ceilf(model->camera.x) == 2)&&(ceilf(model->camera.y) == 42)){
+	if((ceilf(model->camera.x) == 3)&&(ceilf(model->camera.y) == 42)){
 		model->camera.x = 80;
 		model->JoueSoundTP();
 	}
