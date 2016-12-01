@@ -24,6 +24,7 @@ private:
 	Skybox *skybox = NULL;
 	Enemy *ennemis[7];
 	sf::Texture pacman;
+	sf::Color color;
 
 	bool fullscreen;
 

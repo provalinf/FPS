@@ -2,7 +2,7 @@
 #include "view/View.h"
 
 const bool DEBUG = true;
-const bool FULLSCREEN = false;
+const bool FULLSCREEN = true;
 
 int main(int, char const **) {
 	Model *model = new Model(DEBUG);
