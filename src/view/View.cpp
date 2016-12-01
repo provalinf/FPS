@@ -196,9 +196,13 @@ void View::BouclePrincipale() {
 	map->GenerateMap();
 	skybox->GenerateSkyBox();
 
-	for (int i = 0; i < 8; ++i) {
-		ennemis[i]->GenerateEnemy();
+	for (int i = 0; i < 4; ++i) {
+		ennemis[i]->GenerateEnemy(0);
 	}
+    for (int i = 4; i < 8; ++i) {
+        ennemis[i]->GenerateEnemy(1);
+    }
+
 
 	glFlush();
 }
@@ -215,35 +219,13 @@ void View::displayMiniMap(sf::RenderWindow &window) {
 
 	int distance_affichage = 20;
 
-	unsigned int x_mat = (unsigned int) (floor(model->camera.x - distance_affichage) >= 0 ? floor(
-			model->camera.x - distance_affichage) : 0);
-	unsigned int x_mat_fin = (unsigned int) (ceilf(model->camera.x + distance_affichage) <= model->getMap().x ? ceilf(
-			model->camera.x + distance_affichage) : model->getMap().x);
+	unsigned int x_mat = (unsigned int) (floor(model->camera.x - distance_affichage) >= 0 ? floor(model->camera.x - distance_affichage) : 0);
+	unsigned int x_mat_fin = (unsigned int) (ceilf(model->camera.x + distance_affichage) <= model->getMap().x ? ceilf(model->camera.x + distance_affichage) : model->getMap().x);
 
-	unsigned int y_mat = (unsigned int) (floor(model->camera.y - distance_affichage) >= 0 ? floor(
-			model->camera.y - distance_affichage) : 0);
-	unsigned int y_mat_fin = (unsigned int) (ceilf(model->camera.y + distance_affichage) <= model->getMap().y ? ceilf(
-			model->camera.y + distance_affichage) : model->getMap().y);
+	unsigned int y_mat = (unsigned int) (floor(model->camera.y - distance_affichage) >= 0 ? floor(model->camera.y - distance_affichage) : 0);
+	unsigned int y_mat_fin = (unsigned int) (ceilf(model->camera.y + distance_affichage) <= model->getMap().y ? ceilf(model->camera.y + distance_affichage) : model->getMap().y);
 
-	int x_t = 0;
-	int y_t = 0;
-
-	for (unsigned int x = x_mat; x < x_mat_fin; x++) {
-		y_t = 0;
-		for (unsigned int y = y_mat; y < y_mat_fin; y++) {
-			if (model->getMatrice()[x][y] == 1) {
-				TraceBlocMiniMap(x_t, y_t, 200, 200, 200, 100);
-			} else if (model->getMatrice()[x][y] == 2) {
-				TraceBlocMiniMap(x_t, y_t, 255, 255, 0);
-			} else if (model->getMatrice()[x][y] == 3) {
-				TraceBlocMiniMap(x_t, y_t, 255, 0, 0);
-			}
-			y_t++;
-		}
-		x_t++;
-	}
-
-	/*for (unsigned int x = 0; x < model->getMap().x; x++) {
+	for (unsigned int x = 0; x < model->getMap().x; x++) {
 		for (unsigned int y = 0; y < model->getMap().y; y++) {
 			if (model->getMatrice()[x][y] == 1) {
 				TraceBlocMiniMap(x, y, 10, 10, 10);
@@ -255,7 +237,7 @@ void View::displayMiniMap(sf::RenderWindow &window) {
 				TraceBlocMiniMap(x, y, 255, 0, 0);
 			}
 		}
-	}*/
+	}
 
 	for (int i = 0; i < 8; ++i) {
 		rectangle.setSize(sf::Vector2f(taille + 5, taille + 5));

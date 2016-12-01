@@ -42,13 +42,15 @@ public:
 
 	void EnemyLoadObj(const char *ObjFile);
 
-	void GenerateEnemy();
-
 	float ennemyspeed;
 
     float memposx = 0;
     float memposy = 0;
 	int alea = 0;
+
+    void GenerateEnemyCube1();
+
+	void GenerateEnemy(int choix);
 };
 
 
