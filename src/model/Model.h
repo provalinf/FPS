@@ -54,6 +54,8 @@ private:
 	sf::SoundBuffer buff_SoundTP;
 	sf::Sound Sound_TP;
 
+	bool jeu_active;
+
 
 	bool Freeze = false;
 
@@ -135,6 +137,10 @@ public:
 	void InitialiseSoundTP(sf::String nomFichier);
 
 	void JoueSoundTP();
+
+	bool isJeu_active();
+
+	void setJeu_active(bool jeu_active);
 };
 
 #endif //PACMAN_MODEL_H

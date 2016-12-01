@@ -17,7 +17,7 @@ View::View(Model *model, bool fullscreen) {
 
 	controller = new Controller(window, model);
 
-    pacman.loadFromFile("Img/Pacman-Logo.png");
+	pacman.loadFromFile("Img/Pacman-Logo.png");
 }
 
 void View::CreationFenetre() {
@@ -37,49 +37,50 @@ void View::CreationFenetre() {
 
 void View::Menu() {
 
-    sf::Texture background;
-    background.loadFromFile("Img/Menu/background.jpg");
+	sf::Texture background;
+	background.loadFromFile("Img/Menu/background.jpg");
 
 	BoutonMenu jouer = CreationBouton("Jouerrrrr", 100, 80, 300, 80);
 
-    while (window.isOpen()) {
-        //std::cout << "Test" << std::endl;
+	while (window.isOpen()) {
+		//std::cout << "Test" << std::endl;
 
-        sf::Event event;
+		sf::Event event;
 
-        while (window.pollEvent(event)) {
+		while (window.pollEvent(event)) {
 
-            if (event.type == sf::Event::Closed ||
-                (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {
-                window.close();
-            }
-        }
+			if (event.type == sf::Event::Closed ||
+				(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {
+				window.close();
+			}
+		}
 
 
-        window.draw(jouer.background);
-        window.draw(jouer.texte);
+		window.draw(jouer.background);
+		window.draw(jouer.texte);
 
-        window.setActive();
-        window.display();
-        window.clear();
-    }
+		window.setActive();
+		window.display();
+		window.clear();
+	}
 }
 
 BoutonMenu View::CreationBouton(sf::String text, int x, int y, int longu, int larg) {
-    BoutonMenu bouton;
+	BoutonMenu bouton;
 	bouton.texte.setFont(model->getFont());
 	bouton.texte.setCharacterSize(24); // in pixels, not points!
 	bouton.texte.setString(text);
-	bouton.texte.setOrigin(floor(bouton.texte.getLocalBounds().width /2) , floor(bouton.texte.getLocalBounds().height /2));
-	bouton.texte.setPosition(x+longu/2, (y+larg/2)-5);
+	bouton.texte.setOrigin(floor(bouton.texte.getLocalBounds().width / 2),
+						   floor(bouton.texte.getLocalBounds().height / 2));
+	bouton.texte.setPosition(x + longu / 2, (y + larg / 2) - 5);
 	bouton.x = x;
-    bouton.y = y;
-    bouton.longueur = longu;
-    bouton.largeur = larg;
-    bouton.background = sf::RectangleShape(sf::Vector2f(bouton.longueur, bouton.largeur));
-    bouton.background.setFillColor(sf::Color(255, 0, 0, 150));
-    bouton.background.setPosition(bouton.x, bouton.y);
-    return bouton;
+	bouton.y = y;
+	bouton.longueur = longu;
+	bouton.largeur = larg;
+	bouton.background = sf::RectangleShape(sf::Vector2f(bouton.longueur, bouton.largeur));
+	bouton.background.setFillColor(sf::Color(255, 0, 0, 150));
+	bouton.background.setPosition(bouton.x, bouton.y);
+	return bouton;
 }
 
 void View::initialisation() {
@@ -108,13 +109,13 @@ void View::initialisation() {
 		ennemis[i] = new Enemy(model);
 	}
 	ennemis[0]->SetPosition(42.0f, 42.0f);
-    ennemis[1]->SetPosition(42.0f, 42.0f);
-    ennemis[2]->SetPosition(42.0f, 42.0f);
-    ennemis[3]->SetPosition(42.0f, 42.0f);
-    ennemis[4]->SetPosition(42.0f, 42.0f);
-    ennemis[5]->SetPosition(42.0f, 42.0f);
-    ennemis[6]->SetPosition(42.0f, 42.0f);
-    ennemis[7]->SetPosition(42.0f, 42.0f);
+	ennemis[1]->SetPosition(42.0f, 42.0f);
+	ennemis[2]->SetPosition(42.0f, 42.0f);
+	ennemis[3]->SetPosition(42.0f, 42.0f);
+	ennemis[4]->SetPosition(42.0f, 42.0f);
+	ennemis[5]->SetPosition(42.0f, 42.0f);
+	ennemis[6]->SetPosition(42.0f, 42.0f);
+	ennemis[7]->SetPosition(42.0f, 42.0f);
 
 
 	while (window.isOpen()) {
@@ -157,18 +158,22 @@ void View::displayMiniMap(sf::RenderWindow &window) {
 
 	float taille = 3;
 
-	sf::RectangleShape rectangle(sf::Vector2f(model->getMap().x*taille, model->getMap().y*taille));
-	rectangle.setPosition(window.getSize().x-(model->getMap().x*taille)-10, 10);
+	sf::RectangleShape rectangle(sf::Vector2f(model->getMap().x * taille, model->getMap().y * taille));
+	rectangle.setPosition(window.getSize().x - (model->getMap().x * taille) - 10, 10);
 	rectangle.setFillColor(sf::Color(0, 0, 0, 150));
 	window.draw(rectangle);    // Affichage du texte
 
 	int distance_affichage = 20;
 
-	unsigned int x_mat = (unsigned int) (floor(model->camera.x - distance_affichage) >= 0 ? floor(model->camera.x - distance_affichage) : 0);
-	unsigned int x_mat_fin = (unsigned int) (ceilf(model->camera.x + distance_affichage) <= model->getMap().x ? ceilf(model->camera.x + distance_affichage) : model->getMap().x);
+	unsigned int x_mat = (unsigned int) (floor(model->camera.x - distance_affichage) >= 0 ? floor(
+			model->camera.x - distance_affichage) : 0);
+	unsigned int x_mat_fin = (unsigned int) (ceilf(model->camera.x + distance_affichage) <= model->getMap().x ? ceilf(
+			model->camera.x + distance_affichage) : model->getMap().x);
 
-	unsigned int y_mat = (unsigned int) (floor(model->camera.y - distance_affichage) >= 0 ? floor(model->camera.y - distance_affichage) : 0);
-	unsigned int y_mat_fin = (unsigned int) (ceilf(model->camera.y + distance_affichage) <= model->getMap().y ? ceilf(model->camera.y + distance_affichage) : model->getMap().y);
+	unsigned int y_mat = (unsigned int) (floor(model->camera.y - distance_affichage) >= 0 ? floor(
+			model->camera.y - distance_affichage) : 0);
+	unsigned int y_mat_fin = (unsigned int) (ceilf(model->camera.y + distance_affichage) <= model->getMap().y ? ceilf(
+			model->camera.y + distance_affichage) : model->getMap().y);
 
 	int x_t = 0;
 	int y_t = 0;
@@ -203,8 +208,10 @@ void View::displayMiniMap(sf::RenderWindow &window) {
 	}*/
 
 	for (int i = 0; i < 8; ++i) {
-		rectangle.setSize(sf::Vector2f(taille+5, taille+5));
-		rectangle.setPosition(window.getSize().x+(ennemis[i]->getPosition().fx*taille)-(model->getMap().x*taille)-10, 10+(ennemis[i]->getPosition().fy*taille));
+		rectangle.setSize(sf::Vector2f(taille + 5, taille + 5));
+		rectangle.setPosition(
+				window.getSize().x + (ennemis[i]->getPosition().fx * taille) - (model->getMap().x * taille) - 10,
+				10 + (ennemis[i]->getPosition().fy * taille));
 		rectangle.setFillColor(sf::Color(0, 255, 0, 150));
 		window.draw(rectangle);    // Affichage du texte
 	}
@@ -212,10 +219,11 @@ void View::displayMiniMap(sf::RenderWindow &window) {
 
 	int radius = 8;
 	sf::CircleShape cercle(radius);
-	cercle.setPosition(window.getSize().x+(model->camera.x*taille)-(model->getMap().x*taille)-10, 10+(model->camera.y*taille));
+	cercle.setPosition(window.getSize().x + (model->camera.x * taille) - (model->getMap().x * taille) - 10,
+					   10 + (model->camera.y * taille));
 	//cercle.setFillColor(sf::Color(0, 0, 0, 150));
 	cercle.setOrigin(radius, radius);
-	cercle.setRotation(model->camera.eyeX-180);
+	cercle.setRotation(model->camera.eyeX - 180);
 	cercle.setTexture(&pacman);
 	window.draw(cercle);    // Affichage du texte
 
@@ -224,7 +232,9 @@ void View::displayMiniMap(sf::RenderWindow &window) {
 
 void View::TraceBlocMiniMap(int x, int y, sf::Uint8 R, sf::Uint8 V, sf::Uint8 B, sf::Uint8 A) {
 	sf::RectangleShape bloc(sf::Vector2f(model->getTailleMiniMap(), model->getTailleMiniMap()));
-	bloc.setPosition(window.getSize().x+(x*model->getTailleMiniMap())-(model->getMap().x*model->getTailleMiniMap())-10, 10+(y*model->getTailleMiniMap()));
+	bloc.setPosition(
+			window.getSize().x + (x * model->getTailleMiniMap()) - (model->getMap().x * model->getTailleMiniMap()) - 10,
+			10 + (y * model->getTailleMiniMap()));
 	bloc.setFillColor(sf::Color(R, V, B, A));
 	window.draw(bloc);
 }
@@ -250,9 +260,12 @@ void View::displayNBPieceTempo(sf::RenderWindow &window) {
 View::~View() {
 	std::cout << "Destructeur de vue" << std::endl;
 	delete (controller);
-    if (skybox != NULL ) delete (skybox);
-    if (map != NULL) delete (map);
-	for (int i = 0; i < 7; ++i) {
-		delete (ennemis[i]);
+	if (model->isJeu_active()) {
+		delete (skybox);
+		delete (map);
+		for (int i = 0; i < 7; ++i) {
+			delete (ennemis[i]);
+		}
 	}
+
 }

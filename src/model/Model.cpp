@@ -27,6 +27,7 @@ Model::Model(bool debug) {
 	InitialiseSoundFreeze("freeze.wav");
 	InitialiseSoundTP("TPsound.wav");
 
+	jeu_active = false;
 	piece_height = 1;
 	camera.x = 20;
 	camera.y = 20;
@@ -41,12 +42,22 @@ Model::Model(bool debug) {
 	this->debug = debug;
 }*/
 
+
+
 void Model::InitFont(sf::String nomFichier) {
 	nomFichier = REP_FONT + "/" + nomFichier;
 	if (!font.loadFromFile(nomFichier)) {
 		std::cout << "/!\\ Failure to load font : " << nomFichier.toAnsiString() << std::endl;
 		std::exit(1);
 	}
+}
+
+bool Model::isJeu_active() {
+	return jeu_active;
+}
+
+void Model::setJeu_active(bool jeu_active) {
+	Model::jeu_active = jeu_active;
 }
 
 sf::Image Model::LoadImgMap(sf::String nomFichier) {
