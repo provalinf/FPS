@@ -96,16 +96,18 @@ void View::Menu() {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             if ((sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&(sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
                     (sf::Mouse::getPosition(window).y >= (window.getSize().y*1/5)&&(sf::Mouse::getPosition(window).y <= (window.getSize().y*1/5+40)))){
-                std::cout<<"Tu as clique sur Jouer"<<std::endl;
+                //std::cout<<"Tu as clique sur Jouer"<<std::endl;
+                initialisation();
             }
 			if ((sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&(sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
 				(sf::Mouse::getPosition(window).y >= (window.getSize().y*2/5)&&(sf::Mouse::getPosition(window).y <= (window.getSize().y*2/5+40)))){
 
-				std::cout<<"Tu as clique sur Parametres"<<std::endl;
+				//std::cout<<"Tu as clique sur Parametres"<<std::endl;
 			}
 			if ((sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&(sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
 				(sf::Mouse::getPosition(window).y >= (window.getSize().y*3/5)&&(sf::Mouse::getPosition(window).y <= (window.getSize().y*3/5+40)))){
-				std::cout<<"Tu as clique sur Quitter"<<std::endl;
+				//std::cout<<"Tu as clique sur Quitter"<<std::endl;
+                window.close();
 			}
         }
 
