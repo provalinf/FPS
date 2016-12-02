@@ -20,7 +20,7 @@ void Enemy::EnemyLoadObj(const char *ObjFile, int i) {
 	//toString();
 }
 
-void Enemy::GenerateEnemy() {
+void Enemy::GenerateEnemy(int choix) {
 	if (model->isMangerEnnemis() && model->camera.x >= position.fx - 0.8 && model->camera.x <= position.fx + 0.8) {
 		if (model->camera.y >= position.fy - 0.8 && model->camera.y <= position.fy + 0.8) {
 			isEat = true;

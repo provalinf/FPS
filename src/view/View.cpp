@@ -71,22 +71,22 @@ void View::Menu() {
         window.draw(quitter.background);
         window.draw(quitter.texte);
 
-		if ((sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&(sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
-			(sf::Mouse::getPosition(window).y >= (window.getSize().y*1/5)&&(sf::Mouse::getPosition(window).y <= (window.getSize().y*1/5+40)))) {
+		if (((unsigned int)sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&((unsigned int)sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
+			((unsigned int)sf::Mouse::getPosition(window).y >= (window.getSize().y*1/5)&&((unsigned int)sf::Mouse::getPosition(window).y <= (window.getSize().y*1/5+40)))) {
 			jouer.background.setFillColor(color.Green);
 		}
 		else{
 			jouer.background.setFillColor(color.Red);
 		}
-		if ((sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&(sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
-			(sf::Mouse::getPosition(window).y >= (window.getSize().y*2/5)&&(sf::Mouse::getPosition(window).y <= (window.getSize().y*2/5+40)))) {
+		if (((unsigned int)sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&((unsigned int)sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
+			((unsigned int)sf::Mouse::getPosition(window).y >= (window.getSize().y*2/5)&&((unsigned int)sf::Mouse::getPosition(window).y <= (window.getSize().y*2/5+40)))) {
 			param.background.setFillColor(color.Green);
 		}
 		else{
 			param.background.setFillColor(color.Red);
 		}
-		if ((sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&(sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
-			(sf::Mouse::getPosition(window).y >= (window.getSize().y*3/5)&&(sf::Mouse::getPosition(window).y <= (window.getSize().y*3/5+40)))){
+		if (((unsigned int)sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&((unsigned int)sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
+			((unsigned int)sf::Mouse::getPosition(window).y >= (window.getSize().y*3/5)&&((unsigned int)sf::Mouse::getPosition(window).y <= (window.getSize().y*3/5+40)))){
 			quitter.background.setFillColor(color.Green);
 		}
 		else{
@@ -94,18 +94,18 @@ void View::Menu() {
 		}
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            if ((sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&(sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
-                    (sf::Mouse::getPosition(window).y >= (window.getSize().y*1/5)&&(sf::Mouse::getPosition(window).y <= (window.getSize().y*1/5+40)))){
+            if (((unsigned int)sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&((unsigned int)sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
+                    ((unsigned int)sf::Mouse::getPosition(window).y >= (window.getSize().y*1/5)&&((unsigned int)sf::Mouse::getPosition(window).y <= (window.getSize().y*1/5+40)))){
                 //std::cout<<"Tu as clique sur Jouer"<<std::endl;
                 initialisation();
             }
-			if ((sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&(sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
-				(sf::Mouse::getPosition(window).y >= (window.getSize().y*2/5)&&(sf::Mouse::getPosition(window).y <= (window.getSize().y*2/5+40)))){
+			if (((unsigned int)sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&((unsigned int)sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
+				((unsigned int)sf::Mouse::getPosition(window).y >= (window.getSize().y*2/5)&&((unsigned int)sf::Mouse::getPosition(window).y <= (window.getSize().y*2/5+40)))){
 
 				//std::cout<<"Tu as clique sur Parametres"<<std::endl;
 			}
-			if ((sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&(sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
-				(sf::Mouse::getPosition(window).y >= (window.getSize().y*3/5)&&(sf::Mouse::getPosition(window).y <= (window.getSize().y*3/5+40)))){
+			if (((unsigned int)sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&((unsigned int)sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
+				((unsigned int)sf::Mouse::getPosition(window).y >= (window.getSize().y*3/5)&&((unsigned int)sf::Mouse::getPosition(window).y <= (window.getSize().y*3/5+40)))){
 				//std::cout<<"Tu as clique sur Quitter"<<std::endl;
                 window.close();
 			}
@@ -200,8 +200,12 @@ void View::BouclePrincipale() {
 
 	map->GenerateMap();
 	skybox->GenerateSkyBox();
-	for (int i = 0; i < 4; ++i) {
-		ennemis[i]->GenerateEnemy();
+
+	for (int i = 0; i < 2; ++i) {
+		ennemis[i]->GenerateEnemy(0);
+	}
+	for (int i = 2; i < 4; ++i) {
+		ennemis[i]->GenerateEnemy(1);
 	}
 
 	glFlush();
