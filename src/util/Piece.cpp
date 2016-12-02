@@ -19,7 +19,7 @@ void Piece::CreateCoin(int x, int y) {
 	glPushMatrix();
 	glTranslatef(x, y, model->getHauteurPiece());
     glRotatef(90,1,0,0);
-    glRotatef(clock(),0,1,0);
+    glRotatef(clock()/2,0,1,0);
     gluCylinder(quadra,0.2,0.2,0.1,80,1);
     gluDisk(quadra,0,0.2,30,30);
 	//gluSphere(quadra, 0.3, 10, 10);
@@ -29,6 +29,16 @@ void Piece::CreateCoin(int x, int y) {
 
 void Piece::CreateSpeedCoin(int x, int y) {
 	glColor3ub(0, 0, 0);
+	GLUquadricObj *quadra = gluNewQuadric();
+	glPushMatrix();
+	glTranslatef(x, y, model->getHauteurPiece());
+	gluSphere(quadra, 0.5, 10, 10);
+	glPopMatrix();
+	gluDeleteQuadric(quadra);
+}
+
+void Piece::CreateEatCoin(int x, int y) {
+	glColor3ub(100, 100, 255);
 	GLUquadricObj *quadra = gluNewQuadric();
 	glPushMatrix();
 	glTranslatef(x, y, model->getHauteurPiece());

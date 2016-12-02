@@ -16,6 +16,8 @@ public:
 	void CreateCoin(int x, int y);
 
 	void CreateSpeedCoin(int x, int y);
+
+	void CreateEatCoin(int x, int y);
 };
 
 

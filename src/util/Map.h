@@ -23,6 +23,8 @@ public:
 	void CreateCube(float longueur, float largeur, float hauteur, float x, float y, float z);
 
     void CreateTP(float longueur, float largeur, float hauteur, float x, float y, float z);
+
+	void CreateCubeFreeze(float longueur, float largeur, float hauteur, float x, float y, float z);
 };
 
 

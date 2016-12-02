@@ -13,18 +13,23 @@ Enemy::Enemy(Model *model) : Object(model) {
 	ennemyspeed = 0.6f;
 };
 
-void Enemy::EnemyLoadObj(const char *ObjFile) {
+void Enemy::EnemyLoadObj(const char *ObjFile, int i) {
 	objData = new objLoader();
 	objData->load((char *) ObjFile);
-	toString();
+	this->correction = i;
+	//toString();
 }
 
 void Enemy::GenerateEnemy() {
-	if (objData == NULL) {
-		GenerateEnemyCube();
-	} else {
-		GenerateEnemyObj();
+	if (model->isMangerEnnemis() && model->camera.x >= position.fx - 0.8 && model->camera.x <= position.fx + 0.8) {
+		if (model->camera.y >= position.fy - 0.8 && model->camera.y <= position.fy + 0.8) {
+			isEat = true;
+		}
 	}
+	if (!isEat) {
+		GenerateEnemyCube();
+	}
+
 	TempsFramePrecedente = model->getTimeFrame();
 }
 
@@ -74,24 +79,50 @@ void Enemy::GenerateEnemyCube() {
             if(alea == 3){position.fx += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;}
 
         }
+
+		/*if (model->getMatrice()[up_x][up_y] == 1) { position.fy -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+		if (model->getMatrice()[down_x][down_y] == 1) { position.fy += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+		if ((model->getMatrice()[left_x][left_y] == 1)) { position.fx += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+		if (model->getMatrice()[right_x][right_y] == 1) { position.fx -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+		if ((model->getMatrice()[up_x][up_y] != 1) && (model->getMatrice()[left_x][left_y] != 1) && (model->getMatrice()[right_x][right_y] != 1) && (model->getMatrice()[down_x][down_y] != 1)) {
+
+			if (position.fx < model->camera.x) { position.fx += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+			if (position.fx > model->camera.x) { position.fx -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+			if (position.fy < model->camera.y) { position.fy += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+			if (position.fy > model->camera.y) { position.fy -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+
+		}*/
     }
- /*       if (model->getMatrice()[up_x][up_y] == 1) { position.fy -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-        if (model->getMatrice()[down_x][down_y] == 1) { position.fy += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-        if ((model->getMatrice()[left_x][left_y] == 1)) { position.fx += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-        if (model->getMatrice()[right_x][right_y] == 1) { position.fx -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-        if ((model->getMatrice()[up_x][up_y] != 1) && (model->getMatrice()[left_x][left_y] != 1) &&
-            (model->getMatrice()[right_x][right_y] != 1) && (model->getMatrice()[down_x][down_y] != 1)) {
 
-            if (position.fx < model->camera.x) { position.fx += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-            if (position.fx > model->camera.x) { position.fx -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-            if (position.fy < model->camera.y) { position.fy += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-            if (position.fy > model->camera.y) { position.fy -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+    //CreateCube(1, 1, 4, position.fx, position.fy, 0);
+	GenerateEnemyObj();
+}
 
-        }
-    }
-	CreateCube(1, 1, 4, position.fx, position.fy, 0);*/
+void Enemy::CorrectifObj() {
+	switch (correction) {
+		case 1:		// Silent
+			glScalef(0.015, 0.015, 0.015);
+			glTranslated(position.fx+(position.fx/(42.0/2800.0)), position.fy+(position.fy/(42.0/2800.0)), 2);
+			glRotated(90, 1, 0, 0);
+			break;
+		case 2:		// Billy
+			glScalef(1.2,1.2,1.2);
+			glTranslated(position.fx-(position.fx/(42.0/6.6)), position.fy-(position.fy/(42.0/6.7)), 0);
+			glRotated(90, 1, 0, 0);
+			break;
+		case 3:		// Dalek
+			glScalef(0.015, 0.015, 0.015);
+			glTranslated(position.fx+(position.fx/(42.0/2790.0)), position.fy+(position.fy/(42.0/2790.0)), 1.5);
+			glRotated(90, 1, 0, 0);
+			break;
+		case 4:		// PortalTurretV2
+			glScalef(0.045, 0.045, 0.045);
+			glTranslated(position.fx+(position.fx/(42.0/902.0)), position.fy+(position.fy/(42.0/900.0)), 35);
+			glRotated(90, 1, 0, 0);
+			break;
 
-    CreateCube(1, 1, 4, position.fx, position.fy, 0);
+		default:break;
+	}
 }
 
 // -- TEMPO
@@ -173,7 +204,13 @@ void Enemy::CreateCube(float longueur, float largeur, float hauteur, float x, fl
 // -- TEMPO
 
 void Enemy::GenerateEnemyObj() {
+	CorrectifObj();
 	glBegin(GL_TRIANGLES);
+	if (model->isMangerEnnemis()) {
+		glColor3ub(150, 150, 255);
+	} else {
+		glColor3ub(164, 11, 8);
+	}
 	glTexCoord2i(position.ix, position.iy);
 
 

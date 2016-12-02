@@ -22,7 +22,7 @@ private:
 	Controller *controller;
 	Map *map = NULL;
 	Skybox *skybox = NULL;
-	Enemy *ennemis[7];
+	Enemy *ennemis[4];
 	sf::Texture pacman;
 
 	bool fullscreen;

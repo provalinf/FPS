@@ -8,7 +8,7 @@
 Map::Map(Model *model, sf::String nomMap) : Object(model) {
 	pieces = new Piece(model);
 	model->CreateMatrix(model->LoadImgMap(nomMap));
-	CreateTexture("Map", 7);	// Si qu'une texture, nommer l'image face1.jpg...
+	CreateTexture("Map", 8);	// Si qu'une texture, nommer l'image face1.jpg...
 }
 
 void Map::GenerateMap() {
@@ -28,6 +28,10 @@ void Map::GenerateMap() {
 				pieces->CreateCoin(x, y);
 			} else if (model->getMatrice()[x][y] == 3) {
 				pieces->CreateSpeedCoin(x, y);
+			} else if (model->getMatrice()[x][y] == 5) {
+				pieces->CreateEatCoin(x, y);
+			} else if (model->getMatrice()[x][y] == 6) {
+				CreateCubeFreeze(1, 1, 1, x, y, model->getHauteurPiece()-0.2f);
 			} else if (model->getMatrice()[x][y] == 4) {
                 CreateTP(1, 1, 4, x, y ,0);
             }
@@ -64,6 +68,74 @@ void Map::CreateTP(float longueur, float largeur, float hauteur, float x, float 
     glVertex3d(x + longueur, y + largeur, z + hauteur);
     glEnd();
     glDisable(GL_TEXTURE_2D);
+}
+
+void Map::CreateCubeFreeze(float longueur, float largeur, float hauteur, float x, float y, float z) {
+
+	LoadTexture(7);
+	glBegin(GL_QUADS);
+	//glColor3ub(255, 0, 0); //face rouge
+	glTexCoord2d(0.0, 0.0);
+	glVertex3d(x + longueur, y + largeur, z + hauteur);
+	glTexCoord2d(0.0, 1.0);
+	glVertex3d(x + longueur, y + largeur, z + 0);
+	glTexCoord2d(1.0, 1.0);
+	glVertex3d(x + 0, y + largeur, z + 0);
+	glTexCoord2d(1.0, 0.0);
+	glVertex3d(x + 0, y + largeur, z + hauteur);
+
+	//glColor3ub(0, 255, 0); //face verte
+	glTexCoord2d(0.0, 0.0);
+	glVertex3d(x + longueur, y + 0, z + hauteur);
+	glTexCoord2d(0.0, 1.0);
+	glVertex3d(x + longueur, y + 0, z + 0);
+	glTexCoord2d(1.0, 1.0);
+	glVertex3d(x + longueur, y + largeur, z + 0);
+	glTexCoord2d(1.0, 0.0);
+	glVertex3d(x + longueur, y + largeur, z + hauteur);
+
+	//glColor3ub(0, 0, 255); //face bleue
+	glTexCoord2d(0.0, 0.0);
+	glVertex3d(x + 0, y + 0, z + hauteur);
+	glTexCoord2d(0.0, 1.0);
+	glVertex3d(x + 0, y + 0, z + 0);
+	glTexCoord2d(1.0, 1.0);
+	glVertex3d(x + longueur, y + 0, z + 0);
+	glTexCoord2d(1.0, 0.0);
+	glVertex3d(x + longueur, y + 0, z + hauteur);
+
+	//glColor3ub(255, 255, 0); //face jaune
+	glTexCoord2d(0.0, 0.0);
+	glVertex3d(x + 0, y + largeur, z + hauteur);
+	glTexCoord2d(0.0, 1.0);
+	glVertex3d(x + 0, y + largeur, z + 0);
+	glTexCoord2d(1.0, 1.0);
+	glVertex3d(x + 0, y + 0, z + 0);
+	glTexCoord2d(1.0, 0.0);
+	glVertex3d(x + 0, y + 0, z + hauteur);
+
+	//glColor3ub(0, 255, 255); //face cyan	(Bas)
+	glTexCoord2d(0.0, 0.0);
+	glVertex3d(x + longueur, y + largeur, z + 0);
+	glTexCoord2d(0.0, 1.0);
+	glVertex3d(x + longueur, y + 0, z + 0);
+	glTexCoord2d(1.0, 1.0);
+	glVertex3d(x + 0, y + 0, z + 0);
+	glTexCoord2d(1.0, 0.0);
+	glVertex3d(x + 0, y + largeur, z + 0);
+
+	//glColor3ub(255, 0, 255); //face magenta	(Haut)
+	glTexCoord2d(0.0, 0.0);
+	glVertex3d(x + longueur, y + 0, z + hauteur);
+	glTexCoord2d(0.0, 1.0);
+	glVertex3d(x + longueur, y + largeur, z + hauteur);
+	glTexCoord2d(1.0, 1.0);
+	glVertex3d(x + 0, y + largeur, z + hauteur);
+	glTexCoord2d(1.0, 0.0);
+	glVertex3d(x + 0, y + 0, z + hauteur);
+	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
 }
 
 void Map::CreateCube(float longueur, float largeur, float hauteur, float x, float y, float z) {

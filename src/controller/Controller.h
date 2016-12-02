@@ -16,8 +16,11 @@ private:
 
 	sf::Clock Clock_ActionEvent;
 	sf::Time Clock_time_PieceNoire;
+	sf::Time Clock_time_PieceBleue;
+	sf::Time Clock_time_Freeze;
 	sf::Time TempsFramePrecedente;
 	bool Etat_PieceNoire = false;
+	bool Etat_PieceBleue = false;
 
 	int compteur = 0;
 	bool *Keyboard = new bool[4]{false};
@@ -43,6 +46,14 @@ public:
 	void MoveKeyboard(sf::Event event);
 
 	void Teleport();
+
+	void ActivationPieceBleue();
+
+	void DesactivationPieceBleue();
+
+	void ActivationFreeze();
+
+	void DesactivationFreeze();
 };
 
 

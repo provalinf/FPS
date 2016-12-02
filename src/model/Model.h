@@ -51,6 +51,9 @@ private:
 	sf::SoundBuffer buff_SoundFreeze;
 	sf::Sound Sound_Freeze;
 
+	sf::SoundBuffer buff_SoundDeFreeze;
+	sf::Sound Sound_DeFreeze;
+
 	sf::SoundBuffer buff_SoundTP;
 	sf::Sound Sound_TP;
 
@@ -58,9 +61,11 @@ private:
 
 
 	bool Freeze = false;
+	bool MangerEnnemis = false;
 
 	int **matrice;
 	CoordMap map;
+	int nbFreezeDispo = 0;
 
 	void DefineTailleMap(sf::Image image);
 
@@ -141,6 +146,20 @@ public:
 	bool isJeu_active();
 
 	void setJeu_active(bool jeu_active);
+
+	bool isMangerEnnemis();
+
+	void setMangerEnnemis(bool MangerEnnemis);
+
+	int getNbFreezeDispo();
+
+	void IncNbFreezeDispo();
+
+	void DecNbFreezeDispo();
+
+	void InitialiseSoundDeFreeze(sf::String nomFichier);
+
+	void JoueSoundDeFreeze();
 };
 
 #endif //PACMAN_MODEL_H

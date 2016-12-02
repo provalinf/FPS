@@ -101,15 +101,22 @@ void Controller::MoveKeyPressed(sf::Event event) {
 						   cos(model->camera.eyeX * PI / 180.0);
 	}
 
-	if (event.key.code == sf::Keyboard::F) {
-		model->SetFreeze(true);
-		model->JoueSoundFreeze();
+	if (event.key.code == sf::Keyboard::F && model->getNbFreezeDispo() > 0) {
+		ActivationFreeze();
 	}
 
 
 	if (Etat_PieceNoire && Clock_ActionEvent.getElapsedTime().asSeconds() - Clock_time_PieceNoire.asSeconds() > 10) {
 		//std::cout << "tmps " << ((sf::Time) Clock_ActionEvent.getElapsedTime()).asSeconds() - Clock_time_PieceNoire.asSeconds() << std::endl;
 		DesactivationPieceNoire();
+	}
+
+	if (Etat_PieceBleue && Clock_ActionEvent.getElapsedTime().asSeconds() - Clock_time_PieceBleue.asSeconds() > 10) {
+		DesactivationPieceBleue();
+	}
+
+	if (model->GetFreeze() && Clock_ActionEvent.getElapsedTime().asSeconds() - Clock_time_Freeze.asSeconds() > 10) {
+		DesactivationFreeze();
 	}
 
 	// mur bleu
@@ -204,6 +211,30 @@ void Controller::ramassePiece(int x, int y) {
 		model->JoueSoundPiece();
 		ActivationPieceNoire();
 	}
+
+	if (model->getMatrice()[x][y] == 5) {	// Manger ennemis
+		model->setMatrice(x, y, 0);
+		model->JoueSoundPiece();
+		ActivationPieceBleue();
+	}
+
+	if (model->getMatrice()[x][y] == 6) {	// Freeze
+		model->setMatrice(x, y, 0);
+		model->JoueSoundPiece();
+		model->IncNbFreezeDispo();
+	}
+}
+
+void Controller::ActivationFreeze() {
+	model->DecNbFreezeDispo();
+	model->SetFreeze(true);
+	Clock_time_Freeze = Clock_ActionEvent.getElapsedTime();    // /!\ Le chrono n'est jamais réinitialisé (pas besoin)
+	model->JoueSoundFreeze();
+}
+
+void Controller::DesactivationFreeze() {
+	model->SetFreeze(false);
+	model->JoueSoundDeFreeze();
 }
 
 void Controller::ActivationPieceNoire() {
@@ -219,6 +250,19 @@ void Controller::DesactivationPieceNoire() {
 	model->ResetVitesseDep();
 	model->ResetMusicPitch();
 	//std::cout << "Desactivation piece noire vitesse : " << model->getVitesseDep() << std::endl;
+}
+
+void Controller::ActivationPieceBleue() {
+	Etat_PieceBleue = true;
+	model->ChangeMusicPitch(1.5);
+	Clock_time_PieceBleue = Clock_ActionEvent.getElapsedTime();    // /!\ Le chrono n'est jamais réinitialisé (pas besoin)
+	model->setMangerEnnemis(true);
+}
+
+void Controller::DesactivationPieceBleue() {
+	Etat_PieceBleue = false;
+	model->setMangerEnnemis(false);
+	model->ResetMusicPitch();
 }
 
 int Controller::GetCompteur() {

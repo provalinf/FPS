@@ -17,7 +17,7 @@ const sf::String REP_FX = "Fx";
 const sf::String REP_IMG = "Img";
 const sf::String REP_MATRICE = "Matrice";
 const sf::String REP_MUSIC = "Music";
-const sf::String REP_OBJ = "Obj";
+const char *REP_OBJ = "Obj";
 
 Model::Model(bool debug) {
 	this->debug = debug;
@@ -25,11 +25,12 @@ Model::Model(bool debug) {
 	InitialiseMusic("music.wav");
 	InitialiseSoundPiece("ramassepiece.wav");
 	InitialiseSoundFreeze("freeze.wav");
+	InitialiseSoundDeFreeze("defreeze.wav");
 	InitialiseSoundTP("TPsound.wav");
 
 	jeu_active = false;
 	piece_height = 1;
-	camera.x = 20;
+	camera.x = 18;
 	camera.y = 20;
 
 	camera.z = 1.5;    // Défaut : 1.5
@@ -42,8 +43,6 @@ Model::Model(bool debug) {
 	this->debug = debug;
 }*/
 
-
-
 void Model::InitFont(sf::String nomFichier) {
 	nomFichier = REP_FONT + "/" + nomFichier;
 	if (!font.loadFromFile(nomFichier)) {
@@ -52,8 +51,31 @@ void Model::InitFont(sf::String nomFichier) {
 	}
 }
 
+
 bool Model::isJeu_active() {
 	return jeu_active;
+}
+
+bool Model::isMangerEnnemis() {
+	return MangerEnnemis;
+}
+
+int Model::getNbFreezeDispo() {
+	return nbFreezeDispo;
+}
+
+void Model::IncNbFreezeDispo() {
+	Model::nbFreezeDispo++;
+}
+
+void Model::DecNbFreezeDispo() {
+	if (nbFreezeDispo > 0) {
+		nbFreezeDispo--;
+	}
+}
+
+void Model::setMangerEnnemis(bool MangerEnnemis) {
+	Model::MangerEnnemis = MangerEnnemis;
 }
 
 void Model::setJeu_active(bool jeu_active) {
@@ -88,17 +110,21 @@ void Model::CreateMatrix(sf::Image image) {
 
 	for (unsigned int x = 0; x < map.x; x++) {
 		for (unsigned int y = 0; y < map.y; y++) {
-			if (image.getPixel(x, y) == color.Black) {
+			if (image.getPixel(x, y) == color.Black) {			// Murs
 				matrice[x][y] = 1;
-			} else if (image.getPixel(x, y) == color.White) {
+			} else if (image.getPixel(x, y) == color.White) {	// Vide
 				matrice[x][y] = 0;
-			} else if (image.getPixel(x, y) == color.Red) {
+			} else if (image.getPixel(x, y) == color.Red) {		// Pièces
 				matrice[x][y] = 2;
 				IncremNombreTotalPiece();
-			} else if (image.getPixel(x, y) == color.Green) {
+			} else if (image.getPixel(x, y) == color.Green) {	// Boost
 				matrice[x][y] = 3;
-			} else if (image.getPixel(x, y) == color.Yellow) {
+			} else if (image.getPixel(x, y) == color.Yellow) {	// Télép
 				matrice[x][y] = 4;
+			} else if (image.getPixel(x, y) == color.Blue) {	// Manger ennemis
+				matrice[x][y] = 5;
+			} else if (image.getPixel(x, y) == color.Magenta) {	// Manger ennemis
+				matrice[x][y] = 6;
 			}
 		}
 	}
@@ -198,6 +224,16 @@ void Model::InitialiseSoundFreeze(sf::String nomFichier) {
 	Sound_Freeze.setPitch(0.9);
 }
 
+void Model::InitialiseSoundDeFreeze(sf::String nomFichier) {
+	nomFichier = REP_FX + "/" + nomFichier;
+	if (!buff_SoundDeFreeze.loadFromFile(nomFichier)) {
+		std::cout << "/!\\ Failure to load sound freeze : " << nomFichier.toAnsiString() << std::endl;
+		std::exit(1);
+	}
+	Sound_DeFreeze = sf::Sound(buff_SoundDeFreeze);
+	Sound_DeFreeze.setPitch(0.9);
+}
+
 void Model::JoueSoundTP(){
 	Sound_TP.play();
 }
@@ -207,6 +243,10 @@ void Model::JoueSoundPiece() {
 
 void Model::JoueSoundFreeze() {
 	Sound_Freeze.play();
+}
+
+void Model::JoueSoundDeFreeze() {
+	Sound_DeFreeze.play();
 }
 
 void Model::InitialiseMusic(sf::String nomFichier) {

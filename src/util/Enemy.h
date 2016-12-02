@@ -18,6 +18,10 @@ class Enemy : public Object {
 	objLoader *objData = NULL;
 	sf::Time TempsFramePrecedente;
 
+	int correction;
+
+	bool isEat = false;
+
 	void toString();
 
 	void CreateCube(float longueur, float largeur, float hauteur, float x, float y, float z);
@@ -40,7 +44,6 @@ public:
 
 	~Enemy();
 
-	void EnemyLoadObj(const char *ObjFile);
 
 	void GenerateEnemy();
 
@@ -49,6 +52,10 @@ public:
     float memposx = 0;
     float memposy = 0;
 	int alea = 0;
+
+	void CorrectifObj();
+
+	void EnemyLoadObj(const char *ObjFile, int i);
 };
 
 
