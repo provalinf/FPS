@@ -37,32 +37,84 @@ void View::CreationFenetre() {
 
 void View::Menu() {
 
-	sf::Texture background;
-	background.loadFromFile("Img/Menu/background.jpg");
+    sf::Texture background;
+    background.loadFromFile("Img/Menu/background.jpg");
 
-	BoutonMenu jouer = CreationBouton("Jouerrrrr", 100, 80, 300, 80);
+    window.setMouseCursorVisible(true);
 
-	while (window.isOpen()) {
-		//std::cout << "Test" << std::endl;
+	BoutonMenu jouer = CreationBouton("Jouer",(window.getSize().x-150)/2, (window.getSize().y*1/5), 150, 40);
+	BoutonMenu param = CreationBouton("Parametres",(window.getSize().x-150)/2, (window.getSize().y*2/5), 150, 40);
+	BoutonMenu quitter = CreationBouton("Quitter",(window.getSize().x-150)/2, (window.getSize().y*3/5), 150, 40);
 
-		sf::Event event;
+    while (window.isOpen()) {
+        //std::cout << "Test" << std::endl;
 
-		while (window.pollEvent(event)) {
+        sf::Event event;
 
-			if (event.type == sf::Event::Closed ||
-				(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {
-				window.close();
-			}
-		}
+        while (window.pollEvent(event)) {
 
+            if (event.type == sf::Event::Closed ||
+                (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {
+                window.close();
+            }
+        }
 
-		window.draw(jouer.background);
+        sf::RectangleShape rect (sf::Vector2f(window.getSize().x, window.getSize().y));
+        rect.setTexture(&background);
+        window.draw(rect);
+        window.draw(jouer.background);
 		window.draw(jouer.texte);
 
-		window.setActive();
-		window.display();
-		window.clear();
-	}
+        window.draw(param.background);
+        window.draw(param.texte);
+
+        window.draw(quitter.background);
+        window.draw(quitter.texte);
+
+		if ((sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&(sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
+			(sf::Mouse::getPosition(window).y >= (window.getSize().y*1/5)&&(sf::Mouse::getPosition(window).y <= (window.getSize().y*1/5+40)))) {
+			jouer.background.setFillColor(color.Green);
+		}
+		else{
+			jouer.background.setFillColor(color.Red);
+		}
+		if ((sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&(sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
+			(sf::Mouse::getPosition(window).y >= (window.getSize().y*2/5)&&(sf::Mouse::getPosition(window).y <= (window.getSize().y*2/5+40)))) {
+			param.background.setFillColor(color.Green);
+		}
+		else{
+			param.background.setFillColor(color.Red);
+		}
+		if ((sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&(sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
+			(sf::Mouse::getPosition(window).y >= (window.getSize().y*3/5)&&(sf::Mouse::getPosition(window).y <= (window.getSize().y*3/5+40)))){
+			quitter.background.setFillColor(color.Green);
+		}
+		else{
+			quitter.background.setFillColor(color.Red);
+		}
+
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            if ((sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&(sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
+                    (sf::Mouse::getPosition(window).y >= (window.getSize().y*1/5)&&(sf::Mouse::getPosition(window).y <= (window.getSize().y*1/5+40)))){
+                //std::cout<<"Tu as clique sur Jouer"<<std::endl;
+                initialisation();
+            }
+			if ((sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&(sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
+				(sf::Mouse::getPosition(window).y >= (window.getSize().y*2/5)&&(sf::Mouse::getPosition(window).y <= (window.getSize().y*2/5+40)))){
+
+				//std::cout<<"Tu as clique sur Parametres"<<std::endl;
+			}
+			if ((sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&(sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
+				(sf::Mouse::getPosition(window).y >= (window.getSize().y*3/5)&&(sf::Mouse::getPosition(window).y <= (window.getSize().y*3/5+40)))){
+				//std::cout<<"Tu as clique sur Quitter"<<std::endl;
+                window.close();
+			}
+        }
+
+        window.setActive();
+        window.display();
+        window.clear();
+    }
 }
 
 BoutonMenu View::CreationBouton(sf::String text, int x, int y, int longu, int larg) {
@@ -225,6 +277,7 @@ void View::displayMiniMap(sf::RenderWindow &window) {
 		rectangle.setFillColor(sf::Color(0, 255, 0, 150));
 		window.draw(rectangle);    // Affichage du texte
 	}
+
 
 	int radius = 8;
 	sf::CircleShape cercle(radius);

@@ -27,7 +27,12 @@ void Enemy::GenerateEnemy() {
 		}
 	}
 	if (!isEat) {
-		GenerateEnemyCube();
+		if(choix ==0){
+			GenerateEnemyCube();
+		}
+		if(choix ==1){
+			GenerateEnemyCube1();
+		}
 	}
 
 	TempsFramePrecedente = model->getTimeFrame();
@@ -123,6 +128,55 @@ void Enemy::CorrectifObj() {
 
 		default:break;
 	}
+}
+
+void Enemy::GenerateEnemyCube1() {
+
+	int up_y = (int) position.fy + 1;
+	int up_x = (int) position.fx;
+
+	int down_y = (int) position.fy - 1;
+	int down_x = (int) position.fx;
+
+	int left_y = (int) position.fy;
+	int left_x = (int) position.fx - 1;
+
+	int right_y = (int) position.fy;
+	int right_x = (int) position.fx + 1;
+
+	int diagupleft_y = (int) position.fy + 1;
+	int diagupleft_x = (int) position.fx - 1;
+
+	int diagupright_y = (int) position.fy + 1;
+	int diagupright_x = (int) position.fx + 1;
+
+	int diagdownleft_y = (int) position.fy - 1;
+	int diagdownleft_x = (int) position.fx - 1;
+
+	int diagdownright_y = (int) position.fy - 1;
+	int diagdownright_x = (int) position.fx + 1;
+
+	if(!model->GetFreeze()) {
+
+		if (model->getMatrice()[up_x][up_y] == 1) { position.fy -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+		if (model->getMatrice()[down_x][down_y] == 1) { position.fy += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+		if ((model->getMatrice()[left_x][left_y] == 1)) { position.fx += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+		if (model->getMatrice()[right_x][right_y] == 1) { position.fx -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+		if (model->getMatrice()[diagdownleft_x][diagdownleft_y] == 1) { position.fx+= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;position.fy+= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+		if (model->getMatrice()[diagdownright_x][diagdownright_y] == 1) { position.fx-= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;position.fy+= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+		if (model->getMatrice()[diagupleft_x][diagupleft_y] == 1) { position.fx+= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;position.fy-= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+		if (model->getMatrice()[diagdownleft_x][diagdownleft_y] == 1) { position.fx-= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;position.fy-= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+		if ((model->getMatrice()[up_x][up_y] != 1) && (model->getMatrice()[left_x][left_y] != 1) &&
+			(model->getMatrice()[right_x][right_y] != 1) && (model->getMatrice()[down_x][down_y] != 1)) {
+
+			if (position.fx < model->camera.x) { position.fx += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+			if (position.fx > model->camera.x) { position.fx -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+			if (position.fy < model->camera.y) { position.fy += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+			if (position.fy > model->camera.y) { position.fy -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+
+		}
+	}
+	CreateCube(1, 1, 4, position.fx, position.fy, 0);
 }
 
 // -- TEMPO

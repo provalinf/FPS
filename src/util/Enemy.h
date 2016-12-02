@@ -45,8 +45,6 @@ public:
 	~Enemy();
 
 
-	void GenerateEnemy();
-
 	float ennemyspeed;
 
     float memposx = 0;
@@ -56,6 +54,10 @@ public:
 	void CorrectifObj();
 
 	void EnemyLoadObj(const char *ObjFile, int i);
+
+    void GenerateEnemyCube1();
+
+	void GenerateEnemy(int choix);
 };
 
 

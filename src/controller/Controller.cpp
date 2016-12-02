@@ -184,6 +184,61 @@ void Controller::MoveKeyPressed(sf::Event event) {
 			model->camera.y = tempy;
 		}
 	}
+/*
+    int diagupleft_y = (int) model->camera.y + 1;
+    int diagupleft_x = (int) model->camera.x - 1;
+
+    if (model->getMatrice()[diagupleft_x][diagupleft_y] == 1) {
+        if (model->getMatrice()[(int) ceilf(tempx)][diagupleft_y] == 1) {
+            model->camera.y = tempy;
+        } else if (model->getMatrice()[diagupleft_x][(int) floor(tempy)] == 1) {
+            model->camera.x = tempx;
+        } else {
+            model->camera.x = tempx;
+            model->camera.y = tempy;
+        }
+    }
+
+    int diagupright_y = (int) model->camera.y + 1;
+    int diagupright_x = (int) model->camera.x + 1;
+
+    if (model->getMatrice()[diagupright_x][diagupright_y] == 1) {
+        if (model->getMatrice()[(int) ceilf(tempx)][diagupright_y] == 1) {
+            model->camera.y = tempy;
+        } else if (model->getMatrice()[diagupright_x][(int) ceilf(tempy)] == 1) {
+            model->camera.x = tempx;
+        } else {
+            model->camera.x = tempx;
+            model->camera.y = tempy;
+        }
+    }
+
+    int diagdownleft_y = (int) model->camera.y - 1;
+    int diagdownleft_x = (int) model->camera.x - 1;
+
+    if (model->getMatrice()[diagdownleft_x][diagdownleft_y] == 1) {
+        if (model->getMatrice()[(int) floor(tempx)][diagdownleft_y] == 1) {
+            model->camera.y = tempy;
+        } else if (model->getMatrice()[diagdownleft_x][(int) floor(tempy)] == 1) {
+            model->camera.x = tempx;
+        } else {
+            model->camera.x = tempx;
+            model->camera.y = tempy;
+        }
+    }
+    int diagdownright_y = (int) model->camera.y - 1;
+    int diagdownright_x = (int) model->camera.x + 1;
+
+    if (model->getMatrice()[diagdownright_x][diagdownright_y] == 1) {
+        if (model->getMatrice()[(int) ceilf(tempx)][diagdownright_y] == 1) {
+            model->camera.y = tempy;
+        } else if (model->getMatrice()[diagdownright_x][(int) floor(tempy)] == 1) {
+            model->camera.x = tempx;
+        } else {
+            model->camera.x = tempx;
+            model->camera.y = tempy;
+        }
+    }*/
 
 }
 
