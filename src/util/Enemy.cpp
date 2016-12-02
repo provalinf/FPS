@@ -99,8 +99,8 @@ void Enemy::GenerateEnemyCube() {
 		}*/
     }
 
-    //CreateCube(1, 1, 4, position.fx, position.fy, 0);
-	GenerateEnemyObj();
+    CreateCube(1, 1, 4, position.fx, position.fy, 0);
+	//GenerateEnemyObj();
 }
 
 void Enemy::CorrectifObj() {
@@ -177,6 +177,7 @@ void Enemy::GenerateEnemyCube1() {
 		}
 	}
 	CreateCube(1, 1, 4, position.fx, position.fy, 0);
+	//GenerateEnemyObj();
 }
 
 // -- TEMPO

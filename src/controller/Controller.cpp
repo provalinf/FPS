@@ -243,12 +243,11 @@ void Controller::MoveKeyPressed(sf::Event event) {
 }
 
 void Controller::Teleport(){
-
-	if((ceilf(model->camera.x) == 82)&&(ceilf(model->camera.y) == 42)){
+	if((ceilf(model->camera.x) == 82)&&(ceilf(model->camera.y) == 37)){
 		model->camera.x = 4;
 		model->JoueSoundTP();
 	}
-	if((ceilf(model->camera.x) == 3)&&(ceilf(model->camera.y) == 42)){
+	if((ceilf(model->camera.x) == 3)&&(ceilf(model->camera.y) == 37)){
 		model->camera.x = 80;
 		model->JoueSoundTP();
 	}

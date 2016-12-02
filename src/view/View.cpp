@@ -97,6 +97,7 @@ void View::Menu() {
             if (((unsigned int)sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&((unsigned int)sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
                     ((unsigned int)sf::Mouse::getPosition(window).y >= (window.getSize().y*1/5)&&((unsigned int)sf::Mouse::getPosition(window).y <= (window.getSize().y*1/5+40)))){
                 //std::cout<<"Tu as clique sur Jouer"<<std::endl;
+				model->setJeu_active(true);
                 initialisation();
             }
 			if (((unsigned int)sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&((unsigned int)sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
@@ -160,17 +161,23 @@ void View::initialisation() {
 	for (int i = 0; i < 4; ++i) {
 		ennemis[i] = new Enemy(model);
 	}
-	ennemis[0]->SetPosition(42.0f, 42.0f);
-	ennemis[0]->EnemyLoadObj("Obj/Silent.obj", 1);
-	ennemis[1]->SetPosition(42.0f, 42.0f);
-	ennemis[1]->EnemyLoadObj("Obj/billy bike.obj", 2);
-	ennemis[2]->SetPosition(42.0f, 42.0f);
-	ennemis[2]->EnemyLoadObj("Obj/Dalek.obj", 3);
-	ennemis[3]->SetPosition(42.0f, 42.0f);
-	ennemis[3]->EnemyLoadObj("Obj/PortalTurretV2.obj", 4);
-	//ennemis[7]->EnemyLoadObj("Obj/billy bike.obj", 2);
-	//ennemis[7]->EnemyLoadObj("Obj/Dalek.obj", 3);
-	//ennemis[7]->EnemyLoadObj("Obj/PortalTurretV2.obj", 4);
+	ennemis[0]->SetPosition(42.0f, 35.0f);
+	//ennemis[0]->EnemyLoadObj("Obj/Silent.obj", 1);
+	ennemis[1]->SetPosition(42.0f, 35.0f);
+	//ennemis[1]->EnemyLoadObj("Obj/billy bike.obj", 2);
+	ennemis[2]->SetPosition(42.0f, 35.0f);
+	//ennemis[2]->EnemyLoadObj("Obj/Dalek.obj", 3);
+	ennemis[3]->SetPosition(42.0f, 35.0f);
+	//ennemis[3]->EnemyLoadObj("Obj/PortalTurretV2.obj", 4);
+
+	/*ennemis[4]->SetPosition(42.0f, 42.0f);
+	ennemis[4]->EnemyLoadObj("Obj/billy bike.obj", 2);
+
+	ennemis[5]->SetPosition(42.0f, 42.0f);
+	ennemis[5]->EnemyLoadObj("Obj/Dalek.obj", 3);
+
+	ennemis[6]->SetPosition(42.0f, 42.0f);
+	ennemis[6]->EnemyLoadObj("Obj/Silent.obj", 1);*/
 
 
 	while (window.isOpen()) {
@@ -201,25 +208,33 @@ void View::BouclePrincipale() {
 	map->GenerateMap();
 	skybox->GenerateSkyBox();
 
-	for (int i = 0; i < 2; ++i) {
+	for (int i = 0; i < 4; ++i) {
 		ennemis[i]->GenerateEnemy(0);
 	}
-	for (int i = 2; i < 4; ++i) {
+	/*for (int i = 2; i < 4; ++i) {
 		ennemis[i]->GenerateEnemy(1);
+	}*/
+
+	for (int i = 0; i < 4; ++i) {
+		if (!model->isMangerEnnemis() && model->camera.x >= ennemis[i]->getPosition().fx - 0.8 && model->camera.x <= ennemis[i]->getPosition().fx + 0.8) {
+			if (model->camera.y >= ennemis[i]->getPosition().fy - 0.8 && model->camera.y <= ennemis[i]->getPosition().fy + 0.8) {
+				window.close();
+			}
+		}
 	}
 
 	glFlush();
 }
 
-void View::displayMiniMap(sf::RenderWindow &window) {
+/*void View::displayMiniMap(sf::RenderWindow &window) {
 	window.pushGLStates();          // Sauvegarde de l'état OpenGL
 
 	float taille = 3;
 
-	/*sf::RectangleShape rectangle(sf::Vector2f(model->getMap().x * taille, model->getMap().y * taille));
+	*//*sf::RectangleShape rectangle(sf::Vector2f(model->getMap().x * taille, model->getMap().y * taille));
 	rectangle.setPosition(window.getSize().x - (model->getMap().x * taille) - 10, 10);
 	rectangle.setFillColor(sf::Color(0, 0, 0, 150));
-	window.draw(rectangle);    // Affichage du texte*/
+	window.draw(rectangle);    // Affichage du texte*//*
 
 	int distance_affichage = 20;
 
@@ -257,7 +272,7 @@ void View::displayMiniMap(sf::RenderWindow &window) {
 		x_t++;
 	}
 
-	/*for (unsigned int x = 0; x < model->getMap().x; x++) {
+	*//*for (unsigned int x = 0; x < model->getMap().x; x++) {
 		for (unsigned int y = 0; y < model->getMap().y; y++) {
 			if (model->getMatrice()[x][y] == 1) {
 				TraceBlocMiniMap(x, y, 10, 10, 10);
@@ -269,11 +284,11 @@ void View::displayMiniMap(sf::RenderWindow &window) {
 				TraceBlocMiniMap(x, y, 255, 0, 0);
 			}
 		}
-	}*/
+	}*//*
 	int pos_x_enemy;
 	int pos_y_enemy;
 	sf::RectangleShape rectangle;
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < 7; ++i) {
 		rectangle.setSize(sf::Vector2f(taille + 5, taille + 5));
 		pos_x_enemy = (int) (window.getSize().x + (ennemis[i]->getPosition().fx * taille) - (model->getMap().x * taille) - 10);
 		pos_y_enemy = (int) (10 + (ennemis[i]->getPosition().fy * taille));
@@ -290,6 +305,73 @@ void View::displayMiniMap(sf::RenderWindow &window) {
 	//cercle.setFillColor(sf::Color(0, 0, 0, 150));
 	cercle.setOrigin(radius, radius);
 	cercle.setRotation(model->camera.eyeX - 180);
+	cercle.setTexture(&pacman);
+	window.draw(cercle);    // Affichage du texte
+
+	window.popGLStates();           // Restauration de l'état OpenGL
+}*/
+
+void View::displayMiniMap(sf::RenderWindow &window) {
+	window.pushGLStates();          // Sauvegarde de l'état OpenGL
+
+	float taille = 3;
+
+	for (unsigned int x = 0; x < model->getMap().x; x++) {
+		for (unsigned int y = 0; y < model->getMap().y; y++) {
+			if (model->getMatrice()[x][y] == 1) {
+				sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
+				rectangle.setPosition(window.getSize().x+(x*taille)-(model->getMap().x*taille)-10, 10+(y*taille));
+				rectangle.setFillColor(sf::Color(10, 10, 10));
+
+				window.draw(rectangle);    // Affichage du texte
+
+				//CreateCube(1, 1, 4, x, y, 0);
+			} else if (model->getMatrice()[x][y] == 2) {
+				sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
+				rectangle.setPosition(window.getSize().x+(x*taille)-(model->getMap().x*taille)-10, 10+(y*taille));
+				rectangle.setFillColor(sf::Color(255, 255, 0));
+				window.draw(rectangle);    // Affichage du texte
+			} else if (model->getMatrice()[x][y] == 3) {
+				//pieces->CreateSpeedCoin(x, y);
+				sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
+				rectangle.setPosition(window.getSize().x+(x*taille)-(model->getMap().x*taille)-10, 10+(y*taille));
+				rectangle.setFillColor(sf::Color(255, 0, 0));
+				window.draw(rectangle);    // Affichage du texte
+			}else if (model->getMatrice()[x][y] == 5) {
+				//pieces->CreateSpeedCoin(x, y);
+				sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
+				rectangle.setPosition(window.getSize().x+(x*taille)-(model->getMap().x*taille)-10, 10+(y*taille));
+				rectangle.setFillColor(sf::Color(100, 100, 255));
+				window.draw(rectangle);    // Affichage du texte
+			}else if (model->getMatrice()[x][y] == 6) {
+				//pieces->CreateSpeedCoin(x, y);
+				sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
+				rectangle.setPosition(window.getSize().x+(x*taille)-(model->getMap().x*taille)-10, 10+(y*taille));
+				rectangle.setFillColor(sf::Color(150, 255, 0));
+				window.draw(rectangle);    // Affichage du texte
+			} else if (model->getMatrice()[x][y] == 0) {
+				sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
+				rectangle.setPosition(window.getSize().x+(x*taille)-(model->getMap().x*taille)-10, 10+(y*taille));
+				rectangle.setFillColor(sf::Color(0, 0, 0, 150));
+				window.draw(rectangle);    // Affichage du texte
+			}
+		}
+	}
+
+	for (int i = 0; i < 4; ++i) {
+		sf::RectangleShape rectangle(sf::Vector2f(taille+5, taille+5));
+		rectangle.setPosition(window.getSize().x+(ennemis[i]->getPosition().fx*taille)-(model->getMap().x*taille)-10, 10+(ennemis[i]->getPosition().fy*taille));
+		rectangle.setFillColor(sf::Color(0, 255, 0, 150));
+		window.draw(rectangle);    // Affichage du texte
+	}
+
+
+	int radius = 8;
+	sf::CircleShape cercle(radius);
+	cercle.setPosition(window.getSize().x+(model->camera.x*taille)-(model->getMap().x*taille)-10, 10+(model->camera.y*taille));
+	//cercle.setFillColor(sf::Color(0, 0, 0, 150));
+	cercle.setOrigin(radius, radius);
+	cercle.setRotation(model->camera.eyeX-180);
 	cercle.setTexture(&pacman);
 	window.draw(cercle);    // Affichage du texte
 
@@ -324,8 +406,9 @@ void View::displayNBPieceTempo(sf::RenderWindow &window) {
 }
 
 View::~View() {
-	std::cout << "Destructeur de vue" << std::endl;
+	std::cout << "Destructeur de vue" << model->isJeu_active()<< std::endl;
 	delete (controller);
+
 	if (model->isJeu_active()) {
 		delete (skybox);
 		delete (map);
