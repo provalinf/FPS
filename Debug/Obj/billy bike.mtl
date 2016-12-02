@@ -1,0 +1,24 @@
+# Blender3D MTL File: 
+# Material Count: 2
+newmtl Material_d0ec8bb9.dds
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.241569 0.241569 0.241569
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd d0ec8bb9.dds
+
+
+newmtl Material.001_jigsaw_hair.png
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 1
+map_Kd jigsaw_hair.png
+
+
