@@ -34,10 +34,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add option="-DGLEW_STATIC"/>
 					<Add directory="D:/Mes Documents/Desktop/SFML-2.4.0/include"/>
-					<Add directory="D:/Mes Documents/Desktop/glm"/>
-					<Add directory="D:/Mes Documents/Desktop/glew-2.0.0/include"/>
 					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/include"/>
 					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/../../../../include"/>
 					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/include-fixed"/>
@@ -60,10 +57,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add option="-DGLEW_STATIC"/>
 					<Add directory="D:/Mes Documents/Desktop/SFML-2.4.0/include"/>
-					<Add directory="D:/Mes Documents/Desktop/glm"/>
-					<Add directory="D:/Mes Documents/Desktop/glew-2.0.0/include"/>
 					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/include"/>
 					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/../../../../include"/>
 					<Add directory="c:\mingw2\bin\../lib/gcc/mingw32/5.3.0/include-fixed"/>

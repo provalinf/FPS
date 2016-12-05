@@ -50,13 +50,13 @@ public:
 
 	void displayNBPieceTempo(sf::RenderWindow &window);
 
-	void displayMiniMap(sf::RenderWindow &window);
+	void displayMiniMap();
 
-	void TraceBlocMiniMap(int x, int y, sf::Uint8 R, sf::Uint8 V, sf::Uint8 B, sf::Uint8 A = 255);
+	void TraceBlocMiniMap(float x, float y, float taille, sf::Uint8 R, sf::Uint8 V, sf::Uint8 B, sf::Uint8 A = 255, int coef = 0);
 
-    void Menu();
+	void Menu();
 
-    BoutonMenu CreationBouton(sf::String text, int x, int y, int longu, int larg);
+	BoutonMenu CreationBouton(sf::String text, int x, int y, int longu, int larg);
 };
 
 

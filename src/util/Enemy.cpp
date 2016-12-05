@@ -147,8 +147,8 @@ void Enemy::GenerateEnemyCube1() {
 	int diagupleft_y = (int) position.fy + 1;
 	int diagupleft_x = (int) position.fx - 1;
 
-	int diagupright_y = (int) position.fy + 1;
-	int diagupright_x = (int) position.fx + 1;
+	/*int diagupright_y = (int) position.fy + 1;
+	int diagupright_x = (int) position.fx + 1;*/		// Manque la condition !!
 
 	int diagdownleft_y = (int) position.fy - 1;
 	int diagdownleft_x = (int) position.fx - 1;

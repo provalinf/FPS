@@ -31,91 +31,101 @@ void View::CreationFenetre() {
 	);
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(70);
-	window.setMouseCursorVisible(false);
 	window.setKeyRepeatEnabled(false);
 }
 
 void View::Menu() {
 
-    sf::Texture background;
-    background.loadFromFile("Img/Menu/background.jpg");
+	sf::Texture background;
+	background.loadFromFile("Img/Menu/background.jpg");
 
-    window.setMouseCursorVisible(true);
+	window.setMouseCursorVisible(true);
 
-	BoutonMenu jouer = CreationBouton("Jouer",(window.getSize().x-150)/2, (window.getSize().y*1/5), 150, 40);
-	BoutonMenu param = CreationBouton("Parametres",(window.getSize().x-150)/2, (window.getSize().y*2/5), 150, 40);
-	BoutonMenu quitter = CreationBouton("Quitter",(window.getSize().x-150)/2, (window.getSize().y*3/5), 150, 40);
+	BoutonMenu jouer = CreationBouton("Jouer", (window.getSize().x - 150) / 2, (window.getSize().y * 1 / 5), 150, 40);
+	BoutonMenu param = CreationBouton("Parametres", (window.getSize().x - 150) / 2, (window.getSize().y * 2 / 5), 150,
+									  40);
+	BoutonMenu quitter = CreationBouton("Quitter", (window.getSize().x - 150) / 2, (window.getSize().y * 3 / 5), 150,
+										40);
 
-    while (window.isOpen()) {
-        //std::cout << "Test" << std::endl;
+	while (window.isOpen()) {
+		//std::cout << "Test" << std::endl;
 
-        sf::Event event;
+		sf::Event event;
 
-        while (window.pollEvent(event)) {
+		while (window.pollEvent(event)) {
 
-            if (event.type == sf::Event::Closed ||
-                (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {
-                window.close();
-            }
-        }
+			if (event.type == sf::Event::Closed ||
+				(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {
+				window.close();
+			}
+		}
 
-        sf::RectangleShape rect (sf::Vector2f(window.getSize().x, window.getSize().y));
-        rect.setTexture(&background);
-        window.draw(rect);
-        window.draw(jouer.background);
+		sf::RectangleShape rect(sf::Vector2f(window.getSize().x, window.getSize().y));
+		rect.setTexture(&background);
+		window.draw(rect);
+		window.draw(jouer.background);
 		window.draw(jouer.texte);
 
-        window.draw(param.background);
-        window.draw(param.texte);
+		window.draw(param.background);
+		window.draw(param.texte);
 
-        window.draw(quitter.background);
-        window.draw(quitter.texte);
+		window.draw(quitter.background);
+		window.draw(quitter.texte);
 
-		if (((unsigned int)sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&((unsigned int)sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
-			((unsigned int)sf::Mouse::getPosition(window).y >= (window.getSize().y*1/5)&&((unsigned int)sf::Mouse::getPosition(window).y <= (window.getSize().y*1/5+40)))) {
+		if (((unsigned int) sf::Mouse::getPosition(window).x >= (window.getSize().x / 2) - 75) &&
+			((unsigned int) sf::Mouse::getPosition(window).x <= (window.getSize().x / 2) + 75) &&
+			((unsigned int) sf::Mouse::getPosition(window).y >= (window.getSize().y * 1 / 5) &&
+			 ((unsigned int) sf::Mouse::getPosition(window).y <= (window.getSize().y * 1 / 5 + 40)))) {
 			jouer.background.setFillColor(color.Green);
-		}
-		else{
+		} else {
 			jouer.background.setFillColor(color.Red);
 		}
-		if (((unsigned int)sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&((unsigned int)sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
-			((unsigned int)sf::Mouse::getPosition(window).y >= (window.getSize().y*2/5)&&((unsigned int)sf::Mouse::getPosition(window).y <= (window.getSize().y*2/5+40)))) {
+		if (((unsigned int) sf::Mouse::getPosition(window).x >= (window.getSize().x / 2) - 75) &&
+			((unsigned int) sf::Mouse::getPosition(window).x <= (window.getSize().x / 2) + 75) &&
+			((unsigned int) sf::Mouse::getPosition(window).y >= (window.getSize().y * 2 / 5) &&
+			 ((unsigned int) sf::Mouse::getPosition(window).y <= (window.getSize().y * 2 / 5 + 40)))) {
 			param.background.setFillColor(color.Green);
-		}
-		else{
+		} else {
 			param.background.setFillColor(color.Red);
 		}
-		if (((unsigned int)sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&((unsigned int)sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
-			((unsigned int)sf::Mouse::getPosition(window).y >= (window.getSize().y*3/5)&&((unsigned int)sf::Mouse::getPosition(window).y <= (window.getSize().y*3/5+40)))){
+		if (((unsigned int) sf::Mouse::getPosition(window).x >= (window.getSize().x / 2) - 75) &&
+			((unsigned int) sf::Mouse::getPosition(window).x <= (window.getSize().x / 2) + 75) &&
+			((unsigned int) sf::Mouse::getPosition(window).y >= (window.getSize().y * 3 / 5) &&
+			 ((unsigned int) sf::Mouse::getPosition(window).y <= (window.getSize().y * 3 / 5 + 40)))) {
 			quitter.background.setFillColor(color.Green);
-		}
-		else{
+		} else {
 			quitter.background.setFillColor(color.Red);
 		}
 
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            if (((unsigned int)sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&((unsigned int)sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
-                    ((unsigned int)sf::Mouse::getPosition(window).y >= (window.getSize().y*1/5)&&((unsigned int)sf::Mouse::getPosition(window).y <= (window.getSize().y*1/5+40)))){
-                //std::cout<<"Tu as clique sur Jouer"<<std::endl;
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+			if (((unsigned int) sf::Mouse::getPosition(window).x >= (window.getSize().x / 2) - 75) &&
+				((unsigned int) sf::Mouse::getPosition(window).x <= (window.getSize().x / 2) + 75) &&
+				((unsigned int) sf::Mouse::getPosition(window).y >= (window.getSize().y * 1 / 5) &&
+				 ((unsigned int) sf::Mouse::getPosition(window).y <= (window.getSize().y * 1 / 5 + 40)))) {
+				//std::cout<<"Tu as clique sur Jouer"<<std::endl;
 				model->setJeu_active(true);
-                initialisation();
-            }
-			if (((unsigned int)sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&((unsigned int)sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
-				((unsigned int)sf::Mouse::getPosition(window).y >= (window.getSize().y*2/5)&&((unsigned int)sf::Mouse::getPosition(window).y <= (window.getSize().y*2/5+40)))){
+				initialisation();
+			}
+			if (((unsigned int) sf::Mouse::getPosition(window).x >= (window.getSize().x / 2) - 75) &&
+				((unsigned int) sf::Mouse::getPosition(window).x <= (window.getSize().x / 2) + 75) &&
+				((unsigned int) sf::Mouse::getPosition(window).y >= (window.getSize().y * 2 / 5) &&
+				 ((unsigned int) sf::Mouse::getPosition(window).y <= (window.getSize().y * 2 / 5 + 40)))) {
 
 				//std::cout<<"Tu as clique sur Parametres"<<std::endl;
 			}
-			if (((unsigned int)sf::Mouse::getPosition(window).x >= (window.getSize().x/2)-75)&&((unsigned int)sf::Mouse::getPosition(window).x <= (window.getSize().x/2)+75)&&
-				((unsigned int)sf::Mouse::getPosition(window).y >= (window.getSize().y*3/5)&&((unsigned int)sf::Mouse::getPosition(window).y <= (window.getSize().y*3/5+40)))){
+			if (((unsigned int) sf::Mouse::getPosition(window).x >= (window.getSize().x / 2) - 75) &&
+				((unsigned int) sf::Mouse::getPosition(window).x <= (window.getSize().x / 2) + 75) &&
+				((unsigned int) sf::Mouse::getPosition(window).y >= (window.getSize().y * 3 / 5) &&
+				 ((unsigned int) sf::Mouse::getPosition(window).y <= (window.getSize().y * 3 / 5 + 40)))) {
 				//std::cout<<"Tu as clique sur Quitter"<<std::endl;
-                window.close();
+				window.close();
 			}
-        }
+		}
 
-        window.setActive();
-        window.display();
-        window.clear();
-    }
+		window.setActive();
+		window.display();
+		window.clear();
+	}
 }
 
 BoutonMenu View::CreationBouton(sf::String text, int x, int y, int longu, int larg) {
@@ -137,6 +147,7 @@ BoutonMenu View::CreationBouton(sf::String text, int x, int y, int longu, int la
 }
 
 void View::initialisation() {
+	window.setMouseCursorVisible(false);
 
 	text_framerate.setFont(model->getFont());
 	text_framerate.setCharacterSize(24); // in pixels, not points!
@@ -185,7 +196,7 @@ void View::initialisation() {
 
 		window.setActive();
 
-		displayMiniMap(window);
+		displayMiniMap();
 		displayNBPieceTempo(window);
 
 		controller->ActionEvent();
@@ -216,8 +227,10 @@ void View::BouclePrincipale() {
 	}*/
 
 	for (int i = 0; i < 4; ++i) {
-		if (!model->isMangerEnnemis() && model->camera.x >= ennemis[i]->getPosition().fx - 0.8 && model->camera.x <= ennemis[i]->getPosition().fx + 0.8) {
-			if (model->camera.y >= ennemis[i]->getPosition().fy - 0.8 && model->camera.y <= ennemis[i]->getPosition().fy + 0.8) {
+		if (!model->isMangerEnnemis() && model->camera.x >= ennemis[i]->getPosition().fx - 0.8 &&
+			model->camera.x <= ennemis[i]->getPosition().fx + 0.8) {
+			if (model->camera.y >= ennemis[i]->getPosition().fy - 0.8 &&
+				model->camera.y <= ennemis[i]->getPosition().fy + 0.8) {
 				window.close();
 			}
 		}
@@ -226,17 +239,11 @@ void View::BouclePrincipale() {
 	glFlush();
 }
 
-/*void View::displayMiniMap(sf::RenderWindow &window) {
+void View::displayMiniMap() {
 	window.pushGLStates();          // Sauvegarde de l'état OpenGL
 
 	float taille = 3;
-
-	*//*sf::RectangleShape rectangle(sf::Vector2f(model->getMap().x * taille, model->getMap().y * taille));
-	rectangle.setPosition(window.getSize().x - (model->getMap().x * taille) - 10, 10);
-	rectangle.setFillColor(sf::Color(0, 0, 0, 150));
-	window.draw(rectangle);    // Affichage du texte*//*
-
-	int distance_affichage = 20;
+	unsigned int distance_affichage = 20;
 
 	unsigned int x_mat = (unsigned int) (floor(model->camera.x - distance_affichage) >= 0 ? floor(
 			model->camera.x - distance_affichage) : 0);
@@ -248,141 +255,56 @@ void View::BouclePrincipale() {
 	unsigned int y_mat_fin = (unsigned int) (ceilf(model->camera.y + distance_affichage) <= model->getMap().y ? ceilf(
 			model->camera.y + distance_affichage) : model->getMap().y);
 
-	int x_t = 0;
-	int y_t = 0;
+	// Condition taille map minimum
+	x_mat = model->getMap().x - x_mat < distance_affichage * 2 ? distance_affichage * 2 : x_mat;
+	y_mat = model->getMap().y - y_mat < distance_affichage * 2 ? distance_affichage * 2 : y_mat;
 
+	x_mat_fin = x_mat_fin <= distance_affichage * 2 ? distance_affichage * 2 : x_mat_fin;
+	y_mat_fin = y_mat_fin <= distance_affichage * 2 ? distance_affichage * 2 : y_mat_fin;
+
+	// Affichage de la map et des différents éléments
 	for (unsigned int x = x_mat; x < x_mat_fin; x++) {
-		y_t = 0;
 		for (unsigned int y = y_mat; y < y_mat_fin; y++) {
 			if (model->getMatrice()[x][y] == 1) {
-				TraceBlocMiniMap(x_t, y_t, 200, 200, 200, 100);
+				TraceBlocMiniMap(x, y, taille, 200, 200, 200, 100);
 			} else if (model->getMatrice()[x][y] == 2) {
-				TraceBlocMiniMap(x_t, y_t, 255, 255, 0);
+				TraceBlocMiniMap(x, y, taille, 255, 255, 0);
 			} else if (model->getMatrice()[x][y] == 3) {
-				TraceBlocMiniMap(x_t, y_t, 255, 0, 0);
+				TraceBlocMiniMap(x, y, taille, 255, 0, 0);
 			} else if (model->getMatrice()[x][y] == 5) {
-				TraceBlocMiniMap(x_t, y_t, 100, 100, 255);
+				TraceBlocMiniMap(x, y, taille, 100, 100, 255);
 			} else if (model->getMatrice()[x][y] == 6) {
-				TraceBlocMiniMap(x_t, y_t, 150, 255, 0);
+				TraceBlocMiniMap(x, y, taille, 150, 255, 0);
 			} else {
-				TraceBlocMiniMap(x_t, y_t, 0, 0, 0);
-			}
-			y_t++;
-		}
-		x_t++;
-	}
-
-	*//*for (unsigned int x = 0; x < model->getMap().x; x++) {
-		for (unsigned int y = 0; y < model->getMap().y; y++) {
-			if (model->getMatrice()[x][y] == 1) {
-				TraceBlocMiniMap(x, y, 10, 10, 10);
-
-			} else if (model->getMatrice()[x][y] == 2) {
-				TraceBlocMiniMap(x, y, 255, 255, 0);
-
-			} else if (model->getMatrice()[x][y] == 3) {
-				TraceBlocMiniMap(x, y, 255, 0, 0);
+				TraceBlocMiniMap(x, y, taille, 0, 0, 0);
 			}
 		}
-	}*//*
-	int pos_x_enemy;
-	int pos_y_enemy;
-	sf::RectangleShape rectangle;
-	for (int i = 0; i < 7; ++i) {
-		rectangle.setSize(sf::Vector2f(taille + 5, taille + 5));
-		pos_x_enemy = (int) (window.getSize().x + (ennemis[i]->getPosition().fx * taille) - (model->getMap().x * taille) - 10);
-		pos_y_enemy = (int) (10 + (ennemis[i]->getPosition().fy * taille));
-		rectangle.setPosition(pos_x_enemy, pos_y_enemy);
-		rectangle.setFillColor(sf::Color(0, 255, 0, 150));
-		window.draw(rectangle);    // Affichage du texte
 	}
 
+	// Affichage des ennemis
+	for (int i = 0; i < 4; ++i) {
+		if (ennemis[i]->getPosition().fx > x_mat && ennemis[i]->getPosition().fx < x_mat_fin
+			&& ennemis[i]->getPosition().fy > y_mat && ennemis[i]->getPosition().fy < y_mat_fin) {
+			TraceBlocMiniMap(ennemis[i]->getPosition().fx, ennemis[i]->getPosition().fy, taille, 0, 255, 0, 150, 5);
+		}
+	}
 
+	// Affichage du pacman
 	int radius = 8;
 	sf::CircleShape cercle(radius);
-	cercle.setPosition(window.getSize().x + model->getTailleMiniMap() - (20 * model->getTailleMiniMap()) - 10,
-			10 + (model->getTailleMiniMap()*20));
-	//cercle.setFillColor(sf::Color(0, 0, 0, 150));
+	cercle.setPosition(window.getSize().x + (model->camera.x * taille) - (model->getMap().x * taille) - 10,
+					   10 + (model->camera.y * taille));
 	cercle.setOrigin(radius, radius);
 	cercle.setRotation(model->camera.eyeX - 180);
 	cercle.setTexture(&pacman);
 	window.draw(cercle);    // Affichage du texte
 
 	window.popGLStates();           // Restauration de l'état OpenGL
-}*/
-
-void View::displayMiniMap(sf::RenderWindow &window) {
-	window.pushGLStates();          // Sauvegarde de l'état OpenGL
-
-	float taille = 3;
-
-	for (unsigned int x = 0; x < model->getMap().x; x++) {
-		for (unsigned int y = 0; y < model->getMap().y; y++) {
-			if (model->getMatrice()[x][y] == 1) {
-				sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
-				rectangle.setPosition(window.getSize().x+(x*taille)-(model->getMap().x*taille)-10, 10+(y*taille));
-				rectangle.setFillColor(sf::Color(10, 10, 10));
-
-				window.draw(rectangle);    // Affichage du texte
-
-				//CreateCube(1, 1, 4, x, y, 0);
-			} else if (model->getMatrice()[x][y] == 2) {
-				sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
-				rectangle.setPosition(window.getSize().x+(x*taille)-(model->getMap().x*taille)-10, 10+(y*taille));
-				rectangle.setFillColor(sf::Color(255, 255, 0));
-				window.draw(rectangle);    // Affichage du texte
-			} else if (model->getMatrice()[x][y] == 3) {
-				//pieces->CreateSpeedCoin(x, y);
-				sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
-				rectangle.setPosition(window.getSize().x+(x*taille)-(model->getMap().x*taille)-10, 10+(y*taille));
-				rectangle.setFillColor(sf::Color(255, 0, 0));
-				window.draw(rectangle);    // Affichage du texte
-			}else if (model->getMatrice()[x][y] == 5) {
-				//pieces->CreateSpeedCoin(x, y);
-				sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
-				rectangle.setPosition(window.getSize().x+(x*taille)-(model->getMap().x*taille)-10, 10+(y*taille));
-				rectangle.setFillColor(sf::Color(100, 100, 255));
-				window.draw(rectangle);    // Affichage du texte
-			}else if (model->getMatrice()[x][y] == 6) {
-				//pieces->CreateSpeedCoin(x, y);
-				sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
-				rectangle.setPosition(window.getSize().x+(x*taille)-(model->getMap().x*taille)-10, 10+(y*taille));
-				rectangle.setFillColor(sf::Color(150, 255, 0));
-				window.draw(rectangle);    // Affichage du texte
-			} else if (model->getMatrice()[x][y] == 0) {
-				sf::RectangleShape rectangle(sf::Vector2f(taille, taille));
-				rectangle.setPosition(window.getSize().x+(x*taille)-(model->getMap().x*taille)-10, 10+(y*taille));
-				rectangle.setFillColor(sf::Color(0, 0, 0, 150));
-				window.draw(rectangle);    // Affichage du texte
-			}
-		}
-	}
-
-	for (int i = 0; i < 4; ++i) {
-		sf::RectangleShape rectangle(sf::Vector2f(taille+5, taille+5));
-		rectangle.setPosition(window.getSize().x+(ennemis[i]->getPosition().fx*taille)-(model->getMap().x*taille)-10, 10+(ennemis[i]->getPosition().fy*taille));
-		rectangle.setFillColor(sf::Color(0, 255, 0, 150));
-		window.draw(rectangle);    // Affichage du texte
-	}
-
-
-	int radius = 8;
-	sf::CircleShape cercle(radius);
-	cercle.setPosition(window.getSize().x+(model->camera.x*taille)-(model->getMap().x*taille)-10, 10+(model->camera.y*taille));
-	//cercle.setFillColor(sf::Color(0, 0, 0, 150));
-	cercle.setOrigin(radius, radius);
-	cercle.setRotation(model->camera.eyeX-180);
-	cercle.setTexture(&pacman);
-	window.draw(cercle);    // Affichage du texte
-
-	window.popGLStates();           // Restauration de l'état OpenGL
 }
 
-void View::TraceBlocMiniMap(int x, int y, sf::Uint8 R, sf::Uint8 V, sf::Uint8 B, sf::Uint8 A) {
-	sf::RectangleShape bloc(sf::Vector2f(model->getTailleMiniMap(), model->getTailleMiniMap()));
-	bloc.setPosition(
-			window.getSize().x + (x * model->getTailleMiniMap()) - (40 * model->getTailleMiniMap()) - 10,
-			10 + (y * model->getTailleMiniMap()));
+void View::TraceBlocMiniMap(float x, float y, float taille, sf::Uint8 R, sf::Uint8 V, sf::Uint8 B, sf::Uint8 A, int coef) {
+	sf::RectangleShape bloc(sf::Vector2f(model->getTailleMiniMap() + coef, model->getTailleMiniMap() + coef));
+	bloc.setPosition(window.getSize().x + (x * taille) - (model->getMap().x * taille) - 10, 10 + (y * taille));
 	bloc.setFillColor(sf::Color(R, V, B, A));
 	window.draw(bloc);
 }
@@ -406,7 +328,7 @@ void View::displayNBPieceTempo(sf::RenderWindow &window) {
 }
 
 View::~View() {
-	std::cout << "Destructeur de vue" << model->isJeu_active()<< std::endl;
+	std::cout << "Destructeur de vue" << std::endl;
 	delete (controller);
 
 	if (model->isJeu_active()) {

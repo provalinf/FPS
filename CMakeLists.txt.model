@@ -51,13 +51,3 @@ if (OPENGL_FOUND)
 	# or: target_link_libraries(${EXECUTABLE_NAME} ${OPENGL_gl_LIBRARY})
 	target_link_libraries(${EXECUTABLE_NAME} m)  # if you use maths.h
 endif ()
-
-# GLM
-set(GLM_DIRS "D:/Mes Documents/Desktop/glm")
-include_directories(${GLM_DIRS})
-
-# GLEW
-set(GLEW_DIR "D:/Mes Documents/Desktop/glew-2.0.0")
-include_directories(${GLEW_DIR}/include)
-add_definitions(-DGLEW_STATIC)
-link_directories(${GLEW_DIR}/lib)
