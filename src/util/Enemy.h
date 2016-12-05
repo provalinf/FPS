@@ -47,8 +47,8 @@ public:
 
 	float ennemyspeed;
 
-    float memposx = 0;
-    float memposy = 0;
+    float memposx = 42;
+    float memposy = 35;
 	int alea = 0;
 
 	void CorrectifObj();
