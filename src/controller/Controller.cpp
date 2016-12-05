@@ -243,12 +243,13 @@ void Controller::MoveKeyPressed(sf::Event event) {
 }
 
 void Controller::Teleport(){
-	if((ceilf(model->camera.x) == 82)&&(ceilf(model->camera.y) == 37)){
-		model->camera.x = 4;
+	int ecart_reappa_teleport = 2;
+	if((floor(model->camera.x) == 77)&&(floor(model->camera.y) == 37)){
+		model->camera.x = 0+ecart_reappa_teleport;
 		model->JoueSoundTP();
 	}
-	if((ceilf(model->camera.x) == 3)&&(ceilf(model->camera.y) == 37)){
-		model->camera.x = 80;
+	if((floor(model->camera.x) == 1)&&(floor(model->camera.y) == 37)){
+		model->camera.x = model->getMap().x-ecart_reappa_teleport;
 		model->JoueSoundTP();
 	}
 }

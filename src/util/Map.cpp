@@ -55,7 +55,7 @@ void Map::GenerateMap() {
 
 void Map::CreateTP(float longueur, float largeur, float hauteur, float x, float y, float z) {
 
-    LoadTexture(0);
+    LoadTexture(1);
     glBegin(GL_QUADS);
     //glColor3ub(0, 255, 0); //face verte
     glTexCoord2d(0.0, 0.0);

@@ -236,6 +236,8 @@ void View::BouclePrincipale() {
 		}
 	}
 
+	std::cout << model->camera.x << " " << model->camera.y << std::endl;
+
 	glFlush();
 }
 
