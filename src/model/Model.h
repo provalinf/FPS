@@ -34,7 +34,7 @@ struct BoutonMenu {
 
 class Model {
 private:
-	sf::Font font;
+	sf::Font *Font;
 	bool debug;
 
 	float vitesseDep;
@@ -44,15 +44,20 @@ private:
 	sf::Clock ClockFrame;
 	sf::Color color;
 
+	sf::Music music;
+
 	sf::SoundBuffer buf_SoundPiece;
 	sf::Sound Sound_piece;
-	sf::Music music;
 
 	sf::SoundBuffer buff_SoundFreeze;
 	sf::Sound Sound_Freeze;
 
 	sf::SoundBuffer buff_SoundDeFreeze;
 	sf::Sound Sound_DeFreeze;
+
+	sf::SoundBuffer buf_SoundRamassFreeze;
+	sf::Sound Sound_RamassFreeze;
+
 
 	sf::SoundBuffer buff_SoundTP;
 	sf::Sound Sound_TP;
@@ -69,6 +74,8 @@ private:
 
 	void DefineTailleMap(sf::Image image);
 
+	sf::Texture *HUD;
+
 public:
 	Camera camera;
 
@@ -78,7 +85,7 @@ public:
 
 	bool isDebug() const;
 
-	sf::Font &getFont();
+	sf::Font *getFont();
 
 	float getVitesseDep();
 
@@ -134,9 +141,8 @@ public:
 
 	float getDeltaTimeFrame(sf::Time FramePrec);
 
-	void InitFont(sf::String nomFichier);
-
 	const int getTailleMiniMap() const;
+
 	sf::Time getTimeFrame();
 
 	void InitialiseSoundTP(sf::String nomFichier);
@@ -160,6 +166,20 @@ public:
 	void InitialiseSoundDeFreeze(sf::String nomFichier);
 
 	void JoueSoundDeFreeze();
+
+	void InitialiseTextureHUD();
+
+	sf::Image InitialiseImageHUD(sf::String nomFichier);
+
+	sf::Texture *getHUDTexture();
+
+	void InitialiseTabFont();
+
+	void InitFont(sf::Font &TabFont, sf::String nomFichier);
+
+	void InitialiseSoundRamassFreeze(sf::String nomFichier);
+
+	void JoueSoundRamassFreeze();
 };
 
 #endif //PACMAN_MODEL_H

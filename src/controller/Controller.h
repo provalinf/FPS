@@ -35,7 +35,7 @@ public:
 
 	void MoveKeyPressed(sf::Event event);
 
-	void ramassePiece(int x, int y);
+	void ramasseItems(int x, int y);
 
 	int GetCompteur();
 

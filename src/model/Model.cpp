@@ -17,16 +17,17 @@ const sf::String REP_FX = "Fx";
 const sf::String REP_IMG = "Img";
 const sf::String REP_MATRICE = "Matrice";
 const sf::String REP_MUSIC = "Music";
-const char *REP_OBJ = "Obj";
 
 Model::Model(bool debug) {
 	this->debug = debug;
-	InitFont("arial.ttf");
+	InitialiseTabFont();
 	InitialiseMusic("music.wav");
 	InitialiseSoundPiece("ramassepiece.wav");
+	InitialiseSoundRamassFreeze("ramassefreeze.wav");
 	InitialiseSoundFreeze("freeze.wav");
 	InitialiseSoundDeFreeze("defreeze.wav");
 	InitialiseSoundTP("TPsound.wav");
+	InitialiseTextureHUD();
 
 	jeu_active = false;
 	piece_height = 1;
@@ -43,12 +44,40 @@ Model::Model(bool debug) {
 	this->debug = debug;
 }*/
 
-void Model::InitFont(sf::String nomFichier) {
+void Model::InitialiseTabFont() {
+	Font = new sf::Font[2];
+	InitFont(Font[0], "arial.ttf");
+	InitFont(Font[1], "freehand521bt.ttf");
+}
+
+void Model::InitFont(sf::Font &TabFont, sf::String nomFichier) {
 	nomFichier = REP_FONT + "/" + nomFichier;
-	if (!font.loadFromFile(nomFichier)) {
+	if (!TabFont.loadFromFile(nomFichier)) {
 		std::cout << "/!\\ Failure to load font : " << nomFichier.toAnsiString() << std::endl;
 		std::exit(1);
 	}
+}
+
+void Model::InitialiseTextureHUD() {
+	HUD = new sf::Texture[4];
+	HUD[0].loadFromImage(InitialiseImageHUD("Pacman-Logo.png"));
+	HUD[1].loadFromImage(InitialiseImageHUD("Money.png"));
+	HUD[2].loadFromImage(InitialiseImageHUD("Freeze.png"));
+	HUD[3].loadFromImage(InitialiseImageHUD("noFreeze.png"));
+}
+
+sf::Texture *Model::getHUDTexture() {
+	return HUD;
+}
+
+sf::Image Model::InitialiseImageHUD(sf::String nomFichier) {
+	nomFichier = REP_IMG + "/HUD/" + nomFichier;
+	sf::Image img;
+	if (!img.loadFromFile(nomFichier)) {
+		std::cout << "/!\\ Failure to load img HUD : " << nomFichier.toAnsiString() << std::endl;
+		std::exit(1);
+	}
+	return img;
 }
 
 
@@ -110,20 +139,20 @@ void Model::CreateMatrix(sf::Image image) {
 
 	for (unsigned int x = 0; x < map.x; x++) {
 		for (unsigned int y = 0; y < map.y; y++) {
-			if (image.getPixel(x, y) == color.Black) {			// Murs
+			if (image.getPixel(x, y) == color.Black) {            // Murs
 				matrice[x][y] = 1;
-			} else if (image.getPixel(x, y) == color.White) {	// Vide
+			} else if (image.getPixel(x, y) == color.White) {    // Vide
 				matrice[x][y] = 0;
-			} else if (image.getPixel(x, y) == color.Red) {		// Pièces
+			} else if (image.getPixel(x, y) == color.Red) {        // Pièces
 				matrice[x][y] = 2;
 				IncremNombreTotalPiece();
-			} else if (image.getPixel(x, y) == color.Green) {	// Boost
+			} else if (image.getPixel(x, y) == color.Green) {    // Boost
 				matrice[x][y] = 3;
-			} else if (image.getPixel(x, y) == color.Yellow) {	// Télép
+			} else if (image.getPixel(x, y) == color.Yellow) {    // Télép
 				matrice[x][y] = 4;
-			} else if (image.getPixel(x, y) == color.Blue) {	// Manger ennemis
+			} else if (image.getPixel(x, y) == color.Blue) {    // Manger ennemis
 				matrice[x][y] = 5;
-			} else if (image.getPixel(x, y) == color.Magenta) {	// Manger ennemis
+			} else if (image.getPixel(x, y) == color.Magenta) {    // Manger ennemis
 				matrice[x][y] = 6;
 			}
 		}
@@ -153,8 +182,8 @@ const int Model::getTailleMiniMap() const {
 	return TailleMiniMap;
 }
 
-sf::Font &Model::getFont() {
-	return font;
+sf::Font *Model::getFont() {
+	return Font;
 }
 
 float Model::getDeltaTimeFrame(sf::Time FramePrec) {
@@ -214,6 +243,16 @@ void Model::InitialiseSoundPiece(sf::String nomFichier) {
 	Sound_piece.setPitch(1.2);
 }
 
+void Model::InitialiseSoundRamassFreeze(sf::String nomFichier) {
+	nomFichier = REP_FX + "/" + nomFichier;
+	if (!buf_SoundRamassFreeze.loadFromFile(nomFichier)) {
+		std::cout << "/!\\ Failure to load sound ramasse freeze : " << nomFichier.toAnsiString() << std::endl;
+		std::exit(1);
+	}
+	Sound_RamassFreeze = sf::Sound(buf_SoundRamassFreeze);
+	Sound_RamassFreeze.setPitch(1.2);
+}
+
 void Model::InitialiseSoundFreeze(sf::String nomFichier) {
 	nomFichier = REP_FX + "/" + nomFichier;
 	if (!buff_SoundFreeze.loadFromFile(nomFichier)) {
@@ -234,9 +273,10 @@ void Model::InitialiseSoundDeFreeze(sf::String nomFichier) {
 	Sound_DeFreeze.setPitch(0.9);
 }
 
-void Model::JoueSoundTP(){
+void Model::JoueSoundTP() {
 	Sound_TP.play();
 }
+
 void Model::JoueSoundPiece() {
 	Sound_piece.play();
 }
@@ -247,6 +287,10 @@ void Model::JoueSoundFreeze() {
 
 void Model::JoueSoundDeFreeze() {
 	Sound_DeFreeze.play();
+}
+
+void Model::JoueSoundRamassFreeze() {
+	Sound_RamassFreeze.play();
 }
 
 void Model::InitialiseMusic(sf::String nomFichier) {
@@ -298,5 +342,7 @@ void Model::SetFreeze(bool etat) {
 
 Model::~Model() {
 	std::cout << "Destructeur de model" << std::endl;
+	delete (HUD);
+	delete (Font);
 	DestructionMatrix();
 }

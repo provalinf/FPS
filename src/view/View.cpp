@@ -16,8 +16,6 @@ View::View(Model *model, bool fullscreen) {
 	CreationFenetre();
 
 	controller = new Controller(window, model);
-
-	pacman.loadFromFile("Img/Pacman-Logo.png");
 }
 
 void View::CreationFenetre() {
@@ -130,7 +128,7 @@ void View::Menu() {
 
 BoutonMenu View::CreationBouton(sf::String text, int x, int y, int longu, int larg) {
 	BoutonMenu bouton;
-	bouton.texte.setFont(model->getFont());
+	bouton.texte.setFont(model->getFont()[0]);
 	bouton.texte.setCharacterSize(24); // in pixels, not points!
 	bouton.texte.setString(text);
 	bouton.texte.setOrigin((float) floor(bouton.texte.getLocalBounds().width / 2),
@@ -149,14 +147,12 @@ BoutonMenu View::CreationBouton(sf::String text, int x, int y, int longu, int la
 void View::initialisation() {
 	window.setMouseCursorVisible(false);
 
-	text_framerate.setFont(model->getFont());
-	text_framerate.setCharacterSize(24); // in pixels, not points!
+	text_framerate.setFont(model->getFont()[0]);
+	text_framerate.setCharacterSize(15); // in pixels, not points!
+	text_framerate.move(1, 1);
 
-	// -- TEMPO
-	text_nbpiece.setFont(model->getFont());
-	text_nbpiece.setCharacterSize(24); // in pixels, not points!
-	text_nbpiece.move(0, 20);
-	// -- TEMPO
+	text_hud.setFont(model->getFont()[1]);
+	text_hud.setCharacterSize(24); // in pixels, not points!
 
 	model->LanceMusic();
 
@@ -196,8 +192,7 @@ void View::initialisation() {
 
 		window.setActive();
 
-		displayMiniMap();
-		displayNBPieceTempo(window);
+		HUD();
 
 		controller->ActionEvent();
 		if (model->isDebug()) displayFramerate(window, Clock_framerate.restart());
@@ -236,9 +231,45 @@ void View::BouclePrincipale() {
 		}
 	}
 
-	std::cout << model->camera.x << " " << model->camera.y << std::endl;
-
 	glFlush();
+}
+
+void View::HUD() {
+	displayMiniMap();
+
+	window.pushGLStates();          // Sauvegarde de l'état OpenGL
+
+	// Affichage pièces
+	sf::RectangleShape Money(sf::Vector2f(48, 48));
+	Money.setPosition(6, 20);
+	Money.setTexture(&model->getHUDTexture()[1]);
+	window.draw(Money);
+
+	text_hud.setString(
+			model->toString(controller->GetCompteur()) + "/" + model->toString(model->getNombreTotalPiece()));
+	text_hud.setPosition(52, 35);
+	text_hud.setFillColor(sf::Color(255, 192, 0, 200));
+	window.draw(text_hud);
+
+
+	// Affichage Freezes
+	sf::RectangleShape Freeze(sf::Vector2f(46, 46));
+	Freeze.setPosition(6, 80);
+	if (model->getNbFreezeDispo() > 0) {
+		Freeze.setTexture(&model->getHUDTexture()[2]);
+
+		text_hud.setString(model->toString(model->getNbFreezeDispo()));
+		text_hud.setPosition(56, 88);
+		text_hud.setFillColor(sf::Color(36, 159, 255, 200));
+		window.draw(text_hud);
+	} else {
+		Freeze.setTexture(&model->getHUDTexture()[3]);
+	}
+	window.draw(Freeze);
+
+
+	window.popGLStates();           // Restauration de l'état OpenGL
+
 }
 
 void View::displayMiniMap() {
@@ -298,13 +329,14 @@ void View::displayMiniMap() {
 					   10 + (model->camera.y * taille));
 	cercle.setOrigin(radius, radius);
 	cercle.setRotation(model->camera.eyeX - 180);
-	cercle.setTexture(&pacman);
+	cercle.setTexture(&model->getHUDTexture()[0]);
 	window.draw(cercle);    // Affichage du texte
 
 	window.popGLStates();           // Restauration de l'état OpenGL
 }
 
-void View::TraceBlocMiniMap(float x, float y, float taille, sf::Uint8 R, sf::Uint8 V, sf::Uint8 B, sf::Uint8 A, int coef) {
+void
+View::TraceBlocMiniMap(float x, float y, float taille, sf::Uint8 R, sf::Uint8 V, sf::Uint8 B, sf::Uint8 A, int coef) {
 	sf::RectangleShape bloc(sf::Vector2f(model->getTailleMiniMap() + coef, model->getTailleMiniMap() + coef));
 	bloc.setPosition(window.getSize().x + (x * taille) - (model->getMap().x * taille) - 10, 10 + (y * taille));
 	bloc.setFillColor(sf::Color(R, V, B, A));
@@ -321,11 +353,11 @@ void View::displayFramerate(sf::RenderWindow &window, sf::Time clock) {
 }
 
 void View::displayNBPieceTempo(sf::RenderWindow &window) {
-	text_nbpiece.setString(
+	text_hud.setString(
 			model->toString(controller->GetCompteur()) + "/" + model->toString(model->getNombreTotalPiece()));
 
 	window.pushGLStates();          // Sauvegarde de l'état OpenGL
-	window.draw(text_nbpiece);    // Affichage du texte
+	window.draw(text_hud);    // Affichage du texte
 	window.popGLStates();           // Restauration de l'état OpenGL
 }
 

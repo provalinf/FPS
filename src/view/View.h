@@ -23,7 +23,6 @@ private:
 	Map *map = NULL;
 	Skybox *skybox = NULL;
 	Enemy *ennemis[7];
-	sf::Texture pacman;
 	sf::Color color;
 
 	bool fullscreen;
@@ -32,7 +31,7 @@ private:
 
 	sf::Clock Clock_framerate;
 	sf::Text text_framerate;
-	sf::Text text_nbpiece;
+	sf::Text text_hud;
 
 
 public:
@@ -57,6 +56,8 @@ public:
 	void Menu();
 
 	BoutonMenu CreationBouton(sf::String text, int x, int y, int longu, int larg);
+
+	void HUD();
 };
 
 

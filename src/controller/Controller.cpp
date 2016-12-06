@@ -122,7 +122,7 @@ void Controller::MoveKeyPressed(sf::Event event) {
 	// mur bleu
 	int pos_x = (int) ceilf(model->camera.x);
 	int pos_y = (int) ceilf(model->camera.y);
-	ramassePiece(pos_x, pos_y);
+	ramasseItems(pos_x, pos_y);
 
 	if (model->getMatrice()[pos_x][pos_y] == 1) {
 		if (model->getMatrice()[(int) ceilf(tempx)][pos_y] == 1) {
@@ -138,7 +138,7 @@ void Controller::MoveKeyPressed(sf::Event event) {
 	// mur rouge
 	int pos_x2 = (int) floor(model->camera.x);
 	int pos_y2 = (int) floor(model->camera.y);
-	ramassePiece(pos_x2, pos_y2);
+	ramasseItems(pos_x2, pos_y2);
 
 
 	if (model->getMatrice()[pos_x2][pos_y2 - 1] == 1) {
@@ -155,7 +155,7 @@ void Controller::MoveKeyPressed(sf::Event event) {
 	// mur vert
 	int pos_x3 = (int) floor(model->camera.x);
 	int pos_y3 = (int) ceilf(model->camera.y);
-	ramassePiece(pos_x3, pos_y3);
+	ramasseItems(pos_x3, pos_y3);
 
 
 	if (model->getMatrice()[pos_x3 - 1][pos_y3] == 1) {
@@ -172,7 +172,7 @@ void Controller::MoveKeyPressed(sf::Event event) {
 	// mur jaune
 	int pos_x4 = (int) ceilf(model->camera.x);
 	int pos_y4 = (int) floor(model->camera.y);
-	ramassePiece(pos_x4, pos_y4);
+	ramasseItems(pos_x4, pos_y4);
 
 	if (model->getMatrice()[pos_x4][pos_y4] == 1) {
 		if (model->getMatrice()[(int) ceilf(tempx)][pos_y4] == 1) {
@@ -254,7 +254,7 @@ void Controller::Teleport(){
 	}
 }
 
-void Controller::ramassePiece(int x, int y) {
+void Controller::ramasseItems(int x, int y) {
 
 	if (model->getMatrice()[x][y] == 2) {
 		model->setMatrice(x, y, 0);
@@ -275,7 +275,7 @@ void Controller::ramassePiece(int x, int y) {
 
 	if (model->getMatrice()[x][y] == 6) {	// Freeze
 		model->setMatrice(x, y, 0);
-		model->JoueSoundPiece();
+		model->JoueSoundRamassFreeze();
 		model->IncNbFreezeDispo();
 	}
 }
