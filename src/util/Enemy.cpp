@@ -22,10 +22,10 @@ void Enemy::EnemyLoadObj(const char *ObjFile, int i) {
 void Enemy::GenerateEnemy(int choix) {
 	if (model->isMangerEnnemis() && model->camera.x >= position.fx - 0.8 && model->camera.x <= position.fx + 0.8) {
 		if (model->camera.y >= position.fy - 0.8 && model->camera.y <= position.fy + 0.8) {
-			isEat = true;
+			Eat = true;
 		}
 	}
-	if (!isEat) {
+	if (!isEat()) {
 		if(choix ==0){
 			GenerateEnemyCube();
 		}
@@ -489,6 +489,10 @@ void Enemy::toString() {
 	}
 	/*}*/
 
+}
+
+bool Enemy::isEat() {
+	return Eat;
 }
 
 void Enemy::printVector(obj_vector *v) {

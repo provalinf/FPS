@@ -222,7 +222,8 @@ void View::BouclePrincipale() {
 	}*/
 
 	for (int i = 0; i < 4; ++i) {
-		if (!model->isMangerEnnemis() && model->camera.x >= ennemis[i]->getPosition().fx - 0.8 &&
+		if (!model->isMangerEnnemis() && !ennemis[i]->isEat() &&
+			model->camera.x >= ennemis[i]->getPosition().fx - 0.8 &&
 			model->camera.x <= ennemis[i]->getPosition().fx + 0.8) {
 			if (model->camera.y >= ennemis[i]->getPosition().fy - 0.8 &&
 				model->camera.y <= ennemis[i]->getPosition().fy + 0.8) {
@@ -235,9 +236,9 @@ void View::BouclePrincipale() {
 }
 
 void View::HUD() {
-	displayMiniMap();
-
 	window.pushGLStates();          // Sauvegarde de l'état OpenGL
+
+	displayMiniMap();
 
 	// Affichage pièces
 	sf::RectangleShape Money(sf::Vector2f(48, 48));
@@ -321,8 +322,6 @@ void View::HUD() {
 }
 
 void View::displayMiniMap() {
-	window.pushGLStates();          // Sauvegarde de l'état OpenGL
-
 	float taille = 3;
 	unsigned int distance_affichage = 20;
 
@@ -364,7 +363,7 @@ void View::displayMiniMap() {
 
 	// Affichage des ennemis
 	for (int i = 0; i < 4; ++i) {
-		if (ennemis[i]->getPosition().fx > x_mat && ennemis[i]->getPosition().fx < x_mat_fin
+		if (!ennemis[i]->isEat() && ennemis[i]->getPosition().fx > x_mat && ennemis[i]->getPosition().fx < x_mat_fin
 			&& ennemis[i]->getPosition().fy > y_mat && ennemis[i]->getPosition().fy < y_mat_fin) {
 			TraceBlocMiniMap(ennemis[i]->getPosition().fx, ennemis[i]->getPosition().fy, taille, 0, 255, 0, 150, 5);
 		}
@@ -379,8 +378,6 @@ void View::displayMiniMap() {
 	cercle.setRotation(model->camera.eyeX - 180);
 	cercle.setTexture(&model->getHUDTexture()[0]);
 	window.draw(cercle);    // Affichage du texte
-
-	window.popGLStates();           // Restauration de l'état OpenGL
 }
 
 void

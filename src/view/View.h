@@ -47,8 +47,6 @@ public:
 
 	void displayFramerate(sf::RenderWindow &window, sf::Time clock);
 
-	void displayNBPieceTempo(sf::RenderWindow &window);
-
 	void displayMiniMap();
 
 	void TraceBlocMiniMap(float x, float y, float taille, sf::Uint8 R, sf::Uint8 V, sf::Uint8 B, sf::Uint8 A = 255, int coef = 0);

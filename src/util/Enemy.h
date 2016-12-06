@@ -21,7 +21,7 @@ class Enemy : public Object {
 	int correction;
 	float ennemyspeed;
 
-	bool isEat = false;
+	bool Eat = false;
 
 	float memposx = 42;
 	float memposy = 35;
@@ -56,6 +56,8 @@ public:
 	void EnemyLoadObj(const char *ObjFile, int i);
 
 	void GenerateEnemy(int choix);
+
+	bool isEat();
 };
 
 
