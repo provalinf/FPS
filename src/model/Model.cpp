@@ -59,11 +59,17 @@ void Model::InitFont(sf::Font &TabFont, sf::String nomFichier) {
 }
 
 void Model::InitialiseTextureHUD() {
-	HUD = new sf::Texture[4];
+	HUD = new sf::Texture[10];
 	HUD[0].loadFromImage(InitialiseImageHUD("Pacman-Logo.png"));
 	HUD[1].loadFromImage(InitialiseImageHUD("Money.png"));
 	HUD[2].loadFromImage(InitialiseImageHUD("Freeze.png"));
 	HUD[3].loadFromImage(InitialiseImageHUD("noFreeze.png"));
+	HUD[4].loadFromImage(InitialiseImageHUD("Speed.png"));
+	HUD[5].loadFromImage(InitialiseImageHUD("noSpeed.png"));
+	HUD[6].loadFromImage(InitialiseImageHUD("Eat.png"));
+	HUD[7].loadFromImage(InitialiseImageHUD("noEat.png"));
+	HUD[8].loadFromImage(InitialiseImageHUD("FreezeCmpt.png"));
+	HUD[9].loadFromImage(InitialiseImageHUD("noFreezeCmpt.png"));
 }
 
 sf::Texture *Model::getHUDTexture() {

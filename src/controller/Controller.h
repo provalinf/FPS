@@ -20,7 +20,6 @@ private:
 	sf::Time Clock_time_Freeze;
 	sf::Time TempsFramePrecedente;
 	bool Etat_PieceNoire = false;
-	bool Etat_PieceBleue = false;
 
 	int compteur = 0;
 	bool *Keyboard = new bool[4]{false};
@@ -54,6 +53,14 @@ public:
 	void ActivationFreeze();
 
 	void DesactivationFreeze();
+
+	float GetTempsSpeed();
+
+	bool isSpeed();
+
+	float GetTempsEat();
+
+	float GetTempsFreeze();
 };
 
 

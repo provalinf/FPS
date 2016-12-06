@@ -7,7 +7,6 @@
 #include <iostream>
 #include <GL/gl.h>
 #include "Enemy.h"
-#include "Object.h"
 
 Enemy::Enemy(Model *model) : Object(model) {
 	ennemyspeed = 0.6f;

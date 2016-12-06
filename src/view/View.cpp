@@ -23,8 +23,8 @@ void View::CreationFenetre() {
 	Settings.depthBits = 24;        // Request a 24-bit depth buffer
 	Settings.stencilBits = 8;      // Request a 8 bits stencil buffer
 	Settings.antialiasingLevel = 6; // Request 2 levels of antialiasing
-	window.create(sf::VideoMode((fullscreen ? model->getResolution().width : 800),
-								(fullscreen ? model->getResolution().height : 600),
+	window.create(sf::VideoMode((fullscreen ? model->getResolution().width : 1280),
+								(fullscreen ? model->getResolution().height : 720),
 								32), TITRE_FENETRE, (fullscreen ? sf::Style::Fullscreen : sf::Style::Close), Settings
 	);
 	window.setVerticalSyncEnabled(true);
@@ -127,7 +127,7 @@ void View::Menu() {
 }
 
 BoutonMenu View::CreationBouton(sf::String text, int x, int y, int longu, int larg) {
-	BoutonMenu bouton;
+	BoutonMenu bouton = BoutonMenu();
 	bouton.texte.setFont(model->getFont()[0]);
 	bouton.texte.setCharacterSize(24); // in pixels, not points!
 	bouton.texte.setString(text);
@@ -149,7 +149,7 @@ void View::initialisation() {
 
 	text_framerate.setFont(model->getFont()[0]);
 	text_framerate.setCharacterSize(15); // in pixels, not points!
-	text_framerate.move(1, 1);
+	text_framerate.setPosition(1, 1);
 
 	text_hud.setFont(model->getFont()[1]);
 	text_hud.setCharacterSize(24); // in pixels, not points!
@@ -241,31 +241,79 @@ void View::HUD() {
 
 	// Affichage pièces
 	sf::RectangleShape Money(sf::Vector2f(48, 48));
-	Money.setPosition(6, 20);
+	Money.setPosition(36, 40);
 	Money.setTexture(&model->getHUDTexture()[1]);
 	window.draw(Money);
 
 	text_hud.setString(
 			model->toString(controller->GetCompteur()) + "/" + model->toString(model->getNombreTotalPiece()));
-	text_hud.setPosition(52, 35);
+	text_hud.setPosition(82, 55);
 	text_hud.setFillColor(sf::Color(255, 192, 0, 200));
 	window.draw(text_hud);
 
 
 	// Affichage Freezes
 	sf::RectangleShape Freeze(sf::Vector2f(46, 46));
-	Freeze.setPosition(6, 80);
+	Freeze.setPosition(36, 100);
 	if (model->getNbFreezeDispo() > 0) {
 		Freeze.setTexture(&model->getHUDTexture()[2]);
 
 		text_hud.setString(model->toString(model->getNbFreezeDispo()));
-		text_hud.setPosition(56, 88);
+		text_hud.setPosition(86, 108);
 		text_hud.setFillColor(sf::Color(36, 159, 255, 200));
 		window.draw(text_hud);
 	} else {
 		Freeze.setTexture(&model->getHUDTexture()[3]);
 	}
 	window.draw(Freeze);
+
+
+	// Affichage Speed
+	sf::RectangleShape Speed(sf::Vector2f(48, 48));
+	Speed.setPosition(36, window.getSize().y - 80);
+	if (controller->isSpeed()) {
+		Speed.setTexture(&model->getHUDTexture()[4]);
+
+		text_hud.setString(model->toString(round((10 - controller->GetTempsSpeed()) * 100) / 100) + "s");
+		text_hud.setPosition(88, window.getSize().y - 75);
+		text_hud.setFillColor(sf::Color(0, 0, 0, 200));
+		window.draw(text_hud);
+	} else {
+		Speed.setTexture(&model->getHUDTexture()[5]);
+	}
+	window.draw(Speed);
+
+
+	// Affichage Eat
+	sf::RectangleShape Eat(sf::Vector2f(44, 44));
+	Eat.setPosition(196, window.getSize().y - 80);
+	if (model->isMangerEnnemis()) {
+		Eat.setTexture(&model->getHUDTexture()[6]);
+
+		text_hud.setString(model->toString(round((10 - controller->GetTempsEat()) * 100) / 100) + "s");
+		text_hud.setPosition(248, window.getSize().y - 75);
+		text_hud.setFillColor(sf::Color(187, 0, 0, 200));
+		window.draw(text_hud);
+	} else {
+		Eat.setTexture(&model->getHUDTexture()[7]);
+	}
+	window.draw(Eat);
+
+
+	// Affichage Freeze (utilisation)
+	sf::RectangleShape FreezeCmpt(sf::Vector2f(46, 46));
+	FreezeCmpt.setPosition(356, window.getSize().y - 80);
+	if (model->GetFreeze()) {
+		FreezeCmpt.setTexture(&model->getHUDTexture()[8]);
+
+		text_hud.setString(model->toString(round((10 - controller->GetTempsFreeze()) * 100) / 100) + "s");
+		text_hud.setPosition(408, window.getSize().y - 74);
+		text_hud.setFillColor(sf::Color(36, 159, 255, 200));
+		window.draw(text_hud);
+	} else {
+		FreezeCmpt.setTexture(&model->getHUDTexture()[9]);
+	}
+	window.draw(FreezeCmpt);
 
 
 	window.popGLStates();           // Restauration de l'état OpenGL
@@ -309,7 +357,7 @@ void View::displayMiniMap() {
 			} else if (model->getMatrice()[x][y] == 6) {
 				TraceBlocMiniMap(x, y, taille, 150, 255, 0);
 			} else {
-				TraceBlocMiniMap(x, y, taille, 0, 0, 0);
+				TraceBlocMiniMap(x, y, taille, 0, 0, 0, 150);
 			}
 		}
 	}
@@ -325,8 +373,8 @@ void View::displayMiniMap() {
 	// Affichage du pacman
 	int radius = 8;
 	sf::CircleShape cercle(radius);
-	cercle.setPosition(window.getSize().x + (model->camera.x * taille) - (model->getMap().x * taille) - 10,
-					   10 + (model->camera.y * taille));
+	cercle.setPosition(window.getSize().x + (model->camera.x * taille) - (model->getMap().x * taille) - 20,
+					   20 + (model->camera.y * taille));
 	cercle.setOrigin(radius, radius);
 	cercle.setRotation(model->camera.eyeX - 180);
 	cercle.setTexture(&model->getHUDTexture()[0]);
@@ -338,7 +386,7 @@ void View::displayMiniMap() {
 void
 View::TraceBlocMiniMap(float x, float y, float taille, sf::Uint8 R, sf::Uint8 V, sf::Uint8 B, sf::Uint8 A, int coef) {
 	sf::RectangleShape bloc(sf::Vector2f(model->getTailleMiniMap() + coef, model->getTailleMiniMap() + coef));
-	bloc.setPosition(window.getSize().x + (x * taille) - (model->getMap().x * taille) - 10, 10 + (y * taille));
+	bloc.setPosition(window.getSize().x + (x * taille) - (model->getMap().x * taille) - 20, 20 + (y * taille));
 	bloc.setFillColor(sf::Color(R, V, B, A));
 	window.draw(bloc);
 }
@@ -349,15 +397,6 @@ void View::displayFramerate(sf::RenderWindow &window, sf::Time clock) {
 
 	window.pushGLStates();          // Sauvegarde de l'état OpenGL
 	window.draw(text_framerate);    // Affichage du texte
-	window.popGLStates();           // Restauration de l'état OpenGL
-}
-
-void View::displayNBPieceTempo(sf::RenderWindow &window) {
-	text_hud.setString(
-			model->toString(controller->GetCompteur()) + "/" + model->toString(model->getNombreTotalPiece()));
-
-	window.pushGLStates();          // Sauvegarde de l'état OpenGL
-	window.draw(text_hud);    // Affichage du texte
 	window.popGLStates();           // Restauration de l'état OpenGL
 }
 

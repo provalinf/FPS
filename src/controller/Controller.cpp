@@ -106,16 +106,15 @@ void Controller::MoveKeyPressed(sf::Event event) {
 	}
 
 
-	if (Etat_PieceNoire && Clock_ActionEvent.getElapsedTime().asSeconds() - Clock_time_PieceNoire.asSeconds() > 10) {
-		//std::cout << "tmps " << ((sf::Time) Clock_ActionEvent.getElapsedTime()).asSeconds() - Clock_time_PieceNoire.asSeconds() << std::endl;
+	if (isSpeed() && GetTempsSpeed() > 10) {
 		DesactivationPieceNoire();
 	}
 
-	if (Etat_PieceBleue && Clock_ActionEvent.getElapsedTime().asSeconds() - Clock_time_PieceBleue.asSeconds() > 10) {
+	if (model->isMangerEnnemis() && GetTempsEat() > 10) {
 		DesactivationPieceBleue();
 	}
 
-	if (model->GetFreeze() && Clock_ActionEvent.getElapsedTime().asSeconds() - Clock_time_Freeze.asSeconds() > 10) {
+	if (model->GetFreeze() && GetTempsFreeze() > 10) {
 		DesactivationFreeze();
 	}
 
@@ -242,7 +241,7 @@ void Controller::MoveKeyPressed(sf::Event event) {
 
 }
 
-void Controller::Teleport(){
+void Controller::Teleport(){	// Valeurs fixes, pas terrible...
 	int ecart_reappa_teleport = 2;
 	if((floor(model->camera.x) == 77)&&(floor(model->camera.y) == 37)){
 		model->camera.x = 0+ecart_reappa_teleport;
@@ -307,15 +306,29 @@ void Controller::DesactivationPieceNoire() {
 	//std::cout << "Desactivation piece noire vitesse : " << model->getVitesseDep() << std::endl;
 }
 
+float Controller::GetTempsSpeed() {
+	return Clock_ActionEvent.getElapsedTime().asSeconds() - Clock_time_PieceNoire.asSeconds();
+}
+
+float Controller::GetTempsEat() {
+	return Clock_ActionEvent.getElapsedTime().asSeconds() - Clock_time_PieceBleue.asSeconds();
+}
+
+float Controller::GetTempsFreeze() {
+	return Clock_ActionEvent.getElapsedTime().asSeconds() - Clock_time_Freeze.asSeconds();
+}
+
+bool Controller::isSpeed() {
+	return Etat_PieceNoire;
+}
+
 void Controller::ActivationPieceBleue() {
-	Etat_PieceBleue = true;
 	model->ChangeMusicPitch(1.5);
 	Clock_time_PieceBleue = Clock_ActionEvent.getElapsedTime();    // /!\ Le chrono n'est jamais réinitialisé (pas besoin)
 	model->setMangerEnnemis(true);
 }
 
 void Controller::DesactivationPieceBleue() {
-	Etat_PieceBleue = false;
 	model->setMangerEnnemis(false);
 	model->ResetMusicPitch();
 }

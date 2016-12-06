@@ -19,8 +19,13 @@ class Enemy : public Object {
 	sf::Time TempsFramePrecedente;
 
 	int correction;
+	float ennemyspeed;
 
 	bool isEat = false;
+
+	float memposx = 42;
+	float memposy = 35;
+	int alea = 0;
 
 	void toString();
 
@@ -38,24 +43,17 @@ class Enemy : public Object {
 
 	void printVector(obj_vector *v);
 
+	void CorrectifObj();
+
+	void GenerateEnemyCube1();
+
 public:
 
 	Enemy(Model *model);
 
 	~Enemy();
 
-
-	float ennemyspeed;
-
-    float memposx = 42;
-    float memposy = 35;
-	int alea = 0;
-
-	void CorrectifObj();
-
 	void EnemyLoadObj(const char *ObjFile, int i);
-
-    void GenerateEnemyCube1();
 
 	void GenerateEnemy(int choix);
 };
