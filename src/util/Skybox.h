@@ -1,5 +1,5 @@
 //
-// Created by Valentin on 20/11/2016.
+// Created on 20/11/2016.
 //
 
 #ifndef PACMAN_SKYBOX_H

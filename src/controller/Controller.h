@@ -1,5 +1,5 @@
 //
-// Created by Valentin on 28/10/2016.
+// Created on 28/10/2016.
 //
 
 #ifndef PACMAN_CONTROLLER_H

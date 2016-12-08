@@ -1,5 +1,5 @@
 //
-// Created by Valentin on 19/11/2016.
+// Created on 19/11/2016.
 //
 
 #include <SFML/System/String.hpp>
@@ -10,12 +10,12 @@
 
 Enemy::Enemy(Model *model) : Object(model) {
 	ennemyspeed = 0.6f;
-};
+}
 
-void Enemy::EnemyLoadObj(const char *ObjFile, int i) {
+void Enemy::EnemyLoadObj(const char *ObjFile, int correction) {
 	objData = new objLoader();
 	objData->load((char *) ObjFile);
-	this->correction = i;
+	this->correction = correction;
 	//toString();
 }
 
@@ -26,111 +26,204 @@ void Enemy::GenerateEnemy(int choix) {
 		}
 	}
 	if (!isEat()) {
-		if(choix ==0){
-			GenerateEnemyCube();
+		if (choix == 0) {
+			GenerateEnemyAlgoAleatoire();
 		}
-		if(choix ==1){
-			GenerateEnemyCube1();
+		if (choix == 1) {
+			GenerateEnemyAlgoTracker();
 		}
 	}
 
 	TempsFramePrecedente = model->getTimeFrame();
 }
 
-void Enemy::GenerateEnemyCube() {
+void Enemy::GenerateEnemyAlgoAleatoire() {
+// Algo sous rustine suite à une apparition étrange à l'initialisation du jeu des ennemis en dehors de la map
+	int up_y = (int) (position.fy + 1);
+	if (up_y < 0) {
+		up_y = 0;
+	} else if (up_y > (int) model->getMap().y) {
+		up_y = model->getMap().y;
+	}
 
-	int up_y = (int) position.fy + 1;
 	int up_x = (int) position.fx;
+	if (up_x < 0) {
+		up_x = 0;
+	} else if (up_x > (int) model->getMap().x) {
+		up_x = model->getMap().x;
+	}
+
 
 	int down_y = (int) position.fy - 1;
+	if (down_y < 0) {
+		down_y = 0;
+	} else if (down_y > (int) model->getMap().y) {
+		down_y = model->getMap().y;
+	}
+
 	int down_x = (int) position.fx;
+	if (down_x < 0) {
+		down_x = 0;
+	} else if (down_x > (int) model->getMap().x) {
+		down_x = model->getMap().x;
+	}
+
 
 	int left_y = (int) position.fy;
+	if (left_y < 0) {
+		left_y = 0;
+	} else if (left_y > (int) model->getMap().y) {
+		left_y = model->getMap().y;
+	}
+
 	int left_x = (int) position.fx - 1;
+	if (left_x < 0) {
+		left_x = 0;
+	} else if (left_x > (int) model->getMap().x) {
+		left_x = model->getMap().x;
+	}
+
 
 	int right_y = (int) position.fy;
+	if (right_y < 0) {
+		right_y = 0;
+	} else if (right_y > (int) model->getMap().y) {
+		right_y = model->getMap().y;
+	}
+
 	int right_x = (int) position.fx + 1;
+	if (right_x < 0) {
+		right_x = 0;
+	} else if (right_x > (int) model->getMap().x) {
+		right_x = model->getMap().x;
+	}
 
-    int diagupleft_y = (int) position.fy + 1;
-    int diagupleft_x = (int) position.fx - 1;
 
-    int diagupright_y = (int) position.fy + 1;
-    int diagupright_x = (int) position.fx + 1;
+	int diagupleft_y = (int) position.fy + 1;
+	if (diagupleft_y < 0) {
+		diagupleft_y = 0;
+	} else if (diagupleft_y > (int) model->getMap().y) {
+		diagupleft_y = model->getMap().y;
+	}
 
-    int diagdownleft_y = (int) position.fy - 1;
-    int diagdownleft_x = (int) position.fx - 1;
+	int diagupleft_x = (int) position.fx - 1;
+	if (diagupleft_x < 0) {
+		diagupleft_x = 0;
+	} else if (diagupleft_x > (int) model->getMap().x) {
+		diagupleft_x = model->getMap().x;
+	}
 
-    int diagdownright_y = (int) position.fy - 1;
-    int diagdownright_x = (int) position.fx + 1;
 
-    if(!model->GetFreeze()) {
+	int diagupright_y = (int) position.fy + 1;
+	if (diagupright_y < 0) {
+		diagupright_y = 0;
+	} else if (diagupright_y > (int) model->getMap().y) {
+		diagupright_y = model->getMap().y;
+	}
 
-        if ((model->getMatrice()[up_x][up_y] == 1)||(model->getMatrice()[down_x][down_y] == 1)||(model->getMatrice()[left_x][left_y] == 1)
-                ||(model->getMatrice()[right_x][right_y] == 1)||(model->getMatrice()[diagdownleft_x][diagdownleft_y] == 1)
-                ||(model->getMatrice()[diagdownright_x][diagdownright_y] == 1)||(model->getMatrice()[diagupleft_x][diagupleft_y] == 1)
-                ||(model->getMatrice()[diagupright_x][diagupright_y] == 1))
-        {
-            position.fx=memposx;
-            position.fy=memposy;
-            alea = rand()%4;
-        }
-        else{
-            memposx = position.fx;
-            memposy = position.fy;
-            if(alea == 0){position.fy -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;}
-            if(alea == 1){position.fy += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;}
-            if(alea == 2){position.fx -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;}
-            if(alea == 3){position.fx += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;}
+	int diagupright_x = (int) position.fx + 1;
+	if (diagupright_x < 0) {
+		diagupright_x = 0;
+	} else if (diagupright_x > (int) model->getMap().x) {
+		diagupright_x = model->getMap().x;
+	}
 
-        }
 
-		/*if (model->getMatrice()[up_x][up_y] == 1) { position.fy -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-		if (model->getMatrice()[down_x][down_y] == 1) { position.fy += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-		if ((model->getMatrice()[left_x][left_y] == 1)) { position.fx += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-		if (model->getMatrice()[right_x][right_y] == 1) { position.fx -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-		if ((model->getMatrice()[up_x][up_y] != 1) && (model->getMatrice()[left_x][left_y] != 1) && (model->getMatrice()[right_x][right_y] != 1) && (model->getMatrice()[down_x][down_y] != 1)) {
+	int diagdownleft_y = (int) position.fy - 1;
+	if (diagdownleft_y < 0) {
+		diagdownleft_y = 0;
+	} else if (diagdownleft_y > (int) model->getMap().y) {
+		diagdownleft_y = model->getMap().y;
+	}
 
-			if (position.fx < model->camera.x) { position.fx += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-			if (position.fx > model->camera.x) { position.fx -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-			if (position.fy < model->camera.y) { position.fy += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-			if (position.fy > model->camera.y) { position.fy -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+	int diagdownleft_x = (int) position.fx - 1;
+	if (diagdownleft_x < 0) {
+		diagdownleft_x = 0;
+	} else if (diagdownleft_x > (int) model->getMap().x) {
+		diagdownleft_x = model->getMap().x;
+	}
 
-		}*/
-    }
+	int diagdownright_y = (int) position.fy - 1;
+	if (diagdownright_y < 0) {
+		diagdownright_y = 0;
+	} else if (diagdownright_y > (int) model->getMap().y) {
+		diagdownright_y = model->getMap().y;
+	}
 
-    CreateCube(1, 1, 4, position.fx, position.fy, 0);
-	//GenerateEnemyObj();
-}
+	int diagdownright_x = (int) position.fx + 1;
+	if (diagdownright_x < 0) {
+		diagdownright_x = 0;
+	} else if (diagdownright_x > (int) model->getMap().x) {
+		diagdownright_x = model->getMap().x;
+	}
 
-void Enemy::CorrectifObj() {
-	switch (correction) {
-		case 1:		// Silent
-			glScalef(0.015, 0.015, 0.015);
-			glTranslated(position.fx+(position.fx/(42.0/2800.0)), position.fy+(position.fy/(42.0/2800.0)), 2);
-			glRotated(90, 1, 0, 0);
-			break;
-		case 2:		// Billy
-			glScalef(1.2,1.2,1.2);
-			glTranslated(position.fx-(position.fx/(42.0/6.6)), position.fy-(position.fy/(42.0/6.7)), 0);
-			glRotated(90, 1, 0, 0);
-			break;
-		case 3:		// Dalek
-			glScalef(0.015, 0.015, 0.015);
-			glTranslated(position.fx+(position.fx/(42.0/2790.0)), position.fy+(position.fy/(42.0/2790.0)), 1.5);
-			glRotated(90, 1, 0, 0);
-			break;
-		case 4:		// PortalTurretV2
-			glScalef(0.045, 0.045, 0.045);
-			glTranslated(position.fx+(position.fx/(42.0/902.0)), position.fy+(position.fy/(42.0/900.0)), 35);
-			glRotated(90, 1, 0, 0);
-			break;
+	if (!model->GetFreeze()) {
 
-		default:break;
+		if ((model->getMatrice()[up_x][up_y] == 1) || (model->getMatrice()[down_x][down_y] == 1) ||
+			(model->getMatrice()[left_x][left_y] == 1)
+			|| (model->getMatrice()[right_x][right_y] == 1) ||
+			(model->getMatrice()[diagdownleft_x][diagdownleft_y] == 1)
+			|| (model->getMatrice()[diagdownright_x][diagdownright_y] == 1) ||
+			(model->getMatrice()[diagupleft_x][diagupleft_y] == 1)
+			|| (model->getMatrice()[diagupright_x][diagupright_y] == 1)) {
+			position.fx = memposx;
+			position.fy = memposy;
+			alea = rand() % 4;
+		} else {
+			memposx = position.fx;
+			memposy = position.fy;
+			if (ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100 <=
+				1) {    // Évite un déplacement extrême des ennemis en cas de delta temps excessif (démarrage du jeu ou ralentissement anormal), Par ailleurs la vérification des collisions ne contrôle que + ou -1
+				if (alea == 0) { position.fy -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+				if (alea == 1) { position.fy += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+				if (alea == 2) { position.fx -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+				if (alea == 3) { position.fx += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+			}
+
+		}
+	}
+
+	if (objData != NULL) {
+		GenerateEnemyObj();
+	} else {
+		CreateCube(1, 1, 4, position.fx, position.fy, 0);
 	}
 }
 
-void Enemy::GenerateEnemyCube1() {
+void Enemy::CorrectifObj() {
+	/*glPushMatrix();*/
+	switch (correction) {
+		case 1:        // Silent
+			glScalef(0.015, 0.015, 0.015);
+			glTranslated(position.fx + (position.fx / (42.0 / 2800.0)), position.fy + (position.fy / (42.0 / 2800.0)),
+						 2);
+			glRotated(90, 1, 0, 0);
+			break;
+		case 2:        // Billy
+			glScalef(1.2, 1.2, 1.2);
+			glTranslated(position.fx - (position.fx / (42.0 / 6.6)), position.fy - (position.fy / (42.0 / 6.7)), 0);
+			glRotated(90, 1, 0, 0);
+			break;
+		case 3:        // Dalek
+			glScalef(0.015, 0.015, 0.015);
+			glTranslated(position.fx + (position.fx / (42.0 / 2790.0)), position.fy + (position.fy / (42.0 / 2790.0)),
+						 1.5);
+			glRotated(90, 1, 0, 0);
+			break;
+		case 4:        // PortalTurretV2
+			glScalef(0.045, 0.045, 0.045);
+			glTranslated(position.fx + (position.fx / (42.0 / 902.0)), position.fy + (position.fy / (42.0 / 900.0)),
+						 35);
+			glRotated(90, 1, 0, 0);
+			break;
 
+		default:
+			break;
+	}
+}
+
+void Enemy::GenerateEnemyAlgoTracker() {
+// Non fonctionnel (En revanche, fonctionnel dans les premières versions du jeu ...!)
 	int up_y = (int) position.fy + 1;
 	int up_x = (int) position.fx;
 
@@ -147,7 +240,7 @@ void Enemy::GenerateEnemyCube1() {
 	int diagupleft_x = (int) position.fx - 1;
 
 	/*int diagupright_y = (int) position.fy + 1;
-	int diagupright_x = (int) position.fx + 1;*/		// Manque la condition !!
+	int diagupright_x = (int) position.fx + 1;*/        // Manque la condition !!
 
 	int diagdownleft_y = (int) position.fy - 1;
 	int diagdownleft_x = (int) position.fx - 1;
@@ -155,23 +248,75 @@ void Enemy::GenerateEnemyCube1() {
 	int diagdownright_y = (int) position.fy - 1;
 	int diagdownright_x = (int) position.fx + 1;
 
-	if(!model->GetFreeze()) {
+	if (!model->GetFreeze()) {
 
-		if (model->getMatrice()[up_x][up_y] == 1) { position.fy -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-		if (model->getMatrice()[down_x][down_y] == 1) { position.fy += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-		if ((model->getMatrice()[left_x][left_y] == 1)) { position.fx += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-		if (model->getMatrice()[right_x][right_y] == 1) { position.fx -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-		if (model->getMatrice()[diagdownleft_x][diagdownleft_y] == 1) { position.fx+= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;position.fy+= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-		if (model->getMatrice()[diagdownright_x][diagdownright_y] == 1) { position.fx-= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;position.fy+= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-		if (model->getMatrice()[diagupleft_x][diagupleft_y] == 1) { position.fx+= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;position.fy-= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-		if (model->getMatrice()[diagdownleft_x][diagdownleft_y] == 1) { position.fx-= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;position.fy-= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+		if (model->getMatrice()[up_x][up_y] == 1) {
+			position.fy -= ennemyspeed *
+						   model->getDeltaTimeFrame(TempsFramePrecedente) / 100;
+		}
+		if (model->getMatrice()[down_x][down_y] == 1) {
+			position.fy += ennemyspeed *
+						   model->getDeltaTimeFrame(TempsFramePrecedente) /
+						   100;
+		}
+		if ((model->getMatrice()[left_x][left_y] == 1)) {
+			position.fx += ennemyspeed * model->getDeltaTimeFrame(
+					TempsFramePrecedente) / 100;
+		}
+		if (model->getMatrice()[right_x][right_y] == 1) {
+			position.fx -= ennemyspeed * model->getDeltaTimeFrame(
+					TempsFramePrecedente) / 100;
+		}
+		if (model->getMatrice()[diagdownleft_x][diagdownleft_y] == 1) {
+			position.fx += ennemyspeed *
+						   model->getDeltaTimeFrame(
+								   TempsFramePrecedente) /
+						   100;
+			position.fy += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;
+		}
+		if (model->getMatrice()[diagdownright_x][diagdownright_y] == 1) {
+			position.fx -= ennemyspeed *
+						   model->getDeltaTimeFrame(
+								   TempsFramePrecedente) /
+						   100;
+			position.fy += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;
+		}
+		if (model->getMatrice()[diagupleft_x][diagupleft_y] == 1) {
+			position.fx += ennemyspeed *
+						   model->getDeltaTimeFrame(
+								   TempsFramePrecedente) / 100;
+			position.fy -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;
+		}
+		if (model->getMatrice()[diagdownleft_x][diagdownleft_y] == 1) {
+			position.fx -= ennemyspeed *
+						   model->getDeltaTimeFrame(
+								   TempsFramePrecedente) /
+						   100;
+			position.fy -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100;
+		}
 		if ((model->getMatrice()[up_x][up_y] != 1) && (model->getMatrice()[left_x][left_y] != 1) &&
 			(model->getMatrice()[right_x][right_y] != 1) && (model->getMatrice()[down_x][down_y] != 1)) {
 
-			if (position.fx < model->camera.x) { position.fx += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-			if (position.fx > model->camera.x) { position.fx -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-			if (position.fy < model->camera.y) { position.fy += ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
-			if (position.fy > model->camera.y) { position.fy -= ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) / 100; }
+			if (position.fx < model->camera.x) {
+				position.fx +=
+						ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) /
+						100;
+			}
+			if (position.fx > model->camera.x) {
+				position.fx -=
+						ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) /
+						100;
+			}
+			if (position.fy < model->camera.y) {
+				position.fy +=
+						ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) /
+						100;
+			}
+			if (position.fy > model->camera.y) {
+				position.fy -=
+						ennemyspeed * model->getDeltaTimeFrame(TempsFramePrecedente) /
+						100;
+			}
 
 		}
 	}
@@ -183,7 +328,11 @@ void Enemy::GenerateEnemyCube1() {
 void Enemy::CreateCube(float longueur, float largeur, float hauteur, float x, float y, float z) {
 
 	glBegin(GL_QUADS);
-	glColor3ub(255, 0, 0); //face rouge
+	if (model->isMangerEnnemis()) {
+		glColor3ub(150, 150, 255);
+	} else {
+		glColor3ub(255, 0, 0); //face rouge
+	}
 	glTexCoord2i(1, 0);
 	glVertex3d(x + longueur, y + largeur, z + hauteur);
 	glTexCoord2i(1, 0);
@@ -193,7 +342,11 @@ void Enemy::CreateCube(float longueur, float largeur, float hauteur, float x, fl
 	glTexCoord2i(1, 0);
 	glVertex3d(x + 0, y + largeur, z + hauteur);
 
-	glColor3ub(0, 255, 0); //face verte
+	if (model->isMangerEnnemis()) {
+		glColor3ub(150, 150, 255);
+	} else {
+		glColor3ub(0, 255, 0); //face verte
+	}
 	glTexCoord2i(1, 0);
 	glVertex3d(x + longueur, y + 0, z + hauteur);
 	glTexCoord2i(1, 0);
@@ -203,7 +356,11 @@ void Enemy::CreateCube(float longueur, float largeur, float hauteur, float x, fl
 	glTexCoord2i(1, 0);
 	glVertex3d(x + longueur, y + largeur, z + hauteur);
 
-	glColor3ub(0, 0, 255); //face bleue
+	if (model->isMangerEnnemis()) {
+		glColor3ub(150, 150, 255);
+	} else {
+		glColor3ub(0, 0, 255); //face bleue
+	}
 	glTexCoord2i(1, 0);
 	glVertex3d(x + 0, y + 0, z + hauteur);
 	glTexCoord2i(1, 0);
@@ -213,7 +370,11 @@ void Enemy::CreateCube(float longueur, float largeur, float hauteur, float x, fl
 	glTexCoord2i(1, 0);
 	glVertex3d(x + longueur, y + 0, z + hauteur);
 
-	glColor3ub(255, 255, 0); //face jaune
+	if (model->isMangerEnnemis()) {
+		glColor3ub(150, 150, 255);
+	} else {
+		glColor3ub(255, 255, 0); //face jaune
+	}
 	glTexCoord2i(1, 0);
 	glVertex3d(x + 0, y + largeur, z + hauteur);
 	glTexCoord2i(1, 0);
@@ -223,7 +384,11 @@ void Enemy::CreateCube(float longueur, float largeur, float hauteur, float x, fl
 	glTexCoord2i(1, 0);
 	glVertex3d(x + 0, y + 0, z + hauteur);
 
-	glColor3ub(0, 255, 255); //face cyan
+	if (model->isMangerEnnemis()) {
+		glColor3ub(150, 150, 255);
+	} else {
+		glColor3ub(0, 255, 255); //face cyan
+	}
 	glTexCoord2i(1, 0);
 	glVertex3d(x + longueur, y + largeur, z + 0);
 	glTexCoord2i(1, 0);
@@ -233,23 +398,17 @@ void Enemy::CreateCube(float longueur, float largeur, float hauteur, float x, fl
 	glTexCoord2i(1, 0);
 	glVertex3d(x + 0, y + largeur, z + 0);
 
-	glColor3ub(255, 0, 255); //face magenta
+	if (model->isMangerEnnemis()) {
+		glColor3ub(150, 150, 255);
+	} else {
+		glColor3ub(255, 0, 255); //face magenta
+	}
 	glTexCoord2i(1, 0);
 	glVertex3d(x + longueur, y + 0, z + hauteur);
 	glTexCoord2i(1, 0);
 	glVertex3d(x + longueur, y + largeur, z + hauteur);
 	glTexCoord2i(1, 0);
 	glVertex3d(x + 0, y + largeur, z + hauteur);
-	glTexCoord2i(1, 0);
-	glVertex3d(x + 0, y + 0, z + hauteur);
-
-	glColor3ub(255, 255, 0); //face jaune
-	glTexCoord2i(1, 0);
-	glVertex3d(x + 0, y + largeur, z + hauteur);
-	glTexCoord2i(1, 0);
-	glVertex3d(x + 0, y + largeur, z + 0);
-	glTexCoord2i(1, 0);
-	glVertex3d(x + 0, y + 0, z + 0);
 	glTexCoord2i(1, 0);
 	glVertex3d(x + 0, y + 0, z + hauteur);
 
@@ -259,13 +418,17 @@ void Enemy::CreateCube(float longueur, float largeur, float hauteur, float x, fl
 
 void Enemy::GenerateEnemyObj() {
 	CorrectifObj();
+	if (alea == 1) { glRotatef(180, 0, 1, 0); }
+	if (alea == 2) { glRotatef(-90, 0, 1, 0); }
+	if (alea == 3) { glRotatef(90, 0, 1, 0); }
+
 	glBegin(GL_TRIANGLES);
 	if (model->isMangerEnnemis()) {
 		glColor3ub(150, 150, 255);
 	} else {
 		glColor3ub(164, 11, 8);
 	}
-	glTexCoord2i(position.ix, position.iy);
+	//glTexCoord2i(position.fx, position.fy);
 
 
 	for (int i = 0; i < objData->textureCount; i++) {
@@ -331,6 +494,10 @@ void Enemy::GenerateEnemyObj() {
 	}
 
 	glEnd();
+	/*glPopMatrix();*/
+	if (alea == 1) { glRotatef(-180, 0, 1, 0); }
+	if (alea == 2) { glRotatef(90, 0, 1, 0); }
+	if (alea == 3) { glRotatef(-90, 0, 1, 0); }
 }
 
 void Enemy::GenerateVector(obj_vector *v) {

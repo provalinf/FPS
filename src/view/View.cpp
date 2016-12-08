@@ -46,8 +46,6 @@ void View::Menu() {
 										40);
 
 	while (window.isOpen()) {
-		//std::cout << "Test" << std::endl;
-
 		sf::Event event;
 
 		while (window.pollEvent(event)) {
@@ -78,14 +76,14 @@ void View::Menu() {
 		} else {
 			jouer.background.setFillColor(color.Red);
 		}
-		if (((unsigned int) sf::Mouse::getPosition(window).x >= (window.getSize().x / 2) - 75) &&
+		/*if (((unsigned int) sf::Mouse::getPosition(window).x >= (window.getSize().x / 2) - 75) &&
 			((unsigned int) sf::Mouse::getPosition(window).x <= (window.getSize().x / 2) + 75) &&
 			((unsigned int) sf::Mouse::getPosition(window).y >= (window.getSize().y * 2 / 5) &&
 			 ((unsigned int) sf::Mouse::getPosition(window).y <= (window.getSize().y * 2 / 5 + 40)))) {
 			param.background.setFillColor(color.Green);
 		} else {
 			param.background.setFillColor(color.Red);
-		}
+		}*/
 		if (((unsigned int) sf::Mouse::getPosition(window).x >= (window.getSize().x / 2) - 75) &&
 			((unsigned int) sf::Mouse::getPosition(window).x <= (window.getSize().x / 2) + 75) &&
 			((unsigned int) sf::Mouse::getPosition(window).y >= (window.getSize().y * 3 / 5) &&
@@ -104,13 +102,13 @@ void View::Menu() {
 				model->setJeu_active(true);
 				initialisation();
 			}
-			if (((unsigned int) sf::Mouse::getPosition(window).x >= (window.getSize().x / 2) - 75) &&
+			/*if (((unsigned int) sf::Mouse::getPosition(window).x >= (window.getSize().x / 2) - 75) &&
 				((unsigned int) sf::Mouse::getPosition(window).x <= (window.getSize().x / 2) + 75) &&
 				((unsigned int) sf::Mouse::getPosition(window).y >= (window.getSize().y * 2 / 5) &&
 				 ((unsigned int) sf::Mouse::getPosition(window).y <= (window.getSize().y * 2 / 5 + 40)))) {
 
 				//std::cout<<"Tu as clique sur Parametres"<<std::endl;
-			}
+			}*/
 			if (((unsigned int) sf::Mouse::getPosition(window).x >= (window.getSize().x / 2) - 75) &&
 				((unsigned int) sf::Mouse::getPosition(window).x <= (window.getSize().x / 2) + 75) &&
 				((unsigned int) sf::Mouse::getPosition(window).y >= (window.getSize().y * 3 / 5) &&
@@ -169,22 +167,19 @@ void View::initialisation() {
 		ennemis[i] = new Enemy(model);
 	}
 	ennemis[0]->SetPosition(42.0f, 35.0f);
-	//ennemis[0]->EnemyLoadObj("Obj/Silent.obj", 1);
+	//ennemis[0]->EnemyLoadObj("Obj/billy bike.obj", 2);
+
 	ennemis[1]->SetPosition(42.0f, 35.0f);
 	//ennemis[1]->EnemyLoadObj("Obj/billy bike.obj", 2);
+	//ennemis[1]->EnemyLoadObj("Obj/billy bike.obj", 2);
+
 	ennemis[2]->SetPosition(42.0f, 35.0f);
+	//ennemis[2]->EnemyLoadObj("Obj/billy bike.obj", 2);
 	//ennemis[2]->EnemyLoadObj("Obj/Dalek.obj", 3);
+
 	ennemis[3]->SetPosition(42.0f, 35.0f);
+	ennemis[3]->EnemyLoadObj("Obj/Dalek.obj", 3);
 	//ennemis[3]->EnemyLoadObj("Obj/PortalTurretV2.obj", 4);
-
-	/*ennemis[4]->SetPosition(42.0f, 42.0f);
-	ennemis[4]->EnemyLoadObj("Obj/billy bike.obj", 2);
-
-	ennemis[5]->SetPosition(42.0f, 42.0f);
-	ennemis[5]->EnemyLoadObj("Obj/Dalek.obj", 3);
-
-	ennemis[6]->SetPosition(42.0f, 42.0f);
-	ennemis[6]->EnemyLoadObj("Obj/Silent.obj", 1);*/
 
 
 	while (window.isOpen()) {
@@ -217,9 +212,6 @@ void View::BouclePrincipale() {
 	for (int i = 0; i < 4; ++i) {
 		ennemis[i]->GenerateEnemy(0);
 	}
-	/*for (int i = 2; i < 4; ++i) {
-		ennemis[i]->GenerateEnemy(1);
-	}*/
 
 	for (int i = 0; i < 4; ++i) {
 		if (!model->isMangerEnnemis() && !ennemis[i]->isEat() &&
@@ -318,7 +310,6 @@ void View::HUD() {
 
 
 	window.popGLStates();           // Restauration de l'état OpenGL
-
 }
 
 void View::displayMiniMap() {
@@ -354,7 +345,7 @@ void View::displayMiniMap() {
 			} else if (model->getMatrice()[x][y] == 5) {
 				TraceBlocMiniMap(x, y, taille, 100, 100, 255);
 			} else if (model->getMatrice()[x][y] == 6) {
-				TraceBlocMiniMap(x, y, taille, 150, 255, 0);
+				TraceBlocMiniMap(x, y, taille, 93, 177, 255);
 			} else {
 				TraceBlocMiniMap(x, y, taille, 0, 0, 0, 150);
 			}
@@ -398,7 +389,7 @@ void View::displayFramerate(sf::RenderWindow &window, sf::Time clock) {
 }
 
 View::~View() {
-	std::cout << "Destructeur de vue" << std::endl;
+	std::cout << "Destructeur de vue (Vive le garbage collector en Java)" << std::endl;
 	delete (controller);
 
 	if (model->isJeu_active()) {

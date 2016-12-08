@@ -1,5 +1,5 @@
 //
-// Created by Valentin on 28/10/2016.
+// Created on 28/10/2016.
 //
 
 #include <SFML/Window/Event.hpp>
@@ -241,14 +241,14 @@ void Controller::MoveKeyPressed(sf::Event event) {
 
 }
 
-void Controller::Teleport(){	// Valeurs fixes, pas terrible...
+void Controller::Teleport() {    // Valeurs fixes, pas terrible...
 	int ecart_reappa_teleport = 2;
-	if((floor(model->camera.x) == 77)&&(floor(model->camera.y) == 37)){
-		model->camera.x = 0+ecart_reappa_teleport;
+	if ((floor(model->camera.x) == 77) && (floor(model->camera.y) == 37)) {
+		model->camera.x = 0 + ecart_reappa_teleport;
 		model->JoueSoundTP();
 	}
-	if((floor(model->camera.x) == 1)&&(floor(model->camera.y) == 37)){
-		model->camera.x = model->getMap().x-ecart_reappa_teleport;
+	if ((floor(model->camera.x) == 1) && (floor(model->camera.y) == 37)) {
+		model->camera.x = model->getMap().x - ecart_reappa_teleport;
 		model->JoueSoundTP();
 	}
 }
@@ -266,13 +266,13 @@ void Controller::ramasseItems(int x, int y) {
 		ActivationPieceNoire();
 	}
 
-	if (model->getMatrice()[x][y] == 5) {	// Manger ennemis
+	if (model->getMatrice()[x][y] == 5) {    // Manger ennemis
 		model->setMatrice(x, y, 0);
 		model->JoueSoundPiece();
 		ActivationPieceBleue();
 	}
 
-	if (model->getMatrice()[x][y] == 6) {	// Freeze
+	if (model->getMatrice()[x][y] == 6) {    // Freeze
 		model->setMatrice(x, y, 0);
 		model->JoueSoundRamassFreeze();
 		model->IncNbFreezeDispo();
@@ -296,14 +296,12 @@ void Controller::ActivationPieceNoire() {
 	model->ChangeMusicPitch(1.5);
 	Clock_time_PieceNoire = Clock_ActionEvent.getElapsedTime();    // /!\ Le chrono n'est jamais réinitialisé (pas besoin)
 	model->setVitesseDep(model->getVitesseDep() + 0.2f);
-	//std::cout << "Piece noire vitesse : " << model->getVitesseDep() << std::endl;
 }
 
 void Controller::DesactivationPieceNoire() {
 	Etat_PieceNoire = false;
 	model->ResetVitesseDep();
 	model->ResetMusicPitch();
-	//std::cout << "Desactivation piece noire vitesse : " << model->getVitesseDep() << std::endl;
 }
 
 float Controller::GetTempsSpeed() {

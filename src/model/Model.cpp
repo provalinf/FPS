@@ -1,5 +1,5 @@
 //
-// Created by Valentin on 28/10/2016.
+// Created on 28/10/2016.
 //
 
 #include <iostream>
@@ -350,5 +350,7 @@ Model::~Model() {
 	std::cout << "Destructeur de model" << std::endl;
 	delete (HUD);
 	delete (Font);
-	DestructionMatrix();
+	if (isJeu_active()) {
+		DestructionMatrix();
+	}
 }

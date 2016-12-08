@@ -1,5 +1,5 @@
 //
-// Created by Valentin on 19/11/2016.
+// Created on 19/11/2016.
 //
 
 #ifndef PACMAN_ENEMY_H
@@ -23,15 +23,15 @@ class Enemy : public Object {
 
 	bool Eat = false;
 
-	float memposx = 42;
-	float memposy = 35;
+	float memposx = 0;
+	float memposy = 0;
 	int alea = 0;
 
 	void toString();
 
 	void CreateCube(float longueur, float largeur, float hauteur, float x, float y, float z);
 
-	void GenerateEnemyCube();
+	void GenerateEnemyAlgoAleatoire();
 
 	void GenerateEnemyObj();
 
@@ -45,7 +45,7 @@ class Enemy : public Object {
 
 	void CorrectifObj();
 
-	void GenerateEnemyCube1();
+	void GenerateEnemyAlgoTracker();
 
 public:
 
@@ -53,7 +53,7 @@ public:
 
 	~Enemy();
 
-	void EnemyLoadObj(const char *ObjFile, int i);
+	void EnemyLoadObj(const char *ObjFile, int correction);
 
 	void GenerateEnemy(int choix);
 
